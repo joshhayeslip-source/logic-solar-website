@@ -60,7 +60,7 @@
     padding: 14px 40px;
     display: flex; justify-content: space-between; align-items: center;
   }
-  .nav-logo { height: 34px; transition: transform 0.3s; }
+  .nav-logo { height: 44px; transition: transform 0.3s; }
   .nav-logo:hover { transform: scale(1.05); }
   .nav-links {
     display: flex; gap: 28px;
@@ -1174,7 +1174,7 @@
     padding-bottom: 60px;
     border-bottom: 1px solid rgba(255,255,255,0.12);
   }
-  .foot-logo { height: 44px; margin-bottom: 20px; }
+  .foot-logo { height: 56px; margin-bottom: 20px; }
   .foot-brand p {
     color: rgba(255,255,255,0.65);
     font-size: 14px; max-width: 340px;
@@ -1631,6 +1631,1142 @@
   }
   .quote-success-icon svg { width: 36px; height: 36px; stroke: var(--black); fill: none; stroke-width: 3; }
 
+  /* ══════ ENPHASE MONITORING ══════ */
+  .monitor {
+    background: var(--black);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+  .monitor::before {
+    content: '';
+    position: absolute;
+    top: 10%; right: -200px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(255,206,27,0.12) 0%, transparent 65%);
+    animation: pulse-bg 10s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .monitor::after {
+    content: '';
+    position: absolute;
+    bottom: 10%; left: -200px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(40,200,120,0.08) 0%, transparent 65%);
+    animation: pulse-bg 12s ease-in-out infinite 3s;
+    pointer-events: none;
+  }
+  .mon-grid {
+    margin-top: 60px;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 28px;
+    position: relative;
+  }
+
+  /* Dashboard card */
+  .mon-dash {
+    background: linear-gradient(160deg, #1a1a1a 0%, #0f0f0f 100%);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: 0 40px 80px -30px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,206,27,0.05);
+    position: relative;
+    overflow: hidden;
+  }
+  .mon-dash::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(255,206,27,0.04) 0%, transparent 30%);
+    pointer-events: none;
+  }
+  .mon-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .mon-brand {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 16px;
+  }
+  .mon-logo-mark {
+    width: 32px; height: 32px;
+    background: var(--yellow);
+    border-radius: 8px;
+    display: grid; place-items: center;
+    color: var(--black);
+    font-size: 16px;
+    font-weight: 900;
+  }
+  .mon-live {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    padding: 6px 12px;
+    background: rgba(40,200,120,0.1);
+    border: 1px solid rgba(40,200,120,0.3);
+    border-radius: 100px;
+  }
+  .live-dot {
+    width: 6px; height: 6px;
+    background: #28c878;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #28c878;
+    animation: live-pulse 1.8s infinite;
+  }
+  @keyframes live-pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(40,200,120,0.7); }
+    50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(40,200,120,0); }
+  }
+
+  /* Hero card inside dashboard */
+  .mon-hero-card {
+    background: linear-gradient(135deg, rgba(255,206,27,0.12) 0%, rgba(255,206,27,0.04) 100%);
+    border: 1px solid rgba(255,206,27,0.15);
+    border-radius: 18px;
+    padding: 24px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .mon-hero-card::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 160px; height: 160px;
+    background: radial-gradient(circle, rgba(255,206,27,0.2) 0%, transparent 60%);
+    animation: pulse-bg 4s ease-in-out infinite;
+  }
+  .mon-hero-label {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .mon-hero-num {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 64px;
+    line-height: 1;
+    color: var(--yellow);
+    letter-spacing: -0.02em;
+    position: relative;
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  .mon-hero-num .mon-unit {
+    font-size: 24px;
+    color: rgba(255,255,255,0.7);
+  }
+  .mon-hero-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    margin-top: 10px;
+    position: relative;
+  }
+  .mon-hero-sub .arrow-up { color: #28c878; font-weight: 700; }
+
+  /* Chart */
+  .mon-chart-wrap { margin-bottom: 24px; }
+  .mon-chart-title {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 10px;
+  }
+  .mon-chart-title span:first-child {
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+  }
+  .mon-chart-title .mon-chart-total { color: rgba(255,255,255,0.9); font-size: 13px; }
+  .mon-chart-title .mon-chart-total strong {
+    font-family: 'Varela Round', sans-serif;
+    color: var(--yellow);
+    font-size: 20px;
+    font-weight: 400;
+  }
+  .mon-chart {
+    width: 100%;
+    height: 120px;
+    overflow: visible;
+  }
+  .mon-chart-path {
+    fill: none;
+    stroke: var(--yellow);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    filter: drop-shadow(0 0 8px rgba(255,206,27,0.6));
+  }
+  .monitor.in-view .mon-chart-path {
+    animation: draw-chart 2.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  @keyframes draw-chart {
+    to { stroke-dashoffset: 0; }
+  }
+  .mon-chart-area {
+    fill: url(#chartGrad);
+    opacity: 0;
+    transition: opacity 1.2s 1.5s;
+  }
+  .monitor.in-view .mon-chart-area { opacity: 1; }
+  .mon-chart-hours {
+    display: flex; justify-content: space-between;
+    margin-top: 6px;
+    font-size: 10px;
+    color: rgba(255,255,255,0.4);
+    font-weight: 600;
+  }
+  .mon-now-dot {
+    fill: var(--yellow);
+    opacity: 0;
+    transition: opacity 0.4s 2s;
+  }
+  .monitor.in-view .mon-now-dot {
+    opacity: 1;
+    animation: now-pulse 2s 2.4s infinite;
+  }
+  @keyframes now-pulse {
+    0%, 100% { r: 4; }
+    50% { r: 6; }
+  }
+
+  /* Panels grid */
+  .mon-panels-title {
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 14px;
+  }
+  .mon-panels-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 6px;
+  }
+  .mon-panel {
+    aspect-ratio: 1;
+    background: linear-gradient(145deg, #1e1e1e, #141414);
+    border: 1px solid rgba(255,206,27,0.15);
+    border-radius: 6px;
+    display: grid; place-items: center;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 9px;
+    color: var(--yellow);
+    position: relative;
+    opacity: 0;
+    transform: scale(0.7);
+    transition: opacity 0.4s, transform 0.4s, background 0.3s, border-color 0.3s;
+    overflow: hidden;
+  }
+  .mon-panel::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle, rgba(255,206,27,0.3) 0%, transparent 70%);
+    opacity: 0.6;
+    animation: panel-glow 3s ease-in-out infinite;
+  }
+  @keyframes panel-glow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+  }
+  .monitor.in-view .mon-panel {
+    opacity: 1; transform: scale(1);
+  }
+  .monitor.in-view .mon-panel:nth-child(1) { transition-delay: 0.05s; }
+  .monitor.in-view .mon-panel:nth-child(2) { transition-delay: 0.08s; }
+  .monitor.in-view .mon-panel:nth-child(3) { transition-delay: 0.11s; }
+  .monitor.in-view .mon-panel:nth-child(4) { transition-delay: 0.14s; }
+  .monitor.in-view .mon-panel:nth-child(5) { transition-delay: 0.17s; }
+  .monitor.in-view .mon-panel:nth-child(6) { transition-delay: 0.20s; }
+  .monitor.in-view .mon-panel:nth-child(7) { transition-delay: 0.23s; }
+  .monitor.in-view .mon-panel:nth-child(8) { transition-delay: 0.26s; }
+  .monitor.in-view .mon-panel:nth-child(9) { transition-delay: 0.29s; }
+  .monitor.in-view .mon-panel:nth-child(10) { transition-delay: 0.32s; }
+  .monitor.in-view .mon-panel:nth-child(11) { transition-delay: 0.35s; }
+  .monitor.in-view .mon-panel:nth-child(12) { transition-delay: 0.38s; }
+  .monitor.in-view .mon-panel:nth-child(13) { transition-delay: 0.41s; }
+  .monitor.in-view .mon-panel:nth-child(14) { transition-delay: 0.44s; }
+  .monitor.in-view .mon-panel:nth-child(15) { transition-delay: 0.47s; }
+  .monitor.in-view .mon-panel:nth-child(16) { transition-delay: 0.50s; }
+  .monitor.in-view .mon-panel:nth-child(17) { transition-delay: 0.53s; }
+  .monitor.in-view .mon-panel:nth-child(18) { transition-delay: 0.56s; }
+  .monitor.in-view .mon-panel:nth-child(19) { transition-delay: 0.59s; }
+  .monitor.in-view .mon-panel:nth-child(20) { transition-delay: 0.62s; }
+  .monitor.in-view .mon-panel:nth-child(21) { transition-delay: 0.65s; }
+  .monitor.in-view .mon-panel:nth-child(22) { transition-delay: 0.68s; }
+  .monitor.in-view .mon-panel:nth-child(23) { transition-delay: 0.71s; }
+  .monitor.in-view .mon-panel:nth-child(24) { transition-delay: 0.74s; }
+  .mon-panel span { position: relative; z-index: 1; }
+  .mon-panel.low { color: #ff9560; border-color: rgba(255,149,96,0.25); }
+  .mon-panel.low::before {
+    background: radial-gradient(circle, rgba(255,149,96,0.25) 0%, transparent 70%);
+  }
+
+  /* Right side panel */
+  .mon-side { display: flex; flex-direction: column; gap: 20px; }
+
+  /* Energy flow SVG */
+  .mon-flow {
+    background: linear-gradient(160deg, #1a1a1a 0%, #0f0f0f 100%);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 24px;
+    padding: 28px;
+    flex: 1;
+    min-height: 380px;
+    box-shadow: 0 40px 80px -30px rgba(0,0,0,0.6);
+    display: flex; flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+  .mon-flow-title {
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 20px;
+  }
+  .mon-flow-svg {
+    flex: 1;
+    width: 100%;
+    max-height: 300px;
+  }
+  .flow-line {
+    stroke: rgba(255,255,255,0.15);
+    stroke-width: 2;
+    stroke-linecap: round;
+    fill: none;
+  }
+  .flow-dot {
+    fill: var(--yellow);
+    filter: drop-shadow(0 0 4px var(--yellow));
+  }
+  .flow-node {
+    fill: #1e1e1e;
+    stroke: rgba(255,255,255,0.15);
+    stroke-width: 1.5;
+  }
+  .flow-node.active {
+    stroke: var(--yellow);
+    fill: rgba(255,206,27,0.08);
+  }
+  .flow-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    fill: rgba(255,255,255,0.7);
+    text-anchor: middle;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .flow-value {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 13px;
+    fill: var(--yellow);
+    text-anchor: middle;
+  }
+  .flow-icon {
+    fill: none;
+    stroke: var(--yellow);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Stats strip */
+  .mon-stats-strip {
+    background: linear-gradient(160deg, #1a1a1a 0%, #0f0f0f 100%);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 24px;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    box-shadow: 0 40px 80px -30px rgba(0,0,0,0.6);
+  }
+  .mon-stat {
+    position: relative;
+  }
+  .mon-stat-label {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 6px;
+  }
+  .mon-stat-value {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 28px;
+    color: var(--white);
+    line-height: 1;
+  }
+  .mon-stat-value .m-unit {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    margin-left: 4px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+  }
+  .mon-stat-bar {
+    margin-top: 10px;
+    height: 4px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .mon-stat-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--yellow), var(--yellow-glow));
+    border-radius: 100px;
+    width: 0%;
+    transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 0 0 8px rgba(255,206,27,0.4);
+  }
+  .monitor.in-view .mon-stat-bar-fill[data-pct="72"] { width: 72%; }
+  .monitor.in-view .mon-stat-bar-fill[data-pct="64"] { width: 64%; }
+  .monitor.in-view .mon-stat-bar-fill[data-pct="88"] { width: 88%; }
+  .monitor.in-view .mon-stat-bar-fill[data-pct="45"] { width: 45%; }
+
+  /* ══════ BUILD PITCH DECK ══════ */
+  .deck { background: var(--black); min-height: 100vh; position: relative; overflow: hidden; }
+  .deck-prog {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 4px;
+    background: rgba(255,255,255,0.08);
+    z-index: 150;
+  }
+  .deck-prog-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--yellow), var(--yellow-glow));
+    width: 0%;
+    transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 0 0 12px rgba(255,206,27,0.6);
+  }
+  .deck-slide {
+    min-height: 100vh;
+    display: none;
+    padding: 80px 40px 120px;
+    position: relative;
+    overflow: hidden;
+  }
+  .deck-slide.active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    animation: deck-in 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  @keyframes deck-in {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .deck-slide-inner { max-width: 1100px; width: 100%; text-align: center; position: relative; z-index: 2; }
+  .deck-step-num {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.24em;
+    color: var(--yellow);
+    margin-bottom: 24px;
+  }
+  .deck-title {
+    font-family: 'Varela Round', sans-serif;
+    font-size: clamp(40px, 7vw, 96px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin-bottom: 28px;
+  }
+  .deck-title .y { color: var(--yellow); }
+  .deck-title .red { color: #FF6B4A; }
+  .deck-sub {
+    font-size: clamp(16px, 1.4vw, 20px);
+    color: rgba(255,255,255,0.75);
+    max-width: 680px;
+    margin: 0 auto 48px;
+    line-height: 1.55;
+  }
+
+  .deck-nav {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 40px;
+  }
+  .deck-back, .deck-next {
+    padding: 16px 32px;
+    border-radius: 100px;
+    font-family: inherit; font-size: 14px; font-weight: 700;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    border: none;
+    transition: all 0.25s;
+  }
+  .deck-next {
+    background: var(--yellow);
+    color: var(--black);
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .deck-next:hover { background: var(--yellow-glow); transform: translateY(-2px); }
+  .deck-next:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
+  .deck-back {
+    background: rgba(255,255,255,0.06);
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .deck-back:hover { background: rgba(255,255,255,0.12); }
+  .deck-exit {
+    position: fixed; top: 20px; right: 24px; z-index: 155;
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--white);
+    cursor: pointer;
+    display: grid; place-items: center;
+    transition: all 0.2s;
+  }
+  .deck-exit:hover { background: rgba(255,255,255,0.16); transform: rotate(90deg); }
+
+  /* Slide 1: Intro */
+  .deck-intro { background: linear-gradient(135deg, #0a0a0a 0%, #1e1d0a 50%, #0a0a0a 100%); }
+  .deck-intro::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(255,206,27,0.12) 0%, transparent 60%);
+    animation: pulse-bg 6s ease-in-out infinite;
+  }
+  .deck-bolt {
+    width: 120px; height: 120px;
+    margin: 0 auto 32px;
+    filter: drop-shadow(0 0 40px rgba(255,206,27,0.8));
+    animation: bolt-pulse 2.5s ease-in-out infinite;
+  }
+  @keyframes bolt-pulse {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 30px rgba(255,206,27,0.6)); }
+    50% { transform: scale(1.08); filter: drop-shadow(0 0 50px rgba(255,206,27,1)); }
+  }
+  .deck-time {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 18px;
+    background: rgba(255,206,27,0.1);
+    border: 1px solid rgba(255,206,27,0.3);
+    border-radius: 100px;
+    font-size: 12px; font-weight: 700;
+    color: var(--yellow);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  /* Slide 2: Rising rates chart */
+  .deck-chart {
+    margin: 40px auto 32px;
+    max-width: 720px;
+    position: relative;
+  }
+  .deck-chart svg { width: 100%; height: auto; }
+  .chart-bar {
+    fill: url(#barGrad);
+    transform-origin: bottom;
+    transform: scaleY(0);
+  }
+  .deck-slide.active .chart-bar {
+    animation: bar-rise 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  @keyframes bar-rise {
+    to { transform: scaleY(1); }
+  }
+  .chart-label { font-size: 11px; font-weight: 600; fill: rgba(255,255,255,0.5); text-anchor: middle; font-family: 'Montserrat', sans-serif; }
+  .chart-value { font-size: 11px; font-weight: 700; fill: var(--yellow); text-anchor: middle; font-family: 'Varela Round', sans-serif; }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 40px 0;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 28px 24px;
+    text-align: left;
+    transition: all 0.3s;
+  }
+  .stat-card:hover { background: rgba(255,255,255,0.06); transform: translateY(-3px); }
+  .stat-card .sc-value {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 40px;
+    color: var(--yellow);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .stat-card .sc-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.4;
+  }
+
+  /* Slide 3: AI data centers */
+  .deck-datacenter {
+    margin: 20px auto 32px;
+    width: 100%;
+    max-width: 520px;
+    height: 260px;
+    position: relative;
+  }
+  .dc-server {
+    position: absolute;
+    top: 40px; left: 50%;
+    transform: translateX(-50%);
+    width: 180px; height: 180px;
+    background: linear-gradient(145deg, #252525, #161616);
+    border: 2px solid rgba(255,107,74,0.3);
+    border-radius: 14px;
+    box-shadow: 0 0 40px rgba(255,107,74,0.4);
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    padding: 14px;
+    gap: 6px;
+  }
+  .dc-row {
+    background: rgba(255,107,74,0.1);
+    border-left: 3px solid #FF6B4A;
+    border-radius: 4px;
+    position: relative;
+  }
+  .dc-row::after {
+    content: '';
+    position: absolute;
+    right: 8px; top: 50%;
+    transform: translateY(-50%);
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #FF6B4A;
+    box-shadow: 0 0 8px #FF6B4A;
+    animation: dc-blink 1.2s infinite;
+  }
+  .dc-row:nth-child(2)::after { animation-delay: 0.1s; }
+  .dc-row:nth-child(3)::after { animation-delay: 0.2s; }
+  .dc-row:nth-child(4)::after { animation-delay: 0.3s; }
+  .dc-row:nth-child(5)::after { animation-delay: 0.4s; }
+  .dc-row:nth-child(6)::after { animation-delay: 0.5s; }
+  @keyframes dc-blink {
+    0%, 70%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+  .dc-bolt {
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    font-size: 28px;
+    color: #FF6B4A;
+    filter: drop-shadow(0 0 12px #FF6B4A);
+    animation: dc-bolt-drop 1.8s infinite;
+  }
+  @keyframes dc-bolt-drop {
+    0% { top: -10px; opacity: 0; }
+    50% { top: 20px; opacity: 1; }
+    100% { top: 40px; opacity: 0; }
+  }
+
+  /* Slide 4: Inflation comparison */
+  .deck-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 40px auto;
+    max-width: 880px;
+  }
+  .cmp-card {
+    padding: 40px 32px;
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cmp-card.now {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .cmp-card.future {
+    background: linear-gradient(135deg, rgba(255,107,74,0.15) 0%, rgba(255,107,74,0.05) 100%);
+    border: 1px solid rgba(255,107,74,0.3);
+  }
+  .cmp-card .cmp-label {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 12px;
+  }
+  .cmp-card .cmp-amt {
+    font-family: 'Varela Round', sans-serif;
+    font-size: clamp(44px, 6vw, 80px);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .cmp-card.now .cmp-amt { color: var(--white); }
+  .cmp-card.future .cmp-amt { color: #FF6B4A; }
+  .cmp-card .cmp-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+  }
+  .cmp-arrow {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,107,74,0.8);
+    margin: 20px 0;
+  }
+
+  /* Slide 5: Pivot */
+  .deck-pivot {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1e1d0a 100%);
+  }
+  .deck-pivot .deck-slide-inner { position: relative; }
+  .pivot-shape {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(255,206,27,0.15) 0%, transparent 50%);
+    pointer-events: none;
+    animation: pulse-bg 4s ease-in-out infinite;
+  }
+  .pivot-panels {
+    margin: 40px auto 32px;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 3px;
+    max-width: 480px;
+    opacity: 0;
+    transform: scale(0.9);
+    animation: pivot-panels-in 1.2s 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  @keyframes pivot-panels-in {
+    to { opacity: 1; transform: scale(1); }
+  }
+  .pivot-cell {
+    aspect-ratio: 1;
+    background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+    border: 1px solid rgba(255,206,27,0.3);
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+  }
+  .pivot-cell::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at center, rgba(255,206,27,0.4) 0%, transparent 70%);
+    opacity: 0.5;
+    animation: panel-glow 3s ease-in-out infinite;
+  }
+
+  /* Slide 6: Address */
+  .deck-address { background: var(--white); color: var(--black); }
+  .deck-address .deck-title { color: var(--black); }
+  .deck-address .deck-sub { color: rgba(0,0,0,0.65); }
+  .deck-address .deck-step-num { color: var(--yellow-deep); }
+  .deck-address .deck-back { background: var(--gray-100); color: var(--black); border-color: var(--gray-200); }
+  .deck-address .deck-back:hover { background: var(--gray-200); }
+  .addr-input-wrap {
+    position: relative;
+    max-width: 600px;
+    margin: 30px auto;
+  }
+  .addr-input {
+    width: 100%;
+    padding: 22px 22px 22px 58px;
+    font-family: inherit; font-size: 17px;
+    border: 2px solid var(--gray-200);
+    border-radius: 18px;
+    outline: none;
+    transition: border-color 0.25s, box-shadow 0.25s;
+    background: var(--white);
+  }
+  .addr-input:focus {
+    border-color: var(--yellow);
+    box-shadow: 0 0 0 4px rgba(255,206,27,0.15);
+  }
+  .addr-icon {
+    position: absolute;
+    left: 20px; top: 50%;
+    transform: translateY(-50%);
+    width: 22px; height: 22px;
+    fill: none; stroke: var(--gray-500);
+    stroke-width: 1.8;
+  }
+  .addr-note {
+    font-size: 12px;
+    color: var(--gray-500);
+    margin-top: 14px;
+  }
+
+  /* Slide 7: Your roof */
+  .deck-roof { background: var(--black); }
+  .roof-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 28px;
+    max-width: 1100px;
+    margin: 30px auto 0;
+    text-align: left;
+    width: 100%;
+  }
+  .roof-map {
+    background: var(--black-2);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    min-height: 400px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .roof-map-el { width: 100%; height: 100%; min-height: 400px; border-radius: 20px; }
+  .roof-map-loading {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    color: rgba(255,255,255,0.5);
+    font-size: 13px;
+  }
+  .roof-spinner {
+    width: 40px; height: 40px;
+    border: 3px solid rgba(255,206,27,0.2);
+    border-top-color: var(--yellow);
+    border-radius: 50%;
+    margin-bottom: 12px;
+    animation: spin-slow 1s linear infinite;
+  }
+  .roof-stats {
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .roof-stat {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 20px 24px;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.5s, transform 0.5s, border-color 0.3s;
+  }
+  .roof-stat.loaded {
+    opacity: 1; transform: translateX(0);
+    border-color: rgba(255,206,27,0.25);
+  }
+  .roof-stat:nth-child(1) { transition-delay: 0.1s; }
+  .roof-stat:nth-child(2) { transition-delay: 0.25s; }
+  .roof-stat:nth-child(3) { transition-delay: 0.4s; }
+  .roof-stat:nth-child(4) { transition-delay: 0.55s; }
+  .roof-stat-label {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 8px;
+  }
+  .roof-stat-value {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 32px;
+    color: var(--yellow);
+    line-height: 1;
+  }
+  .roof-stat-value .unit {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: rgba(255,255,255,0.55);
+    margin-left: 4px;
+  }
+
+  /* Slide 8: Bill slider */
+  .deck-bill {
+    background: linear-gradient(135deg, #0a0a0a 0%, #141414 100%);
+  }
+  .bill-big {
+    font-family: 'Varela Round', sans-serif;
+    font-size: clamp(80px, 14vw, 200px);
+    color: var(--yellow);
+    line-height: 1;
+    margin: 30px 0 20px;
+    filter: drop-shadow(0 0 40px rgba(255,206,27,0.4));
+    transition: transform 0.2s;
+  }
+  .bill-slider {
+    width: 100%;
+    max-width: 520px;
+    margin: 20px auto;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+  }
+  .bill-slider::-webkit-slider-runnable-track {
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 100px;
+  }
+  .bill-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 32px; height: 32px;
+    background: var(--yellow);
+    border: 4px solid var(--black);
+    border-radius: 50%;
+    margin-top: -13px;
+    box-shadow: 0 0 0 1px var(--yellow), 0 0 20px rgba(255,206,27,0.5);
+    cursor: pointer;
+    transition: transform 0.15s;
+  }
+  .bill-slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
+  .bill-slider::-moz-range-track {
+    height: 6px; background: rgba(255,255,255,0.1); border-radius: 100px;
+  }
+  .bill-slider::-moz-range-thumb {
+    width: 32px; height: 32px; background: var(--yellow);
+    border: 4px solid var(--black); border-radius: 50%;
+  }
+  .bill-ticks {
+    display: flex; justify-content: space-between;
+    max-width: 520px; margin: 12px auto 0;
+    font-size: 11px; font-weight: 600;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* Slide 9: System build */
+  .deck-system { background: linear-gradient(135deg, #0a0a0a 0%, #1e1d0a 100%); }
+  .sys-build {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    max-width: 1000px;
+    margin: 30px auto;
+    text-align: left;
+    width: 100%;
+  }
+  .sys-visual {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,206,27,0.2);
+    border-radius: 24px;
+    padding: 32px;
+    min-height: 360px;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .sys-panels-anim {
+    display: grid;
+    gap: 3px;
+    max-width: 320px;
+    width: 100%;
+  }
+  .sys-panel-cell {
+    aspect-ratio: 1;
+    background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+    border: 1px solid rgba(255,206,27,0.3);
+    border-radius: 3px;
+    position: relative;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .sys-panel-cell::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at center, rgba(255,206,27,0.4) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+  .sys-panel-cell.on { opacity: 1; transform: scale(1); }
+  .sys-panel-cell.on::before { opacity: 0.6; }
+  .sys-specs {
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .sys-spec {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 18px 20px;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: all 0.5s;
+  }
+  .sys-spec.in { opacity: 1; transform: translateY(0); }
+  .sys-spec-label {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 6px;
+  }
+  .sys-spec-value {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 22px;
+    color: var(--white);
+    line-height: 1.2;
+  }
+  .sys-spec-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 4px;
+  }
+
+  /* Slide 10: Pricing */
+  .deck-price { background: var(--black); }
+  .price-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1100px;
+    margin: 30px auto;
+    width: 100%;
+  }
+  .price-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 24px;
+    padding: 32px 28px;
+    text-align: left;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .price-card:hover { transform: translateY(-4px); border-color: rgba(255,206,27,0.3); }
+  .price-card.best {
+    background: linear-gradient(135deg, rgba(255,206,27,0.12) 0%, rgba(255,206,27,0.04) 100%);
+    border-color: rgba(255,206,27,0.4);
+  }
+  .price-card.best::before {
+    content: 'BEST VALUE';
+    position: absolute; top: -1px; right: 20px;
+    background: var(--yellow);
+    color: var(--black);
+    padding: 6px 12px;
+    border-radius: 0 0 8px 8px;
+    font-size: 10px; font-weight: 800;
+    letter-spacing: 0.14em;
+  }
+  .price-label {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 12px;
+  }
+  .price-card h4 {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 26px;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .price-main {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 44px;
+    color: var(--yellow);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .price-unit {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 24px;
+  }
+  .price-details {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 10px;
+    margin-bottom: 0;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .price-details li {
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    display: flex; justify-content: space-between;
+  }
+  .price-details li strong { color: var(--white); font-weight: 700; }
+  .price-savings {
+    background: linear-gradient(135deg, rgba(40,200,120,0.1) 0%, rgba(40,200,120,0.02) 100%);
+    border: 1px solid rgba(40,200,120,0.3);
+    border-radius: 20px;
+    padding: 28px 32px;
+    max-width: 680px;
+    margin: 30px auto 0;
+  }
+  .price-savings .ps-label {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: #28c878;
+    margin-bottom: 8px;
+  }
+  .price-savings .ps-value {
+    font-family: 'Varela Round', sans-serif;
+    font-size: clamp(44px, 7vw, 72px);
+    color: #28c878;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .price-savings .ps-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* Slide 11: Book */
+  .deck-book { background: var(--white); color: var(--black); }
+  .deck-book .deck-title { color: var(--black); }
+  .deck-book .deck-sub { color: rgba(0,0,0,0.65); }
+  .deck-book .deck-step-num { color: var(--yellow-deep); }
+  .deck-book .deck-back { background: var(--gray-100); color: var(--black); border-color: var(--gray-200); }
+  .book-form {
+    max-width: 520px;
+    margin: 20px auto 30px;
+    display: flex; flex-direction: column; gap: 14px;
+    text-align: left;
+  }
+  .book-form input, .book-form select {
+    padding: 16px 20px;
+    border: 2px solid var(--gray-200);
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.25s, box-shadow 0.25s;
+  }
+  .book-form input:focus, .book-form select:focus {
+    border-color: var(--yellow);
+    box-shadow: 0 0 0 3px rgba(255,206,27,0.15);
+  }
+  .book-success {
+    padding: 60px 20px;
+    text-align: center;
+  }
+  .book-check {
+    width: 80px; height: 80px;
+    background: var(--yellow);
+    border-radius: 50%;
+    margin: 0 auto 24px;
+    display: grid; place-items: center;
+    animation: bounce-in 0.6s cubic-bezier(0.22, 1.5, 0.36, 1);
+  }
+  .book-check svg { width: 36px; height: 36px; stroke: var(--black); fill: none; stroke-width: 3; }
+
+  /* Build CTA button variant — for use on home etc */
+  .btn-build {
+    background: linear-gradient(135deg, var(--yellow) 0%, var(--yellow-glow) 100%);
+    color: var(--black);
+    padding: 18px 34px;
+    font-weight: 800; font-size: 15px;
+    border: none; border-radius: 100px;
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: all 0.25s;
+    letter-spacing: 0.01em;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px -8px rgba(255,206,27,0.6), 0 0 0 0 rgba(255,206,27,0.5);
+    animation: btn-glow 3s ease-in-out infinite;
+  }
+  @keyframes btn-glow {
+    0%, 100% { box-shadow: 0 10px 30px -8px rgba(255,206,27,0.6), 0 0 0 0 rgba(255,206,27,0.4); }
+    50% { box-shadow: 0 10px 40px -8px rgba(255,206,27,0.8), 0 0 0 12px rgba(255,206,27,0); }
+  }
+  .btn-build:hover { transform: translateY(-2px) scale(1.02); }
+  .btn-build svg { width: 18px; height: 18px; }
+
   /* ══════ RESPONSIVE ══════ */
   @media (max-width: 1100px) {
     .nav-links { gap: 18px; }
@@ -1654,6 +2790,9 @@
     .prod-row, .prod-row.reverse { grid-template-columns: 1fr; gap: 32px; padding: 50px 0; }
     .prod-row.reverse .prod-visual { order: unset; }
     .power-deco { width: 320px; height: 320px; opacity: 0.06; right: -140px; }
+    .mon-grid { grid-template-columns: 1fr; gap: 20px; }
+    .mon-panels-grid { grid-template-columns: repeat(12, 1fr); }
+    .mon-stats-strip { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 820px) {
     .nav { padding: 12px 20px; }
@@ -1694,6 +2833,29 @@
     .quote-options { grid-template-columns: 1fr; }
     .alert-banner { flex-direction: column; padding: 24px; gap: 16px; border-radius: 16px; }
     .alert-icon { width: 40px; height: 40px; }
+    .mon-dash, .mon-flow, .mon-stats-strip { padding: 20px; border-radius: 18px; }
+    .mon-hero-num { font-size: 52px; }
+    .mon-panels-grid { grid-template-columns: repeat(8, 1fr); gap: 5px; }
+    .mon-panel { font-size: 8px; }
+    .mon-stats-strip { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .mon-stat-value { font-size: 24px; }
+    .deck-slide { padding: 70px 20px 100px; }
+    .deck-title { font-size: clamp(32px, 9vw, 56px); }
+    .deck-sub { font-size: 16px; margin-bottom: 36px; }
+    .stat-row { grid-template-columns: 1fr; gap: 12px; }
+    .stat-card { padding: 22px 20px; }
+    .stat-card .sc-value { font-size: 32px; }
+    .deck-compare { grid-template-columns: 1fr; gap: 14px; }
+    .cmp-card { padding: 32px 24px; }
+    .roof-grid { grid-template-columns: 1fr; gap: 20px; }
+    .roof-map, .roof-map-el { min-height: 280px; }
+    .sys-build { grid-template-columns: 1fr; gap: 20px; }
+    .sys-visual { min-height: 240px; padding: 24px; }
+    .price-grid { grid-template-columns: 1fr; gap: 14px; }
+    .price-card { padding: 28px 24px; }
+    .price-main { font-size: 36px; }
+    .deck-nav { flex-direction: column-reverse; gap: 10px; }
+    .deck-nav button { width: 100%; justify-content: center; }
     .incentive-grid { gap: 14px; }
     .inc-card { padding: 28px 24px; }
     .inc-card h3 { font-size: 22px; }
@@ -1804,6 +2966,12 @@
 <!-- ══════ MOBILE DRAWER ══════ -->
 <div class="mobile-backdrop" onclick="toggleMenu()"></div>
 <aside class="mobile-drawer" aria-label="Mobile menu">
+  <div class="md-section" style="padding-top:0;">
+    <a class="md-link" style="color:var(--yellow); font-weight:700;" onclick="navAndClose('build')">
+      ⚡ Build Your System
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </a>
+  </div>
   <div class="md-section">
     <a class="md-link" onclick="navAndClose('home')">Home <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
   </div>
@@ -1856,11 +3024,11 @@
       <h1 class="hero-title">Make power.<br>Not <span class="y">payments</span>.</h1>
       <p class="hero-sub">Logic Solar designs, installs, and services photovoltaic systems for homes and businesses across Missouri, Texas, Oklahoma, Kansas, and Illinois. Stop renting your electricity — start generating your own.</p>
       <div class="hero-ctas">
-        <button class="btn-primary" onclick="nav('quote')">
-          Get a free quote
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        <button class="btn-build" onclick="nav('build')">
+          Build Your System
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         </button>
-        <button class="btn-ghost" onclick="scrollToId('calc')">Estimate my savings</button>
+        <button class="btn-ghost" onclick="nav('quote')">Or request a quote</button>
       </div>
       <div class="hero-stats">
         <div class="hstat"><div class="hstat-value" data-count="2840" data-suffix="+">0</div><div class="hstat-label">Systems Installed</div></div>
@@ -1995,6 +3163,225 @@
     </div>
   </section>
 
+  <!-- ════════ ENPHASE MONITORING ════════ -->
+  <section class="block monitor" id="monitor">
+    <div class="container">
+      <div class="eyebrow light reveal">Enphase Monitoring</div>
+      <h2 class="section-title on-dark reveal reveal-1">Every watt, <span class="y">visible</span>.</h2>
+      <p class="section-sub on-dark reveal reveal-2">Per-module monitoring from Enphase means you see exactly what every panel is producing, in real time, from anywhere. Here's what your dashboard looks like.</p>
+
+      <div class="mon-grid">
+
+        <!-- Dashboard mockup -->
+        <div class="mon-dash reveal reveal-1">
+          <div class="mon-header">
+            <div class="mon-brand">
+              <div class="mon-logo-mark">⚡</div>
+              My Solar System
+            </div>
+            <div class="mon-live">
+              <span class="live-dot"></span>
+              Live
+            </div>
+          </div>
+
+          <div class="mon-hero-card">
+            <div class="mon-hero-label">Producing right now</div>
+            <div class="mon-hero-num">
+              <span id="liveProduction">4.2</span>
+              <span class="mon-unit">kW</span>
+            </div>
+            <div class="mon-hero-sub">
+              <span class="arrow-up">↑</span> <span id="liveVsAvg">12</span>% above today's average
+            </div>
+          </div>
+
+          <div class="mon-chart-wrap">
+            <div class="mon-chart-title">
+              <span>Today's Production</span>
+              <span class="mon-chart-total"><strong>34.8</strong> kWh</span>
+            </div>
+            <svg class="mon-chart" viewBox="0 0 400 120" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#FFCE1B" stop-opacity="0.4"/>
+                  <stop offset="100%" stop-color="#FFCE1B" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <!-- Grid lines -->
+              <line x1="0" y1="30" x2="400" y2="30" stroke="rgba(255,255,255,0.05)" stroke-dasharray="3 3"/>
+              <line x1="0" y1="60" x2="400" y2="60" stroke="rgba(255,255,255,0.05)" stroke-dasharray="3 3"/>
+              <line x1="0" y1="90" x2="400" y2="90" stroke="rgba(255,255,255,0.05)" stroke-dasharray="3 3"/>
+              <!-- Area under curve -->
+              <path class="mon-chart-area" d="M0,110 L0,105 Q20,100 40,92 Q80,70 120,42 Q160,22 200,18 Q240,22 280,40 Q320,65 360,90 Q380,102 400,108 L400,110 Z"/>
+              <!-- Line -->
+              <path class="mon-chart-path" d="M0,105 Q20,100 40,92 Q80,70 120,42 Q160,22 200,18 Q240,22 280,40 Q320,65 360,90 Q380,102 400,108"/>
+              <!-- Now indicator -->
+              <circle class="mon-now-dot" cx="200" cy="18" r="4"/>
+            </svg>
+            <div class="mon-chart-hours">
+              <span>6AM</span><span>9AM</span><span>12PM</span><span>3PM</span><span>6PM</span>
+            </div>
+          </div>
+
+          <div class="mon-panels-title">Per-panel production · 24 modules</div>
+          <div class="mon-panels-grid">
+            <div class="mon-panel"><span>418W</span></div>
+            <div class="mon-panel"><span>422W</span></div>
+            <div class="mon-panel"><span>420W</span></div>
+            <div class="mon-panel"><span>425W</span></div>
+            <div class="mon-panel"><span>419W</span></div>
+            <div class="mon-panel"><span>423W</span></div>
+            <div class="mon-panel"><span>421W</span></div>
+            <div class="mon-panel"><span>417W</span></div>
+            <div class="mon-panel"><span>424W</span></div>
+            <div class="mon-panel"><span>420W</span></div>
+            <div class="mon-panel"><span>422W</span></div>
+            <div class="mon-panel"><span>418W</span></div>
+            <div class="mon-panel"><span>421W</span></div>
+            <div class="mon-panel low"><span>398W</span></div>
+            <div class="mon-panel"><span>425W</span></div>
+            <div class="mon-panel"><span>420W</span></div>
+            <div class="mon-panel"><span>423W</span></div>
+            <div class="mon-panel"><span>419W</span></div>
+            <div class="mon-panel"><span>422W</span></div>
+            <div class="mon-panel"><span>426W</span></div>
+            <div class="mon-panel"><span>421W</span></div>
+            <div class="mon-panel"><span>418W</span></div>
+            <div class="mon-panel"><span>424W</span></div>
+            <div class="mon-panel"><span>420W</span></div>
+          </div>
+        </div>
+
+        <!-- Side column: energy flow + stats -->
+        <div class="mon-side">
+
+          <div class="mon-flow reveal reveal-2">
+            <div class="mon-flow-title">Energy flow</div>
+            <svg class="mon-flow-svg" viewBox="0 0 300 340" preserveAspectRatio="xMidYMid meet">
+
+              <!-- Connecting lines -->
+              <path class="flow-line" id="flowSun" d="M150,45 L150,85"/>
+              <path class="flow-line" id="flowPanel" d="M150,125 L150,165"/>
+              <path class="flow-line" id="flowInv" d="M150,205 L150,230 L60,230 L60,265"/>
+              <path class="flow-line" id="flowInv2" d="M150,230 L150,265"/>
+              <path class="flow-line" id="flowInv3" d="M150,230 L240,230 L240,265"/>
+
+              <!-- Sun -->
+              <g>
+                <circle cx="150" cy="25" r="14" class="flow-node active"/>
+                <g class="flow-icon" transform="translate(150, 25)">
+                  <circle r="6"/>
+                  <line x1="0" y1="-10" x2="0" y2="-8"/>
+                  <line x1="0" y1="10" x2="0" y2="8"/>
+                  <line x1="-10" y1="0" x2="-8" y2="0"/>
+                  <line x1="10" y1="0" x2="8" y2="0"/>
+                  <line x1="-7" y1="-7" x2="-6" y2="-6"/>
+                  <line x1="7" y1="7" x2="6" y2="6"/>
+                  <line x1="-7" y1="7" x2="-6" y2="6"/>
+                  <line x1="7" y1="-7" x2="6" y2="-6"/>
+                </g>
+              </g>
+
+              <!-- Panels -->
+              <g>
+                <rect x="110" y="90" width="80" height="35" rx="4" class="flow-node active"/>
+                <line x1="130" y1="90" x2="130" y2="125" stroke="rgba(255,206,27,0.3)" stroke-width="1"/>
+                <line x1="150" y1="90" x2="150" y2="125" stroke="rgba(255,206,27,0.3)" stroke-width="1"/>
+                <line x1="170" y1="90" x2="170" y2="125" stroke="rgba(255,206,27,0.3)" stroke-width="1"/>
+                <line x1="110" y1="108" x2="190" y2="108" stroke="rgba(255,206,27,0.3)" stroke-width="1"/>
+                <text x="150" y="148" class="flow-label">Panels</text>
+                <text x="150" y="162" class="flow-value">4.2 kW</text>
+              </g>
+
+              <!-- IQ8MC inverter -->
+              <g>
+                <rect x="115" y="170" width="70" height="35" rx="6" class="flow-node active"/>
+                <text x="150" y="192" font-family="Varela Round, sans-serif" font-size="11" fill="#FFCE1B" text-anchor="middle">IQ8MC</text>
+              </g>
+
+              <!-- Battery (left) -->
+              <g>
+                <rect x="30" y="270" width="60" height="45" rx="6" class="flow-node active"/>
+                <rect x="38" y="278" width="44" height="20" rx="2" fill="none" stroke="#FFCE1B" stroke-width="1.2"/>
+                <rect x="40" y="280" width="28" height="16" fill="#FFCE1B" opacity="0.7"/>
+                <text x="60" y="310" class="flow-label">aPower V2</text>
+                <text x="60" y="330" font-family="Varela Round, sans-serif" font-size="11" fill="#FFCE1B" text-anchor="middle">78%</text>
+              </g>
+
+              <!-- Home (center) -->
+              <g>
+                <rect x="120" y="270" width="60" height="45" rx="6" class="flow-node active"/>
+                <path d="M135,293 L150,280 L165,293 M140,293 L140,305 L160,305 L160,293" class="flow-icon" transform="translate(0, -2)"/>
+                <text x="150" y="330" class="flow-label">Home</text>
+              </g>
+
+              <!-- Grid (right) -->
+              <g>
+                <rect x="210" y="270" width="60" height="45" rx="6" class="flow-node"/>
+                <path d="M230,278 L230,298 M240,282 L240,298 M250,278 L250,298 M224,298 L256,298" class="flow-icon"/>
+                <text x="240" y="330" class="flow-label">Grid</text>
+              </g>
+
+              <!-- Animated flow dots -->
+              <circle r="3" class="flow-dot">
+                <animateMotion dur="2.2s" repeatCount="indefinite" path="M150,45 L150,85"/>
+              </circle>
+              <circle r="3" class="flow-dot">
+                <animateMotion dur="2.2s" begin="0.7s" repeatCount="indefinite" path="M150,45 L150,85"/>
+              </circle>
+              <circle r="3" class="flow-dot">
+                <animateMotion dur="2.2s" begin="1.4s" repeatCount="indefinite" path="M150,45 L150,85"/>
+              </circle>
+
+              <circle r="3" class="flow-dot">
+                <animateMotion dur="1.8s" repeatCount="indefinite" path="M150,125 L150,165"/>
+              </circle>
+              <circle r="3" class="flow-dot">
+                <animateMotion dur="1.8s" begin="0.9s" repeatCount="indefinite" path="M150,125 L150,165"/>
+              </circle>
+
+              <circle r="3" class="flow-dot">
+                <animateMotion dur="2.5s" repeatCount="indefinite" path="M150,205 L150,230 L60,230 L60,265"/>
+              </circle>
+              <circle r="3" class="flow-dot">
+                <animateMotion dur="2s" repeatCount="indefinite" path="M150,205 L150,265"/>
+              </circle>
+              <circle r="3" class="flow-dot">
+                <animateMotion dur="2s" begin="1s" repeatCount="indefinite" path="M150,205 L150,265"/>
+              </circle>
+
+            </svg>
+          </div>
+
+          <div class="mon-stats-strip reveal reveal-3">
+            <div class="mon-stat">
+              <div class="mon-stat-label">Today</div>
+              <div class="mon-stat-value"><span data-count="34.8" data-decimal="1">0</span><span class="m-unit">kWh</span></div>
+              <div class="mon-stat-bar"><div class="mon-stat-bar-fill" data-pct="72"></div></div>
+            </div>
+            <div class="mon-stat">
+              <div class="mon-stat-label">This Week</div>
+              <div class="mon-stat-value"><span data-count="243">0</span><span class="m-unit">kWh</span></div>
+              <div class="mon-stat-bar"><div class="mon-stat-bar-fill" data-pct="64"></div></div>
+            </div>
+            <div class="mon-stat">
+              <div class="mon-stat-label">Lifetime</div>
+              <div class="mon-stat-value"><span data-count="12.8" data-decimal="1">0</span><span class="m-unit">MWh</span></div>
+              <div class="mon-stat-bar"><div class="mon-stat-bar-fill" data-pct="88"></div></div>
+            </div>
+            <div class="mon-stat">
+              <div class="mon-stat-label">CO₂ Saved</div>
+              <div class="mon-stat-value"><span data-count="9.1" data-decimal="1">0</span><span class="m-unit">tons</span></div>
+              <div class="mon-stat-bar"><div class="mon-stat-bar-fill" data-pct="45"></div></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="block packages">
     <div class="container">
       <div class="eyebrow dark reveal">System Options</div>
@@ -2004,28 +3391,28 @@
       <div class="pack-grid">
         <div class="pack reveal reveal-1">
           <span class="pack-tag">Entry · Essential</span>
-          <h3>Daybreak</h3>
+          <h3>Spark</h3>
           <div class="pack-price">
             <span class="from">Starting at</span>
-            <span class="amt">$<span class="y">26,300</span></span>
+            <span class="amt">$<span class="y">16,800</span></span>
             <span class="after">Cash price, before state incentives</span>
           </div>
           <ul>
             <li>6 kW grid-tied rooftop array</li>
-            <li>14–16 premium Trina 450W panels</li>
-            <li>Enphase IQ8+ microinverters</li>
+            <li>14–16 JA Solar 455W panels (440W in TX)</li>
+            <li>Enphase IQ8MC microinverters</li>
             <li>Offsets ~70% of a typical home bill</li>
             <li>25-year panel &amp; workmanship warranty</li>
           </ul>
-          <button class="pack-btn" onclick="nav('quote')">Specify a Daybreak →</button>
+          <button class="pack-btn" onclick="nav('quote')">Specify a Spark →</button>
         </div>
 
         <div class="pack featured reveal reveal-2">
           <span class="pack-tag">Most Chosen</span>
-          <h3>Meridian</h3>
+          <h3>Surge</h3>
           <div class="pack-price">
             <span class="from">Starting at</span>
-            <span class="amt">$<span class="y">39,800</span></span>
+            <span class="amt">$<span class="y">28,000</span></span>
             <span class="after">Cash price, before state incentives</span>
           </div>
           <ul>
@@ -2035,25 +3422,25 @@
             <li>Typically offsets 100% of a home bill</li>
             <li>EV charger &amp; battery-ready</li>
           </ul>
-          <button class="pack-btn" onclick="nav('quote')">Specify a Meridian →</button>
+          <button class="pack-btn" onclick="nav('quote')">Specify a Surge →</button>
         </div>
 
         <div class="pack reveal reveal-3">
           <span class="pack-tag">Resilient · Backup</span>
-          <h3>Eclipse</h3>
+          <h3>Fortress</h3>
           <div class="pack-price">
             <span class="from">Starting at</span>
-            <span class="amt">$<span class="y">60,900</span></span>
+            <span class="amt">$<span class="y">48,500</span></span>
             <span class="after">Cash price, before state incentives</span>
           </div>
           <ul>
-            <li>12 kW array + 13.5 kWh battery</li>
+            <li>12 kW array + Franklin aPower V2 (15 kWh)</li>
             <li>Whole-home backup during outages</li>
             <li>Time-of-use arbitrage savings</li>
             <li>App-controlled load management</li>
             <li>May qualify for state battery rebates</li>
           </ul>
-          <button class="pack-btn" onclick="nav('quote')">Specify an Eclipse →</button>
+          <button class="pack-btn" onclick="nav('quote')">Specify an Fortress →</button>
         </div>
       </div>
     </div>
@@ -2169,7 +3556,7 @@
         <div class="faq-item open"><button class="faq-q"><span>Do panels work on cloudy days or in winter?</span><span class="faq-plus">+</span></button><div class="faq-a">Yes — just less. Panels produce from daylight, not direct sun, so overcast days still yield 10–25% of peak output. Cold weather is actually good for photovoltaics: they run more efficiently below 77°F. Snow generally melts off within hours thanks to the panels' dark surface.</div></div>
         <div class="faq-item"><button class="faq-q"><span>How long does a typical installation take?</span><span class="faq-plus">+</span></button><div class="faq-a">From signed contract to flipping the switch is usually 6–10 weeks — most of that is permitting and utility interconnection, which we handle for you. The physical installation itself is typically a one- to two-day event on your roof.</div></div>
         <div class="faq-item"><button class="faq-q"><span>What happened to the federal tax credit?</span><span class="faq-plus">+</span></button><div class="faq-a">The 30% residential federal tax credit (25D) expired December 31, 2025 for homeowner purchases. Commercial projects (48E) still qualify for the 30% Investment Tax Credit through 2027. Residential customers can still access federal incentives through third-party ownership (leases/PPAs). We'll walk you through what applies to your situation during your free consultation.</div></div>
-        <div class="faq-item"><button class="faq-q"><span>What happens when the grid goes down?</span><span class="faq-plus">+</span></button><div class="faq-a">Grid-tied systems without batteries automatically shut off during an outage — this is a safety requirement to protect utility workers. Add a battery (our Eclipse system), and you keep critical loads or the whole house running, depending on the configuration.</div></div>
+        <div class="faq-item"><button class="faq-q"><span>What happens when the grid goes down?</span><span class="faq-plus">+</span></button><div class="faq-a">Grid-tied systems without batteries automatically shut off during an outage — this is a safety requirement to protect utility workers. Add a battery (our Fortress system), and you keep critical loads or the whole house running, depending on the configuration.</div></div>
         <div class="faq-item"><button class="faq-q"><span>Will my roof need to be replaced first?</span><span class="faq-plus">+</span></button><div class="faq-a">If your roof has more than 10 years of life left, we can typically install directly over it. Otherwise, we recommend re-roofing first — our panels will outlast a typical asphalt shingle roof. We can refer trusted local roofers and coordinate timing.</div></div>
         <div class="faq-item"><button class="faq-q"><span>Do the panels require maintenance?</span><span class="faq-plus">+</span></button><div class="faq-a">Almost none. Rain handles routine cleaning. We recommend a visual inspection every few years and a professional cleaning if you're in a particularly dusty region or under heavy tree cover. All covered under our 25-year comprehensive warranty.</div></div>
       </div>
@@ -2177,12 +3564,18 @@
   </section>
 
   <section class="final">
-    <h2>A quote takes 20 minutes.<br>The payoff, about nine years.</h2>
-    <p>Free, no-obligation site consultation. Our specialists reach out within one business day.</p>
-    <button class="btn-primary" onclick="nav('quote')">
-      Book a free site consultation
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-    </button>
+    <h2>See it in 60 seconds.<br>Quote takes <span class="y">20 minutes</span>.</h2>
+    <p>Build your system yourself with our interactive walkthrough — or have a Logic Solar specialist reach out within one business day.</p>
+    <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center; align-items:center;">
+      <button class="btn-build" onclick="nav('build')">
+        Build Your System
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </button>
+      <button class="btn-primary" onclick="nav('quote')">
+        Or book a consultation
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </button>
+    </div>
     <div class="final-meta">
       <span>✓ No obligation</span>
       <span>✓ No high-pressure sales</span>
@@ -2323,56 +3716,56 @@
       <div class="pack-grid">
         <div class="pack reveal reveal-1">
           <span class="pack-tag">Entry · Essential</span>
-          <h3>Daybreak</h3>
+          <h3>Spark</h3>
           <div class="pack-price">
             <span class="from">Starting at</span>
-            <span class="amt">$<span class="y">26,300</span></span>
+            <span class="amt">$<span class="y">16,800</span></span>
             <span class="after">Cash price, before state incentives</span>
           </div>
           <ul>
             <li>6 kW grid-tied rooftop array</li>
-            <li>14–16 premium Trina 450W panels</li>
-            <li>Enphase IQ8+ microinverters</li>
+            <li>14–16 JA Solar 455W panels (440W in TX)</li>
+            <li>Enphase IQ8MC microinverters</li>
             <li>Offsets ~70% of a typical home bill</li>
             <li>25-year panel &amp; workmanship warranty</li>
           </ul>
-          <button class="pack-btn" onclick="nav('quote')">Specify a Daybreak →</button>
+          <button class="pack-btn" onclick="nav('quote')">Specify a Spark →</button>
         </div>
 
         <div class="pack featured reveal reveal-2">
           <span class="pack-tag">Most Chosen</span>
-          <h3>Meridian</h3>
+          <h3>Surge</h3>
           <div class="pack-price">
             <span class="from">Starting at</span>
-            <span class="amt">$<span class="y">39,800</span></span>
+            <span class="amt">$<span class="y">28,000</span></span>
             <span class="after">Cash price, before state incentives</span>
           </div>
           <ul>
             <li>10 kW rooftop array</li>
-            <li>22–24 Trina 450W panels</li>
-            <li>Enphase IQ8+ with per-module optimization</li>
+            <li>22–24 JA Solar 455W panels (440W in TX)</li>
+            <li>Enphase IQ8MC with per-module optimization</li>
             <li>Typically offsets 100% of a home bill</li>
             <li>EV charger &amp; battery-ready</li>
           </ul>
-          <button class="pack-btn" onclick="nav('quote')">Specify a Meridian →</button>
+          <button class="pack-btn" onclick="nav('quote')">Specify a Surge →</button>
         </div>
 
         <div class="pack reveal reveal-3">
           <span class="pack-tag">Resilient · Backup</span>
-          <h3>Eclipse</h3>
+          <h3>Fortress</h3>
           <div class="pack-price">
             <span class="from">Starting at</span>
-            <span class="amt">$<span class="y">60,900</span></span>
+            <span class="amt">$<span class="y">48,500</span></span>
             <span class="after">Cash price, before state incentives</span>
           </div>
           <ul>
-            <li>12 kW array + 13.5 kWh battery</li>
+            <li>12 kW array + Franklin aPower V2 (15 kWh)</li>
             <li>Whole-home backup during outages</li>
             <li>Time-of-use arbitrage savings</li>
             <li>App-controlled load management</li>
             <li>May qualify for state battery rebates</li>
           </ul>
-          <button class="pack-btn" onclick="nav('quote')">Specify an Eclipse →</button>
+          <button class="pack-btn" onclick="nav('quote')">Specify an Fortress →</button>
         </div>
       </div>
     </div>
@@ -2554,17 +3947,18 @@
           <img src="./hero-roof.jpg" alt="Solar panels on residential roof">
         </div>
         <div class="prod-text reveal reveal-2">
-          <h3>Trina <span class="y">Vertex S+</span> 450W</h3>
-          <p>Our default residential panel. High-efficiency monocrystalline PERC cells, all-black aesthetic, and one of the best warranty-to-price ratios in the industry.</p>
+          <h3>JA Solar <span class="y">Premium</span> Modules</h3>
+          <p>Our default residential panel. High-efficiency monocrystalline cells, all-black aesthetic, and one of the best warranty-to-price ratios in the industry. We install JA Solar 455W in Missouri, Kansas, Oklahoma, and Illinois; JA Solar 440W in Texas (sized to regional climate and roof load specs).</p>
           <div class="prod-spec">
             <div class="spec-h">Key Specs</div>
-            <div class="spec-v">450W · 21.9% efficiency · 25-year warranty</div>
+            <div class="spec-v">455W · 21.9% efficiency · 25-year warranty · IQ8MC compatible</div>
           </div>
           <ul class="prod-feats">
-            <li>Tier-1 manufacturer, Bloomberg-rated</li>
-            <li>Low-temperature coefficient (performs in heat)</li>
-            <li>Anti-reflective tempered glass</li>
-            <li>Wind load rated to 140 mph</li>
+            <li>Tier-1 manufacturer, Bloomberg-rated for bankability</li>
+            <li>Low-temperature coefficient (performs well in Midwest &amp; Texas heat)</li>
+            <li>Anti-reflective tempered glass, PID-free</li>
+            <li>Wind load rated to 140 mph, hail resistant</li>
+            <li>Paired with Enphase IQ8MC microinverters on every system</li>
           </ul>
           <button class="btn-dark" onclick="nav('quote')">Get a panel quote →</button>
         </div>
@@ -2576,17 +3970,18 @@
           <img src="./groundmount-solar.jpg" alt="Battery storage system">
         </div>
         <div class="prod-text reveal reveal-2">
-          <h3>Enphase <span class="y">IQ Battery</span> &amp; IQ8+</h3>
-          <p>Enphase's microinverter-and-battery ecosystem is the industry standard for reliability and serviceability. Per-module monitoring means you know exactly what every panel is doing — always.</p>
+          <h3>Franklin <span class="y">aPower V2</span> Battery</h3>
+          <p>The Franklin aPower V2 is a 15 kWh whole-home battery paired with your Enphase microinverter system. Its industry-leading energy density and seamless integration make it our battery of choice for both residential backup and commercial resilience.</p>
           <div class="prod-spec">
             <div class="spec-h">Key Specs</div>
-            <div class="spec-v">IQ Battery 5P · 5 kWh modules · stackable to 40+ kWh</div>
+            <div class="spec-v">15 kWh capacity · 10 kW continuous · 15-year warranty</div>
           </div>
           <ul class="prod-feats">
-            <li>Whole-home or critical-load backup</li>
-            <li>Time-of-use rate arbitrage</li>
-            <li>15-year warranty</li>
-            <li>Seamless expansion — add modules later</li>
+            <li>Whole-home backup during grid outages</li>
+            <li>Time-of-use rate arbitrage (charge cheap, use peak)</li>
+            <li>Stackable — pair multiple units for larger homes or light commercial</li>
+            <li>Integrates with Enphase monitoring for a single-pane view</li>
+            <li>UL 9540 listed, LFP chemistry, no cobalt</li>
           </ul>
           <button class="btn-dark" onclick="nav('quote')">Get a battery quote →</button>
         </div>
@@ -2951,6 +4346,414 @@
 
 </section>
 
+<!-- ════════════════════════════════ -->
+<!-- ════════════ BUILD DECK ═══════ -->
+<!-- ════════════════════════════════ -->
+<section class="view" data-view="build">
+  <div class="deck">
+    <div class="deck-prog"><div class="deck-prog-bar" id="deckProg"></div></div>
+    <button class="deck-exit" onclick="nav('home')" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <!-- SLIDE 1: Intro -->
+    <div class="deck-slide deck-intro active" data-slide="1">
+      <div class="deck-slide-inner">
+        <svg class="deck-bolt" viewBox="0 0 100 100">
+          <defs>
+            <linearGradient id="boltGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FFDB47"/>
+              <stop offset="100%" stop-color="#E6B400"/>
+            </linearGradient>
+          </defs>
+          <path d="M55 10 L25 55 L45 55 L40 90 L75 40 L55 40 Z" fill="url(#boltGrad)" stroke="#FFCE1B" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+        <div class="deck-time">⏱ 60 seconds · no email required</div>
+        <h1 class="deck-title">Let's talk about your <span class="y">power bill</span>.</h1>
+        <p class="deck-sub">In about a minute, we'll show you exactly what a solar system for your home looks like — the size, the cost, and the savings. No sales call. Just real numbers.</p>
+        <div class="deck-nav">
+          <button class="deck-next" onclick="deckNext()">Let's go <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: Rising rates -->
+    <div class="deck-slide" data-slide="2">
+      <div class="deck-slide-inner">
+        <div class="deck-step-num">02 · The Truth About Your Bill</div>
+        <h1 class="deck-title">You're not paying for power.<br>You're <span class="red">renting</span> it.</h1>
+        <p class="deck-sub">And your landlord — the utility company — keeps raising the rent. Average US residential rates are up nearly 30% in the last five years alone.</p>
+
+        <div class="deck-chart">
+          <svg viewBox="0 0 600 260">
+            <defs>
+              <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#FF8F60"/>
+                <stop offset="100%" stop-color="#FF6B4A"/>
+              </linearGradient>
+            </defs>
+            <!-- Axis line -->
+            <line x1="30" y1="220" x2="580" y2="220" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            <!-- Bars -->
+            <rect class="chart-bar" x="55" y="170" width="50" height="50" rx="3" style="animation-delay:0.1s;"/>
+            <rect class="chart-bar" x="125" y="158" width="50" height="62" rx="3" style="animation-delay:0.18s;"/>
+            <rect class="chart-bar" x="195" y="142" width="50" height="78" rx="3" style="animation-delay:0.26s;"/>
+            <rect class="chart-bar" x="265" y="128" width="50" height="92" rx="3" style="animation-delay:0.34s;"/>
+            <rect class="chart-bar" x="335" y="110" width="50" height="110" rx="3" style="animation-delay:0.42s;"/>
+            <rect class="chart-bar" x="405" y="88" width="50" height="132" rx="3" style="animation-delay:0.50s;"/>
+            <rect class="chart-bar" x="475" y="68" width="50" height="152" rx="3" style="animation-delay:0.58s;"/>
+            <!-- Labels -->
+            <text class="chart-label" x="80" y="240">2020</text>
+            <text class="chart-label" x="150" y="240">2021</text>
+            <text class="chart-label" x="220" y="240">2022</text>
+            <text class="chart-label" x="290" y="240">2023</text>
+            <text class="chart-label" x="360" y="240">2024</text>
+            <text class="chart-label" x="430" y="240">2025</text>
+            <text class="chart-label" x="500" y="240">2026</text>
+            <!-- Values -->
+            <text class="chart-value" x="80" y="163">$163</text>
+            <text class="chart-value" x="150" y="151">$171</text>
+            <text class="chart-value" x="220" y="135">$182</text>
+            <text class="chart-value" x="290" y="121">$194</text>
+            <text class="chart-value" x="360" y="103">$205</text>
+            <text class="chart-value" x="430" y="81">$214</text>
+            <text class="chart-value" x="500" y="61">$222</text>
+          </svg>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-card"><div class="sc-value">+28%</div><div class="sc-label">Avg. US residential electricity rate increase, last 5 years</div></div>
+          <div class="stat-card"><div class="sc-value">$0</div><div class="sc-label">Equity you build by paying your utility bill</div></div>
+          <div class="stat-card"><div class="sc-value">∞</div><div class="sc-label">Years you'll keep paying if nothing changes</div></div>
+        </div>
+
+        <div class="deck-nav">
+          <button class="deck-back" onclick="deckPrev()">← Back</button>
+          <button class="deck-next" onclick="deckNext()">It gets worse <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: AI data centers -->
+    <div class="deck-slide" data-slide="3">
+      <div class="deck-slide-inner">
+        <div class="deck-step-num">03 · The 2030 Demand Shock</div>
+        <h1 class="deck-title">AI is about to eat<br>the <span class="red">power grid</span>.</h1>
+        <p class="deck-sub">A single AI data center uses as much electricity as 100,000 homes. And hundreds more are being built — in Missouri, Texas, Oklahoma, Kansas, and Illinois. Guess who pays for the new grid capacity?</p>
+
+        <div class="deck-datacenter">
+          <div class="dc-bolt">⚡</div>
+          <div class="dc-server">
+            <div class="dc-row"></div>
+            <div class="dc-row"></div>
+            <div class="dc-row"></div>
+            <div class="dc-row"></div>
+            <div class="dc-row"></div>
+            <div class="dc-row"></div>
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-card"><div class="sc-value">+40%</div><div class="sc-label">Projected US electricity demand growth by 2030</div></div>
+          <div class="stat-card"><div class="sc-value">100k</div><div class="sc-label">Homes' worth of power a single AI data center consumes</div></div>
+          <div class="stat-card"><div class="sc-value">You</div><div class="sc-label">Who rate-payers say will cover the cost of new infrastructure</div></div>
+        </div>
+
+        <div class="deck-nav">
+          <button class="deck-back" onclick="deckPrev()">← Back</button>
+          <button class="deck-next" onclick="deckNext()">The cost of waiting <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: Inflation -->
+    <div class="deck-slide" data-slide="4">
+      <div class="deck-slide-inner">
+        <div class="deck-step-num">04 · The Compound Effect</div>
+        <h1 class="deck-title">Your $200 bill today<br>becomes <span class="y">$533</span> by 2051.</h1>
+        <p class="deck-sub">Electricity rates have historically risen ~4% per year. At that pace, your utility bill more than doubles over the life of a solar system. Here's what 25 years of "just paying it" actually looks like.</p>
+
+        <div class="deck-compare">
+          <div class="cmp-card now">
+            <div class="cmp-label">Your bill today</div>
+            <div class="cmp-amt">$200</div>
+            <div class="cmp-sub">Per month · what you pay right now</div>
+          </div>
+          <div class="cmp-card future">
+            <div class="cmp-label">Your bill in 25 years</div>
+            <div class="cmp-amt">$533</div>
+            <div class="cmp-sub">At 4% annual rate increase · 2051</div>
+          </div>
+        </div>
+
+        <div class="stat-row" style="grid-template-columns: 1fr; max-width: 680px; margin-left: auto; margin-right: auto;">
+          <div class="stat-card" style="background: rgba(255,107,74,0.08); border-color: rgba(255,107,74,0.25);">
+            <div class="sc-value" style="color:#FF6B4A;">$108,000+</div>
+            <div class="sc-label">What that $200/mo bill will cost you over 25 years if nothing changes</div>
+          </div>
+        </div>
+
+        <div class="deck-nav">
+          <button class="deck-back" onclick="deckPrev()">← Back</button>
+          <button class="deck-next" onclick="deckNext()">Show me the alternative <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: Pivot -->
+    <div class="deck-slide deck-pivot" data-slide="5">
+      <div class="pivot-shape"></div>
+      <div class="deck-slide-inner">
+        <div class="deck-step-num">05 · The Alternative</div>
+        <h1 class="deck-title">There is <span class="y">another way</span>.</h1>
+        <p class="deck-sub">Stop renting. Start owning. A solar array on your roof locks in your cost of power for 25+ years — and turns every sunny day into equity.</p>
+
+        <div class="pivot-panels">
+          <div class="pivot-cell"></div><div class="pivot-cell"></div><div class="pivot-cell"></div><div class="pivot-cell"></div>
+          <div class="pivot-cell"></div><div class="pivot-cell"></div><div class="pivot-cell"></div><div class="pivot-cell"></div>
+          <div class="pivot-cell"></div><div class="pivot-cell"></div><div class="pivot-cell"></div><div class="pivot-cell"></div>
+          <div class="pivot-cell"></div><div class="pivot-cell"></div><div class="pivot-cell"></div><div class="pivot-cell"></div>
+        </div>
+
+        <p class="deck-sub" style="max-width:540px;">Let's look at what this could mean for <em style="color:var(--yellow); font-style:normal; font-weight:600;">your</em> home specifically.</p>
+
+        <div class="deck-nav">
+          <button class="deck-back" onclick="deckPrev()">← Back</button>
+          <button class="deck-next" onclick="deckNext()">Let's check my roof <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: Address -->
+    <div class="deck-slide deck-address" data-slide="6">
+      <div class="deck-slide-inner">
+        <div class="deck-step-num">06 · Your Property</div>
+        <h1 class="deck-title">What's your <span style="color:var(--yellow-deep);">address</span>?</h1>
+        <p class="deck-sub">We'll pull your roof from Google's satellite imagery and use the Google Solar API to analyze sun exposure and solar potential — in real time.</p>
+
+        <div class="addr-input-wrap">
+          <svg class="addr-icon" viewBox="0 0 24 24">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          <input type="text" id="addrInput" class="addr-input" placeholder="Start typing your address..." autocomplete="off"/>
+          <div class="addr-note">✓ We only service Missouri, Texas, Oklahoma, Kansas, and Illinois. Your address stays private.</div>
+        </div>
+
+        <div class="deck-nav">
+          <button class="deck-back" onclick="deckPrev()">← Back</button>
+          <button class="deck-next" id="addrNext" onclick="deckNext()" disabled>Analyze my roof <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: Your roof -->
+    <div class="deck-slide deck-roof" data-slide="7">
+      <div class="deck-slide-inner">
+        <div class="deck-step-num">07 · Your Roof</div>
+        <h1 class="deck-title">Here's what we <span class="y">see</span>.</h1>
+        <p class="deck-sub" id="roofAddress">Analyzing your property...</p>
+
+        <div class="roof-grid">
+          <div class="roof-map">
+            <div id="roofMap" class="roof-map-el"></div>
+            <div class="roof-map-loading" id="roofLoading">
+              <div style="text-align:center;"><div class="roof-spinner"></div>Loading satellite view...</div>
+            </div>
+          </div>
+          <div class="roof-stats">
+            <div class="roof-stat" id="rs-area">
+              <div class="roof-stat-label">Usable Roof Area</div>
+              <div class="roof-stat-value"><span id="roofArea">—</span><span class="unit">sq ft</span></div>
+            </div>
+            <div class="roof-stat" id="rs-sun">
+              <div class="roof-stat-label">Annual Sun Hours</div>
+              <div class="roof-stat-value"><span id="roofSun">—</span><span class="unit">hrs / year</span></div>
+            </div>
+            <div class="roof-stat" id="rs-panels">
+              <div class="roof-stat-label">Panels That Fit</div>
+              <div class="roof-stat-value"><span id="roofPanels">—</span><span class="unit">modules</span></div>
+            </div>
+            <div class="roof-stat" id="rs-prod">
+              <div class="roof-stat-label">Estimated Annual Production</div>
+              <div class="roof-stat-value"><span id="roofProd">—</span><span class="unit">kWh / year</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="deck-nav">
+          <button class="deck-back" onclick="deckPrev()">← Back</button>
+          <button class="deck-next" onclick="deckNext()">My electric bill → <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: Bill -->
+    <div class="deck-slide deck-bill" data-slide="8">
+      <div class="deck-slide-inner">
+        <div class="deck-step-num">08 · Your Usage</div>
+        <h1 class="deck-title">What do you pay<br>per <span class="y">month</span>?</h1>
+        <p class="deck-sub">Ballpark is fine. We use your bill to size the right system for <em style="color:var(--yellow);font-style:normal;">your</em> actual usage — not a generic guess.</p>
+
+        <div class="bill-big">$<span id="billVal">200</span></div>
+        <input type="range" class="bill-slider" id="billSlider" min="80" max="800" value="200" step="10">
+        <div class="bill-ticks">
+          <span>$80</span><span>$240</span><span>$440</span><span>$640</span><span>$800</span>
+        </div>
+
+        <div class="stat-card" style="max-width:520px; margin:30px auto 0; text-align:center;">
+          <div style="font-size:12px; color:rgba(255,255,255,0.6); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:8px;">25-Year Cost If You Do Nothing</div>
+          <div class="sc-value" style="font-size:48px; color:#FF6B4A;">$<span id="billLifetime">108,000</span></div>
+          <div class="sc-label" style="margin-top:6px;">Assumes 4% annual utility rate increase</div>
+        </div>
+
+        <div class="deck-nav">
+          <button class="deck-back" onclick="deckPrev()">← Back</button>
+          <button class="deck-next" onclick="deckNext()">Design my system <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: Your System -->
+    <div class="deck-slide deck-system" data-slide="9">
+      <div class="deck-slide-inner">
+        <div class="deck-step-num">09 · Your Recommended System</div>
+        <h1 class="deck-title">Your <span class="y">custom</span> system.</h1>
+        <p class="deck-sub">Sized from your roof analysis and your monthly usage. Every number below is specific to <em style="color:var(--yellow);font-style:normal;">your</em> home.</p>
+
+        <div class="sys-build">
+          <div class="sys-visual">
+            <div class="sys-panels-anim" id="sysPanelsAnim" style="grid-template-columns: repeat(6, 1fr);"></div>
+            <div style="margin-top:16px; font-size:12px; color:rgba(255,255,255,0.5); letter-spacing:0.1em; text-transform:uppercase;">
+              <span id="sysPanelCount">24</span> panels · <span id="sysSize">10.2</span> kW
+            </div>
+          </div>
+          <div class="sys-specs">
+            <div class="sys-spec">
+              <div class="sys-spec-label">System Size</div>
+              <div class="sys-spec-value"><span id="sysSize2">10.2</span> kW</div>
+              <div class="sys-spec-sub">Sized to offset ~95% of your annual usage</div>
+            </div>
+            <div class="sys-spec">
+              <div class="sys-spec-label">Solar Panels</div>
+              <div class="sys-spec-value"><span id="sysPanels">24</span> × <span id="sysPanelModel">JA Solar 455W</span></div>
+              <div class="sys-spec-sub">Tier-1, all-black, 25-year warranty</div>
+            </div>
+            <div class="sys-spec">
+              <div class="sys-spec-label">Microinverters</div>
+              <div class="sys-spec-value">Enphase IQ8MC</div>
+              <div class="sys-spec-sub">Per-panel optimization · 25-year warranty</div>
+            </div>
+            <div class="sys-spec">
+              <div class="sys-spec-label">Annual Production</div>
+              <div class="sys-spec-value"><span id="sysProd">14,200</span> kWh</div>
+              <div class="sys-spec-sub">From your actual roof's sun exposure</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="deck-nav">
+          <button class="deck-back" onclick="deckPrev()">← Back</button>
+          <button class="deck-next" onclick="deckNext()">Show me the numbers <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: Pricing -->
+    <div class="deck-slide deck-price" data-slide="10">
+      <div class="deck-slide-inner">
+        <div class="deck-step-num">10 · The Financials</div>
+        <h1 class="deck-title">Three ways to <span class="y">own</span> it.</h1>
+        <p class="deck-sub">We don't hide the price. Here's your system, three different ways — so you can pick what fits your cash flow.</p>
+
+        <div class="price-grid">
+          <div class="price-card best">
+            <div class="price-label">Option 1 · Best Value</div>
+            <h4>Pay Cash</h4>
+            <div class="price-main">$<span id="pxCash">28,560</span></div>
+            <div class="price-unit">One-time, at installation</div>
+            <ul class="price-details">
+              <li>Price per watt <strong>$2.80</strong></li>
+              <li>Monthly payment <strong>—</strong></li>
+              <li>Total cost <strong>$<span id="pxCashTotal">28,560</span></strong></li>
+            </ul>
+          </div>
+
+          <div class="price-card">
+            <div class="price-label">Option 2 · Keep Cash Liquid</div>
+            <h4>Same-As-Cash Loan</h4>
+            <div class="price-main">$<span id="pxSameMo">235</span><span style="font-size:18px;color:rgba(255,255,255,0.5);">/mo</span></div>
+            <div class="price-unit">8.99% APR · 25 years · $0 down</div>
+            <ul class="price-details">
+              <li>Financed amount <strong>$<span id="pxSamePrincipal">28,560</span></strong></li>
+              <li>Monthly payment <strong>$<span id="pxSameMo2">235</span></strong></li>
+              <li>Same principal as cash</li>
+            </ul>
+          </div>
+
+          <div class="price-card">
+            <div class="price-label">Option 3 · Lowest Monthly</div>
+            <h4>Low-Rate Loan</h4>
+            <div class="price-main">$<span id="pxLowMo">197</span><span style="font-size:18px;color:rgba(255,255,255,0.5);">/mo</span></div>
+            <div class="price-unit">3.99% APR · 25 years · $0 down</div>
+            <ul class="price-details">
+              <li>Financed amount <strong>$<span id="pxLowPrincipal">37,585</span></strong></li>
+              <li>Monthly payment <strong>$<span id="pxLowMo2">197</span></strong></li>
+              <li>Includes financing program costs</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="price-savings">
+          <div class="ps-label">25-Year Lifetime Savings vs. Doing Nothing</div>
+          <div class="ps-value">$<span id="pxSavings">82,000</span></div>
+          <div class="ps-sub">Solar cost subtracted · based on your bill and 4% annual utility inflation</div>
+        </div>
+
+        <div class="deck-nav">
+          <button class="deck-back" onclick="deckPrev()">← Back</button>
+          <button class="deck-next" onclick="deckNext()">Book my free consult <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 11: Book -->
+    <div class="deck-slide deck-book" data-slide="11">
+      <div class="deck-slide-inner" id="bookWrap">
+        <div class="deck-step-num">11 · Last step</div>
+        <h1 class="deck-title">Let's <span style="color:var(--yellow-deep);">make it real</span>.</h1>
+        <p class="deck-sub">A Logic Solar specialist will reach out within one business day to finalize your design, walk through the incentives that apply to your state, and schedule your install.</p>
+
+        <div class="book-form">
+          <input type="text" id="bkName" placeholder="Your full name" oninput="validateBook()">
+          <input type="email" id="bkEmail" placeholder="Email address" oninput="validateBook()">
+          <input type="tel" id="bkPhone" placeholder="Phone number" oninput="validateBook()">
+          <select id="bkContact">
+            <option value="either">Prefer: Either phone or email</option>
+            <option value="phone">Prefer: Phone call</option>
+            <option value="email">Prefer: Email</option>
+          </select>
+        </div>
+
+        <div class="deck-nav">
+          <button class="deck-back" onclick="deckPrev()">← Back</button>
+          <button class="deck-next" id="bkSubmit" onclick="submitBook()" disabled>Send it <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+
+      <div class="deck-slide-inner book-success" id="bookSuccess" style="display:none;">
+        <div class="book-check">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h1 class="deck-title" style="font-size:clamp(32px,5vw,54px);">You're all set, <span id="bkNameShown" style="color:var(--yellow-deep);">friend</span>.</h1>
+        <p class="deck-sub">A Logic Solar specialist will reach out within one business day. Look for a call from <strong>(816) 300-5781</strong>.</p>
+        <button class="deck-next" onclick="nav('home')" style="margin-top:20px;">Return to home</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 </main>
 
 <!-- ══════ FOOTER ══════ -->
@@ -3058,6 +4861,8 @@
           // Also trigger how-line animation
           const how = e.target.closest('.how');
           if (how) how.classList.add('in-view');
+          const mon = e.target.closest('.monitor');
+          if (mon) mon.classList.add('in-view');
         }
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
@@ -3065,7 +4870,7 @@
       el.classList.remove('in');
       io.observe(el);
     });
-    document.querySelectorAll('.view.active .how').forEach(el => io.observe(el));
+    document.querySelectorAll('.view.active .how, .view.active .monitor').forEach(el => io.observe(el));
   }
 
   // ══════ COUNT-UP ══════
@@ -3079,14 +4884,17 @@
           const target = parseFloat(el.dataset.count);
           const prefix = el.dataset.prefix || '';
           const suffix = el.dataset.suffix || '';
-          let cur = 0;
+          const decimals = parseInt(el.dataset.decimal || '0');
           const dur = 1400;
           const start = performance.now();
           function tick(now) {
             const p = Math.min(1, (now - start) / dur);
             const ease = 1 - Math.pow(1 - p, 3);
-            cur = target * ease;
-            el.textContent = prefix + Math.round(cur).toLocaleString() + suffix;
+            const cur = target * ease;
+            const fmt = decimals > 0
+              ? cur.toFixed(decimals)
+              : Math.round(cur).toLocaleString();
+            el.textContent = prefix + fmt + suffix;
             if (p < 1) requestAnimationFrame(tick);
           }
           requestAnimationFrame(tick);
@@ -3096,6 +4904,46 @@
     }, { threshold: 0.4 });
     document.querySelectorAll('.view.active [data-count]').forEach(el => countIo.observe(el));
   }
+
+  // ══════ LIVE PRODUCTION WOBBLE ══════
+  // Makes the "Producing right now" number update every ~2s with small realistic variation
+  (function liveProductionLoop() {
+    const el = document.getElementById('liveProduction');
+    const vsEl = document.getElementById('liveVsAvg');
+    if (!el) { setTimeout(liveProductionLoop, 1500); return; }
+    let base = 4.2;
+    setInterval(() => {
+      // Drift within ±0.3 kW
+      base += (Math.random() - 0.5) * 0.3;
+      base = Math.max(3.6, Math.min(4.8, base));
+      el.textContent = base.toFixed(1);
+      if (vsEl) {
+        const pct = Math.round(8 + (base - 4.0) * 12);
+        vsEl.textContent = Math.max(4, pct);
+      }
+    }, 1800);
+  })();
+
+  // ══════ PANEL WATTAGE JITTER ══════
+  // Each panel tile's wattage subtly updates to feel live
+  (function panelJitterLoop() {
+    setInterval(() => {
+      document.querySelectorAll('.mon-panel:not(.low) span').forEach(s => {
+        const current = parseInt(s.textContent);
+        if (isNaN(current)) return;
+        const drift = Math.round((Math.random() - 0.5) * 4);
+        const next = Math.max(412, Math.min(428, current + drift));
+        s.textContent = next + 'W';
+      });
+      document.querySelectorAll('.mon-panel.low span').forEach(s => {
+        const current = parseInt(s.textContent);
+        if (isNaN(current)) return;
+        const drift = Math.round((Math.random() - 0.5) * 4);
+        const next = Math.max(390, Math.min(405, current + drift));
+        s.textContent = next + 'W';
+      });
+    }, 3000);
+  })();
 
   // ══════ PARTICLES ══════
   function initParticles() {
@@ -3242,6 +5090,404 @@
     const bar = document.getElementById('quoteBar');
     if (bar) bar.style.width = '100%';
   }
+
+  // ══════════════════════════════════════
+  // ═══════ BUILD YOUR SYSTEM DECK ═══════
+  // ══════════════════════════════════════
+  const GOOGLE_KEY = 'AIzaSyDLD3q-ZNXRafUqHQNOcI-DPj841E9AMh0';
+
+  const deck = {
+    current: 1,
+    total: 11,
+    mapInstance: null,
+    markerInstance: null,
+    data: {
+      address: '', lat: null, lng: null, state: null,
+      roofArea: null, sunHours: null, maxPanels: null, apiAnnualProd: null,
+      monthlyBill: 200,
+      systemSizeKw: null, panelCount: null,
+      panelModel: 'JA Solar 455W', panelWatts: 455,
+      annualProduction: null,
+      cashPrice: null, sameCashMo: null, lowRateMo: null,
+      lowRatePrincipal: null, lifetimeSavings: null
+    }
+  };
+
+  function deckNext() {
+    if (deck.current < deck.total) showDeckSlide(deck.current + 1);
+  }
+  function deckPrev() {
+    if (deck.current > 1) showDeckSlide(deck.current - 1);
+  }
+  function showDeckSlide(n) {
+    document.querySelectorAll('.deck-slide').forEach(s => s.classList.remove('active'));
+    const target = document.querySelector(`.deck-slide[data-slide="${n}"]`);
+    if (target) target.classList.add('active');
+    deck.current = n;
+    const prog = document.getElementById('deckProg');
+    if (prog) prog.style.width = (n / deck.total * 100) + '%';
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    // Restart chart bar animations if returning to slide 2
+    if (n === 2) {
+      target.querySelectorAll('.chart-bar').forEach(b => {
+        b.style.animation = 'none';
+        b.offsetHeight;  // reflow
+        b.style.animation = '';
+      });
+    }
+    if (n === 7) handleRoofSlide();
+    if (n === 9) handleSystemSlide();
+    if (n === 10) handleNumbersSlide();
+  }
+
+  // Animate a number count-up
+  function animateDeckNumber(id, target, opts) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const decimals = (opts && opts.decimals) || 0;
+    const dur = (opts && opts.dur) || 1200;
+    const t0 = performance.now();
+    function tick(now) {
+      const p = Math.min(1, (now - t0) / dur);
+      const ease = 1 - Math.pow(1 - p, 3);
+      const v = target * ease;
+      el.textContent = decimals > 0 ? v.toFixed(decimals) : Math.round(v).toLocaleString();
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // ───── Google Places autocomplete ─────
+  let addrAuto;
+  function initPlaces() {
+    const input = document.getElementById('addrInput');
+    if (!input || !window.google || !google.maps || !google.maps.places) return;
+    if (addrAuto) return;
+    addrAuto = new google.maps.places.Autocomplete(input, {
+      types: ['address'],
+      componentRestrictions: { country: 'us' },
+      fields: ['formatted_address', 'geometry', 'address_components']
+    });
+    addrAuto.addListener('place_changed', () => {
+      const place = addrAuto.getPlace();
+      if (!place || !place.geometry) return;
+      deck.data.address = place.formatted_address;
+      deck.data.lat = place.geometry.location.lat();
+      deck.data.lng = place.geometry.location.lng();
+      const stateComp = (place.address_components || []).find(c => c.types.includes('administrative_area_level_1'));
+      if (stateComp) deck.data.state = stateComp.short_name;
+      // Panel model by state
+      if (deck.data.state === 'TX') {
+        deck.data.panelModel = 'JA Solar 440W';
+        deck.data.panelWatts = 440;
+      } else {
+        deck.data.panelModel = 'JA Solar 455W';
+        deck.data.panelWatts = 455;
+      }
+      document.getElementById('addrNext').disabled = false;
+    });
+  }
+
+  // ───── Slide 7: roof map + Solar API ─────
+  async function handleRoofSlide() {
+    const { lat, lng, address } = deck.data;
+    if (!lat || !lng) return;
+    const addrEl = document.getElementById('roofAddress');
+    if (addrEl) addrEl.textContent = address;
+
+    // Map
+    const mapEl = document.getElementById('roofMap');
+    const loadingEl = document.getElementById('roofLoading');
+    if (mapEl && window.google && google.maps) {
+      deck.mapInstance = new google.maps.Map(mapEl, {
+        center: { lat, lng },
+        zoom: 20,
+        mapTypeId: 'satellite',
+        disableDefaultUI: true,
+        tilt: 0,
+        gestureHandling: 'cooperative'
+      });
+      deck.markerInstance = new google.maps.Marker({
+        position: { lat, lng },
+        map: deck.mapInstance,
+        draggable: true,
+        icon: {
+          path: google.maps.SymbolPath.CIRCLE,
+          fillColor: '#FFCE1B',
+          fillOpacity: 1,
+          strokeColor: '#0a0a0a',
+          strokeWeight: 3,
+          scale: 11
+        }
+      });
+      deck.markerInstance.addListener('dragend', () => {
+        const pos = deck.markerInstance.getPosition();
+        deck.data.lat = pos.lat();
+        deck.data.lng = pos.lng();
+      });
+      if (loadingEl) loadingEl.style.display = 'none';
+    }
+
+    // Solar API
+    let roofArea = null, sunHours = null, maxPanels = null, annualProd = null;
+    try {
+      const url = `https://solar.googleapis.com/v1/buildingInsights:findClosest?location.latitude=${lat}&location.longitude=${lng}&requiredQuality=MEDIUM&key=${GOOGLE_KEY}`;
+      const res = await fetch(url);
+      if (res.ok) {
+        const data = await res.json();
+        const sp = data.solarPotential;
+        if (sp) {
+          roofArea = Math.round((sp.maxArrayAreaMeters2 || 0) * 10.764);
+          sunHours = Math.round(sp.maxSunshineHoursPerYear || 0);
+          maxPanels = sp.maxArrayPanelsCount || null;
+          if (sp.solarPanelConfigs && sp.solarPanelConfigs.length) {
+            const best = sp.solarPanelConfigs[sp.solarPanelConfigs.length - 1];
+            annualProd = Math.round(best.yearlyEnergyDcKwh || 0);
+          }
+        }
+      }
+    } catch (err) {
+      console.warn('Solar API call failed:', err);
+    }
+    // Fallbacks based on typical Midwest/South homes
+    if (!roofArea) roofArea = 620;
+    if (!sunHours) sunHours = deck.data.state === 'TX' ? 2100 : 1850;
+    if (!maxPanels) maxPanels = 28;
+    if (!annualProd) annualProd = Math.round(maxPanels * deck.data.panelWatts * (sunHours / 1000) * 0.78);
+
+    deck.data.roofArea = roofArea;
+    deck.data.sunHours = sunHours;
+    deck.data.maxPanels = maxPanels;
+    deck.data.apiAnnualProd = annualProd;
+
+    // Reveal stats with count-up
+    animateDeckNumber('roofArea', roofArea);
+    animateDeckNumber('roofSun', sunHours);
+    animateDeckNumber('roofPanels', maxPanels);
+    animateDeckNumber('roofProd', annualProd);
+    document.querySelectorAll('.roof-stat').forEach(s => s.classList.add('loaded'));
+  }
+
+  // ───── Slide 8: bill slider ─────
+  function initBillSlider() {
+    const slider = document.getElementById('billSlider');
+    if (!slider || slider.dataset.wired) return;
+    slider.dataset.wired = '1';
+    const update = () => {
+      const v = parseInt(slider.value);
+      deck.data.monthlyBill = v;
+      document.getElementById('billVal').textContent = v;
+      // 25-year lifetime cost at 4% annual increase
+      let total = 0, cur = v * 12;
+      for (let i = 0; i < 25; i++) { total += cur; cur *= 1.04; }
+      document.getElementById('billLifetime').textContent = Math.round(total).toLocaleString();
+      // Add subtle bill-big number bounce
+      const big = document.querySelector('.bill-big');
+      if (big) {
+        big.style.transform = 'scale(1.03)';
+        setTimeout(() => { big.style.transform = 'scale(1)'; }, 120);
+      }
+    };
+    slider.addEventListener('input', update);
+    update();
+  }
+
+  // ───── Slide 9: system recommendation ─────
+  function handleSystemSlide() {
+    // Annual usage from bill (average regional rate ~$0.15/kWh)
+    const annualUsage = (deck.data.monthlyBill * 12) / 0.15;
+    // System size needed: target 95% offset, ~1400 kWh/kW annual production in region
+    let kWNeeded = (annualUsage * 0.95) / 1400;
+    // Cap by roof capacity if known
+    if (deck.data.maxPanels && deck.data.panelWatts) {
+      const maxKw = (deck.data.maxPanels * deck.data.panelWatts) / 1000;
+      kWNeeded = Math.min(kWNeeded, maxKw);
+    }
+    kWNeeded = Math.max(4, Math.min(20, kWNeeded));
+    const panelCount = Math.ceil((kWNeeded * 1000) / deck.data.panelWatts);
+    const actualKw = (panelCount * deck.data.panelWatts) / 1000;
+    const annualProd = Math.round(actualKw * 1400);
+
+    deck.data.systemSizeKw = actualKw;
+    deck.data.panelCount = panelCount;
+    deck.data.annualProduction = annualProd;
+
+    // Populate UI (start from 0 to animate)
+    document.getElementById('sysSize').textContent = '0.0';
+    document.getElementById('sysSize2').textContent = '0.0';
+    document.getElementById('sysPanels').textContent = '0';
+    document.getElementById('sysPanelCount').textContent = '0';
+    document.getElementById('sysPanelModel').textContent = deck.data.panelModel;
+    document.getElementById('sysProd').textContent = '0';
+
+    // Animate system size
+    const t0 = performance.now();
+    const dur = 1400;
+    const elSz = document.getElementById('sysSize');
+    const elSz2 = document.getElementById('sysSize2');
+    const elPnls = document.getElementById('sysPanels');
+    const elPnlsCount = document.getElementById('sysPanelCount');
+    const elProd = document.getElementById('sysProd');
+    function tick(now) {
+      const p = Math.min(1, (now - t0) / dur);
+      const ease = 1 - Math.pow(1 - p, 3);
+      if (elSz) elSz.textContent = (actualKw * ease).toFixed(1);
+      if (elSz2) elSz2.textContent = (actualKw * ease).toFixed(1);
+      if (elPnls) elPnls.textContent = Math.round(panelCount * ease);
+      if (elPnlsCount) elPnlsCount.textContent = Math.round(panelCount * ease);
+      if (elProd) elProd.textContent = Math.round(annualProd * ease).toLocaleString();
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    // Render animated panel grid
+    const grid = document.getElementById('sysPanelsAnim');
+    if (grid) {
+      grid.innerHTML = '';
+      const cols = Math.min(8, Math.max(4, Math.ceil(Math.sqrt(panelCount * 1.3))));
+      grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+      for (let i = 0; i < panelCount; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'sys-panel-cell';
+        grid.appendChild(cell);
+        setTimeout(() => cell.classList.add('on'), 80 + i * 45);
+      }
+    }
+
+    // Animate specs sequentially
+    document.querySelectorAll('.sys-spec').forEach((s, i) => {
+      s.classList.remove('in');
+      setTimeout(() => s.classList.add('in'), 200 + i * 180);
+    });
+  }
+
+  // ───── Slide 10: the numbers ─────
+  function monthlyPayment(principal, apr, years) {
+    const r = apr / 12;
+    const n = years * 12;
+    if (r === 0) return principal / n;
+    return principal * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+  }
+
+  function handleNumbersSlide() {
+    const kW = deck.data.systemSizeKw || 10.2;
+    const watts = kW * 1000;
+
+    // Cash price: $2.80/watt
+    const cashPrice = Math.round(watts * 2.80);
+    // Same-as-cash: same principal as cash, 8.99% APR / 25 years
+    const sameCashMo = monthlyPayment(cashPrice, 0.0899, 25);
+    // Low-rate: principal × 1.33 (financing program costs baked in), 3.99% APR / 25 years
+    const lowRatePrincipal = Math.round(cashPrice * 1.33);
+    const lowRateMo = monthlyPayment(lowRatePrincipal, 0.0399, 25);
+
+    // Lifetime savings vs. doing nothing
+    let totalBill = 0;
+    let cur = deck.data.monthlyBill * 12;
+    for (let i = 0; i < 25; i++) { totalBill += cur; cur *= 1.04; }
+    const offset = 0.95;
+    const savings = Math.max(0, Math.round((totalBill * offset) - cashPrice));
+
+    deck.data.cashPrice = cashPrice;
+    deck.data.sameCashMo = sameCashMo;
+    deck.data.lowRateMo = lowRateMo;
+    deck.data.lowRatePrincipal = lowRatePrincipal;
+    deck.data.lifetimeSavings = savings;
+
+    animateDeckNumber('pxCash', cashPrice);
+    animateDeckNumber('pxCashTotal', cashPrice);
+    animateDeckNumber('pxSameMo', Math.round(sameCashMo));
+    animateDeckNumber('pxSameMo2', Math.round(sameCashMo));
+    animateDeckNumber('pxSamePrincipal', cashPrice);
+    animateDeckNumber('pxLowMo', Math.round(lowRateMo));
+    animateDeckNumber('pxLowMo2', Math.round(lowRateMo));
+    animateDeckNumber('pxLowPrincipal', lowRatePrincipal);
+    animateDeckNumber('pxSavings', savings, { dur: 2000 });
+  }
+
+  // ───── Slide 11: book submit ─────
+  function validateBook() {
+    const name = document.getElementById('bkName').value.trim();
+    const email = document.getElementById('bkEmail').value.trim();
+    const phone = document.getElementById('bkPhone').value.trim();
+    const ok = name.length > 1 && /\S+@\S+\.\S+/.test(email) && phone.replace(/\D/g, '').length >= 10;
+    document.getElementById('bkSubmit').disabled = !ok;
+  }
+  function submitBook() {
+    const name = document.getElementById('bkName').value.trim();
+    const first = name.split(' ')[0] || 'friend';
+    const nameShown = document.getElementById('bkNameShown');
+    if (nameShown) nameShown.textContent = first;
+    document.getElementById('bookWrap').style.display = 'none';
+    document.getElementById('bookSuccess').style.display = 'block';
+    const prog = document.getElementById('deckProg');
+    if (prog) prog.style.width = '100%';
+    // Real submission: wire this to Formspree, Vercel Function, or your CRM
+    console.log('Lead from Build Deck:', {
+      address: deck.data.address,
+      state: deck.data.state,
+      lat: deck.data.lat, lng: deck.data.lng,
+      monthlyBill: deck.data.monthlyBill,
+      systemSize: deck.data.systemSizeKw,
+      panelCount: deck.data.panelCount,
+      panelModel: deck.data.panelModel,
+      cashPrice: deck.data.cashPrice,
+      name: name,
+      email: document.getElementById('bkEmail').value,
+      phone: document.getElementById('bkPhone').value,
+      contactPref: document.getElementById('bkContact').value
+    });
+  }
+
+  // ───── Google Maps SDK loader ─────
+  let googleLoading = false;
+  window.onGoogleLoaded = () => { initPlaces(); };
+  function loadGoogleMapsAPI() {
+    if (window.google && window.google.maps) { initPlaces(); return; }
+    if (googleLoading) return;
+    googleLoading = true;
+    const s = document.createElement('script');
+    s.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_KEY}&libraries=places&callback=onGoogleLoaded&loading=async`;
+    s.async = true;
+    s.defer = true;
+    document.head.appendChild(s);
+  }
+
+  // ───── Initialize deck when /build view opens ─────
+  function initDeck() {
+    deck.current = 1;
+    document.querySelectorAll('.deck-slide').forEach((s, i) => {
+      s.classList.toggle('active', i === 0);
+    });
+    const prog = document.getElementById('deckProg');
+    if (prog) prog.style.width = (1 / 11 * 100) + '%';
+    // Reset book form
+    const bw = document.getElementById('bookWrap');
+    const bs = document.getElementById('bookSuccess');
+    if (bw) bw.style.display = 'block';
+    if (bs) bs.style.display = 'none';
+    // Reset roof stats
+    document.querySelectorAll('.roof-stat').forEach(s => s.classList.remove('loaded'));
+    const rl = document.getElementById('roofLoading');
+    if (rl) rl.style.display = 'grid';
+    // Load Google SDK + init slider
+    loadGoogleMapsAPI();
+    initBillSlider();
+    // Re-enable addr next only if we already have a place
+    const addrNext = document.getElementById('addrNext');
+    if (addrNext) addrNext.disabled = !deck.data.lat;
+  }
+
+  // Hook into router: init deck when route becomes build
+  const _origRoute = route;
+  route = function() {
+    _origRoute();
+    if ((location.hash.slice(2) || 'home').split('?')[0] === 'build') {
+      setTimeout(initDeck, 50);
+    }
+  };
+  window.removeEventListener('hashchange', _origRoute);
+  window.addEventListener('hashchange', route);
 
   // ══════ MOBILE MENU ══════
   function toggleMenu() {
