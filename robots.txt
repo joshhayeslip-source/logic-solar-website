@@ -1,0 +1,27 @@
+# Logic Solar — Robots
+# Serving solar across MO, KS, TX, OK, IL
+
+User-agent: *
+Allow: /
+
+# Give plenty of love to Google/Bing
+User-agent: Googlebot
+Allow: /
+User-agent: Googlebot-Image
+Allow: /
+User-agent: Bingbot
+Allow: /
+
+# AI crawlers (be visible in AI Overviews / ChatGPT / Perplexity)
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://logic-solar.com/sitemap.xml

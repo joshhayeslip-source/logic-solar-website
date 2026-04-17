@@ -1,0 +1,40 @@
+{
+  "name": "Logic Solar",
+  "short_name": "Logic Solar",
+  "description": "Premium solar installation for homes and businesses across Missouri, Kansas, Texas, Oklahoma, and Illinois. $0 down financing and up to 25% back as a direct incentive payment.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0a0a",
+  "theme_color": "#FFCE1B",
+  "lang": "en-US",
+  "categories": ["business", "utilities", "productivity"],
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo-dark.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Build Your System",
+      "short_name": "Build",
+      "description": "Interactive solar system builder",
+      "url": "/#/build"
+    },
+    {
+      "name": "Get a Quote",
+      "short_name": "Quote",
+      "description": "Request a free solar quote",
+      "url": "/#/quote"
+    }
+  ]
+}

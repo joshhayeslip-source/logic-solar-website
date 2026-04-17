@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/0.9">
+
+  <url>
+    <loc>https://logic-solar.com/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://logic-solar.com/hero-roof.jpg</image:loc>
+      <image:title>Rooftop solar installation by Logic Solar</image:title>
+      <image:caption>Residential solar installation in Missouri</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://logic-solar.com/groundmount-solar.jpg</image:loc>
+      <image:title>Commercial ground-mount solar by Logic Solar</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://logic-solar.com/logo.png</image:loc>
+      <image:title>Logic Solar logo</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://logic-solar.com/#/service</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://logic-solar.com/#/residential</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <url>
+    <loc>https://logic-solar.com/#/commercial</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://logic-solar.com/#/products</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://logic-solar.com/#/incentives</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://logic-solar.com/#/locations</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://logic-solar.com/#/locations#missouri</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://logic-solar.com/#/locations#kansas</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://logic-solar.com/#/locations#texas</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://logic-solar.com/#/locations#oklahoma</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://logic-solar.com/#/locations#illinois</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://logic-solar.com/#/quote</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <url>
+    <loc>https://logic-solar.com/#/build</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+</urlset>
