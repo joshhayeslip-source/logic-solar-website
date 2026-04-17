@@ -2744,6 +2744,369 @@
   }
   .book-check svg { width: 36px; height: 36px; stroke: var(--black); fill: none; stroke-width: 3; }
 
+  /* ══════ HERO INCENTIVE CHIPS ══════ */
+  .hero-incentive-row {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 auto 36px;
+    max-width: 640px;
+  }
+  .hi-chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 16px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 100px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 0.01em;
+    transition: all 0.25s;
+  }
+  .hi-chip:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-1px);
+  }
+  .hi-chip strong { color: var(--yellow); font-weight: 800; }
+  .hi-dot {
+    width: 7px; height: 7px;
+    background: var(--yellow);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--yellow);
+    animation: hi-pulse 2s ease-in-out infinite;
+  }
+  .hi-dot.green {
+    background: #28c878;
+    box-shadow: 0 0 8px #28c878;
+    animation-delay: 1s;
+  }
+  @keyframes hi-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.15); }
+  }
+
+  /* ══════ BATTERY SLIDE ══════ */
+  .deck-battery { background: var(--black); }
+  .batt-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    max-width: 1050px;
+    margin: 24px auto 10px;
+    width: 100%;
+  }
+  .batt-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 22px;
+    padding: 26px 24px 24px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    display: flex; flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+  .batt-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at top right, rgba(255,206,27,0.08), transparent 60%);
+    opacity: 0; transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  .batt-card:hover { transform: translateY(-4px); border-color: rgba(255,206,27,0.3); }
+  .batt-card:hover::before { opacity: 1; }
+  .batt-card.selected {
+    border-color: var(--yellow);
+    background: linear-gradient(160deg, rgba(255,206,27,0.14) 0%, rgba(255,206,27,0.03) 100%);
+    box-shadow: 0 20px 40px -15px rgba(255,206,27,0.35), 0 0 0 1px var(--yellow);
+    transform: translateY(-3px);
+  }
+  .batt-card.selected::before { opacity: 1; }
+  .batt-card.featured { border-color: rgba(255,206,27,0.25); }
+  .batt-ribbon {
+    position: absolute; top: 14px; right: 14px;
+    background: var(--yellow);
+    color: var(--black);
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-size: 9px; font-weight: 800;
+    letter-spacing: 0.1em;
+  }
+  .batt-chip {
+    width: 44px; height: 44px;
+    background: rgba(255,206,27,0.1);
+    border: 1px solid rgba(255,206,27,0.25);
+    border-radius: 12px;
+    display: grid; place-items: center;
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+  .batt-card h4 {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 22px;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+  .batt-unit {
+    font-size: 11px; font-weight: 600;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.02em;
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+  .batt-body { flex: 1; margin-bottom: 16px; }
+  .batt-body > p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.55;
+  }
+  .batt-stepper {
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 8px;
+    margin-bottom: 14px;
+  }
+  .batt-stepper button {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    background: var(--yellow);
+    color: var(--black);
+    border: none;
+    font-size: 20px; font-weight: 800;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: grid; place-items: center;
+  }
+  .batt-stepper button:hover { background: var(--yellow-glow); transform: scale(1.06); }
+  .batt-stepper button:disabled { opacity: 0.25; cursor: not-allowed; transform: none; }
+  .batt-qty-disp {
+    display: flex; align-items: baseline; gap: 6px;
+    color: var(--white);
+    font-family: 'Varela Round', sans-serif;
+  }
+  .batt-qty-disp > span:first-child { font-size: 24px; }
+  .batt-qty-lbl {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+  }
+  .batt-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+  }
+  .batt-stats > div {
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    padding: 8px 10px;
+    text-align: center;
+  }
+  .batt-stats-val {
+    display: block;
+    font-family: 'Varela Round', sans-serif;
+    color: var(--yellow);
+    font-size: 18px;
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+  .batt-footer {
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .batt-price-label {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+  .batt-price-val {
+    font-family: 'Varela Round', sans-serif;
+    color: var(--yellow);
+    font-size: 22px;
+    line-height: 1;
+  }
+  .batt-hint {
+    max-width: 780px;
+    margin: 18px auto 0;
+    padding: 14px 20px;
+    background: rgba(255,255,255,0.03);
+    border-left: 3px solid var(--yellow);
+    border-radius: 12px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    text-align: left;
+    line-height: 1.55;
+  }
+
+  /* ══════ kWh TOGGLE ══════ */
+  .kwh-toggle {
+    margin: 20px auto 0;
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 100px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .kwh-toggle:hover { background: rgba(255,255,255,0.08); color: var(--white); }
+  .kwh-toggle-arrow { transition: transform 0.3s; font-size: 9px; }
+  .kwh-toggle.open .kwh-toggle-arrow { transform: rotate(180deg); }
+  .kwh-input-wrap {
+    max-width: 420px;
+    margin: 14px auto 0;
+    text-align: left;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 16px 20px;
+  }
+  .kwh-label {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 8px;
+  }
+  .kwh-input-row {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .kwh-input {
+    flex: 1;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: var(--white);
+    font-family: 'Varela Round', sans-serif;
+    font-size: 22px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .kwh-input:focus {
+    border-color: var(--yellow);
+    box-shadow: 0 0 0 3px rgba(255,206,27,0.15);
+  }
+  .kwh-input::-webkit-outer-spin-button,
+  .kwh-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .kwh-input[type=number] { -moz-appearance: textfield; }
+  .kwh-unit {
+    font-size: 13px;
+    color: var(--yellow);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+  .kwh-note {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 8px;
+  }
+
+  /* ══════ PRICE BREAKDOWN + INCENTIVE CALLOUT ══════ */
+  .px-breakdown {
+    max-width: 520px;
+    margin: 12px auto 22px;
+    padding: 18px 22px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    text-align: left;
+  }
+  .pxb-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 0;
+    font-size: 14px;
+    color: rgba(255,255,255,0.8);
+  }
+  .pxb-row.pxb-total {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    margin-top: 4px;
+    padding-top: 12px;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 18px;
+    color: var(--white);
+  }
+  .pxb-row.pxb-total .y { color: var(--yellow); }
+
+  .incentive-callout {
+    max-width: 780px;
+    margin: 0 auto 28px;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, rgba(40,200,120,0.14) 0%, rgba(40,200,120,0.04) 100%);
+    border: 1px solid rgba(40,200,120,0.3);
+    border-radius: 18px;
+    display: flex; align-items: center; gap: 18px;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+  }
+  .incentive-callout::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at left, rgba(40,200,120,0.2) 0%, transparent 50%);
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  .ic-icon {
+    font-size: 34px;
+    flex-shrink: 0;
+    position: relative;
+    animation: gift-wiggle 3s ease-in-out infinite;
+  }
+  @keyframes gift-wiggle {
+    0%, 100% { transform: rotate(-6deg) scale(1); }
+    50% { transform: rotate(6deg) scale(1.08); }
+  }
+  .ic-body { position: relative; }
+  .ic-title {
+    font-size: 15px;
+    color: #6be59a;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .ic-title strong { font-size: 17px; font-weight: 800; color: #8eeeab; }
+  .ic-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.5;
+  }
+
+  .trust-badges-row {
+    display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+    margin: 24px auto 0;
+    max-width: 900px;
+  }
+  .tb-item {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+    padding: 6px 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 100px;
+  }
+  .tb-item strong { color: var(--yellow); font-weight: 700; }
+  .tb-check {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--yellow);
+    color: var(--black);
+    display: inline-grid; place-items: center;
+    font-size: 10px; font-weight: 800;
+    flex-shrink: 0;
+  }
+
   /* Build CTA button variant — for use on home etc */
   .btn-build {
     background: linear-gradient(135deg, var(--yellow) 0%, var(--yellow-glow) 100%);
@@ -2883,8 +3246,23 @@
     .price-savings .ps-value { font-size: clamp(40px, 10vw, 64px); }
     .book-form { margin: 18px auto 24px; }
     .book-form input, .book-form select { padding: 15px 18px; font-size: 16px; }
-    .deck-nav { flex-direction: column; gap: 10px; margin-top: 32px; }
-    .deck-nav button { width: 100%; justify-content: center; }
+    .batt-grid { grid-template-columns: 1fr; gap: 14px; }
+    .batt-card { padding: 22px 22px 20px; }
+    .batt-card h4 { font-size: 20px; }
+    .incentive-callout { padding: 16px 20px; gap: 14px; }
+    .ic-icon { font-size: 28px; }
+    .ic-title { font-size: 14px; }
+    .ic-title strong { font-size: 16px; }
+    .ic-sub { font-size: 11px; }
+    .trust-badges-row { gap: 10px; }
+    .tb-item { font-size: 12px; padding: 5px 12px; }
+    .px-breakdown { padding: 16px 20px; }
+    .pxb-row { font-size: 13px; }
+    .pxb-row.pxb-total { font-size: 16px; }
+    .deck-nav { flex-direction: row; gap: 10px; margin-top: 28px; justify-content: center; flex-wrap: nowrap; }
+    .deck-nav button { width: auto; }
+    .deck-back { padding: 13px 18px; font-size: 13px; flex: 0 0 auto; }
+    .deck-next { padding: 13px 24px; font-size: 13px; flex: 1 1 auto; justify-content: center; max-width: 280px; }
     .nav-logo { height: 38px; }
     .nav-mobile { padding: 10px; }
     .incentive-grid { gap: 14px; }
@@ -2931,6 +3309,8 @@
     .hero-eyebrow { font-size: 10px; padding: 7px 12px; margin-bottom: 22px; }
     .hero-ctas { flex-direction: column; align-items: stretch; gap: 10px; width: 100%; margin-bottom: 40px; }
     .hero-ctas button { justify-content: center; width: 100%; padding: 16px 24px; font-size: 14px; }
+    .hero-incentive-row { flex-direction: column; gap: 8px; align-items: center; margin-bottom: 28px; }
+    .hi-chip { font-size: 12px; padding: 7px 14px; width: 100%; justify-content: center; max-width: 340px; }
     .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .hstat { padding: 12px 0; }
     .hstat-value { font-size: 24px; }
@@ -3033,8 +3413,45 @@
     .book-check { width: 68px; height: 68px; margin-bottom: 20px; }
     .book-check svg { width: 30px; height: 30px; }
 
+    /* Battery slide */
+    .batt-card { padding: 20px 20px 18px; border-radius: 18px; }
+    .batt-card h4 { font-size: 19px; }
+    .batt-chip { width: 38px; height: 38px; font-size: 17px; margin-bottom: 12px; }
+    .batt-unit { font-size: 10px; margin-bottom: 14px; }
+    .batt-body > p { font-size: 12px; }
+    .batt-stepper { padding: 6px; }
+    .batt-stepper button { width: 34px; height: 34px; font-size: 18px; }
+    .batt-stats-val { font-size: 16px; }
+    .batt-stats { font-size: 10px; }
+    .batt-stats > div { padding: 6px 8px; }
+    .batt-price-val { font-size: 20px; }
+    .batt-hint { font-size: 11px; padding: 12px 16px; margin-top: 14px; }
+
+    /* kWh input */
+    .kwh-toggle { font-size: 11px; padding: 7px 12px; }
+    .kwh-input-wrap { padding: 14px 16px; border-radius: 12px; }
+    .kwh-input { font-size: 18px; padding: 10px 12px; }
+
+    /* Incentive callout */
+    .incentive-callout { padding: 14px 18px; gap: 12px; border-radius: 14px; flex-direction: row; align-items: flex-start; }
+    .ic-icon { font-size: 24px; }
+    .ic-title { font-size: 13px; }
+    .ic-title strong { font-size: 15px; }
+    .ic-sub { font-size: 11px; }
+
+    /* Trust badges */
+    .trust-badges-row { gap: 8px; margin-top: 18px; }
+    .tb-item { font-size: 11px; padding: 4px 10px; }
+    .tb-check { width: 16px; height: 16px; font-size: 9px; }
+
+    /* Price breakdown */
+    .px-breakdown { padding: 14px 18px; margin: 10px auto 18px; }
+    .pxb-row { font-size: 12px; padding: 4px 0; }
+    .pxb-row.pxb-total { font-size: 15px; padding-top: 10px; }
+
     /* Deck nav */
-    .deck-next, .deck-back { padding: 14px 22px; font-size: 13px; }
+    .deck-next, .deck-back { padding: 11px 18px; font-size: 12px; }
+    .deck-next svg, .deck-back svg { width: 14px; height: 14px; }
 
     /* Build CTA button */
     .btn-build { padding: 16px 26px; font-size: 14px; }
@@ -3192,6 +3609,10 @@
       <div class="hero-eyebrow">The Logical Energy Choice</div>
       <h1 class="hero-title">Make power.<br>Not <span class="y">payments</span>.</h1>
       <p class="hero-sub">Logic Solar designs, installs, and services photovoltaic systems for homes and businesses across Missouri, Texas, Oklahoma, Kansas, and Illinois. Stop renting your electricity — start generating your own.</p>
+      <div class="hero-incentive-row">
+        <span class="hi-chip"><span class="hi-dot"></span><strong>$0 down</strong> financing available</span>
+        <span class="hi-chip"><span class="hi-dot green"></span>Up to <strong>25% back</strong> as direct payment</span>
+      </div>
       <div class="hero-ctas">
         <button class="btn-build" onclick="nav('build')">
           Build Your System
@@ -3746,8 +4167,8 @@
       </button>
     </div>
     <div class="final-meta">
-      <span>✓ No obligation</span>
-      <span>✓ No high-pressure sales</span>
+      <span>✓ <strong style="color:var(--yellow);">$0 down</strong> financing available</span>
+      <span>✓ Up to <strong style="color:var(--yellow);">25% back</strong> as direct payment</span>
       <span>✓ Same-day response</span>
     </div>
   </section>
@@ -4592,8 +5013,8 @@
 
         <div class="stat-row">
           <div class="stat-card"><div class="sc-value">+28%</div><div class="sc-label">Avg. US residential electricity rate increase, last 5 years</div></div>
-          <div class="stat-card"><div class="sc-value">$0</div><div class="sc-label">Equity you build by paying your utility bill</div></div>
-          <div class="stat-card"><div class="sc-value">∞</div><div class="sc-label">Years you'll keep paying if nothing changes</div></div>
+          <div class="stat-card"><div class="sc-value">$45B</div><div class="sc-label">US utility industry profits in 2023 — while raising your rates</div></div>
+          <div class="stat-card"><div class="sc-value">9.7%</div><div class="sc-label">Guaranteed return on equity utilities earn — paid by you</div></div>
         </div>
 
         <div class="deck-nav">
@@ -4770,7 +5191,20 @@
           <span>$80</span><span>$240</span><span>$440</span><span>$640</span><span>$800</span>
         </div>
 
-        <div class="stat-card" style="max-width:520px; margin:30px auto 0; text-align:center;">
+        <div class="kwh-toggle" onclick="toggleKwhInput()">
+          <span>Know your exact annual kWh usage?</span>
+          <span class="kwh-toggle-arrow" id="kwhArrow">▼</span>
+        </div>
+        <div class="kwh-input-wrap" id="kwhWrap" style="display:none;">
+          <div class="kwh-label">Annual kWh (from your utility statement)</div>
+          <div class="kwh-input-row">
+            <input type="number" id="kwhInput" class="kwh-input" placeholder="e.g. 16,000" min="2000" max="60000">
+            <span class="kwh-unit">kWh/yr</span>
+          </div>
+          <div class="kwh-note">This overrides the monthly bill for system sizing.</div>
+        </div>
+
+        <div class="stat-card" style="max-width:520px; margin:26px auto 0; text-align:center;">
           <div style="font-size:12px; color:rgba(255,255,255,0.6); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:8px;">25-Year Cost If You Do Nothing</div>
           <div class="sc-value" style="font-size:48px; color:#FF6B4A;">$<span id="billLifetime">108,000</span></div>
           <div class="sc-label" style="margin-top:6px;">Assumes 4% annual utility rate increase</div>
@@ -4823,17 +5257,109 @@
 
         <div class="deck-nav">
           <button class="deck-back" onclick="deckPrev()">← Back</button>
-          <button class="deck-next" onclick="deckNext()">Show me the numbers <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+          <button class="deck-next" onclick="deckNext()">Add backup power <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 10: Pricing -->
-    <div class="deck-slide deck-price" data-slide="10">
+    <!-- SLIDE 10: Battery selection (NEW) -->
+    <div class="deck-slide deck-battery" data-slide="10">
       <div class="deck-slide-inner">
-        <div class="deck-step-num">10 · The Financials</div>
+        <div class="deck-step-num">10 · Backup Power</div>
+        <h1 class="deck-title">Keep the <span class="y">lights on</span>.</h1>
+        <p class="deck-sub">Your solar powers your home all day. Add a battery and it powers your home at night — and through outages. Optional, but seriously recommended for anyone on the grid.</p>
+
+        <div class="batt-grid">
+
+          <div class="batt-card" data-batt="none" onclick="selectBatt('none')">
+            <div class="batt-chip">🔌</div>
+            <h4>No battery</h4>
+            <div class="batt-unit">Solar only · grid-tied</div>
+            <div class="batt-body">
+              <p>Skip backup for now. You'll still save big on your utility bill — but lose power during outages like everyone else.</p>
+            </div>
+            <div class="batt-footer">
+              <span class="batt-price-label">Added cost</span>
+              <span class="batt-price-val">+ $0</span>
+            </div>
+          </div>
+
+          <div class="batt-card" data-batt="enphase" onclick="selectBatt('enphase')">
+            <div class="batt-chip">🔋</div>
+            <h4>Enphase IQ 5P</h4>
+            <div class="batt-unit">5 kWh per unit · stack up to 8 units (40 kWh max)</div>
+            <div class="batt-body">
+              <div class="batt-stepper">
+                <button type="button" onclick="event.stopPropagation(); changeBattQty('enphase', -1);" aria-label="Remove one">−</button>
+                <div class="batt-qty-disp"><span id="enphaseQty">0</span><span class="batt-qty-lbl">unit<span id="enphasePlural"></span></span></div>
+                <button type="button" onclick="event.stopPropagation(); changeBattQty('enphase', 1);" aria-label="Add one">+</button>
+              </div>
+              <div class="batt-stats">
+                <div><span class="batt-stats-val" id="enphaseCap">0</span> kWh total</div>
+                <div><span class="batt-stats-val" id="enphaseHrs">0</span> hrs backup</div>
+              </div>
+            </div>
+            <div class="batt-footer">
+              <span class="batt-price-label">Added cost</span>
+              <span class="batt-price-val" id="enphasePrice">+ $0</span>
+            </div>
+          </div>
+
+          <div class="batt-card featured" data-batt="franklin" onclick="selectBatt('franklin')">
+            <div class="batt-ribbon">Most Popular</div>
+            <div class="batt-chip">⚡</div>
+            <h4>Franklin aPower V2</h4>
+            <div class="batt-unit">15 kWh per unit · stack up to 15 (225 kWh max)</div>
+            <div class="batt-body">
+              <div class="batt-stepper">
+                <button type="button" onclick="event.stopPropagation(); changeBattQty('franklin', -1);" aria-label="Remove one">−</button>
+                <div class="batt-qty-disp"><span id="franklinQty">0</span><span class="batt-qty-lbl">unit<span id="franklinPlural"></span></span></div>
+                <button type="button" onclick="event.stopPropagation(); changeBattQty('franklin', 1);" aria-label="Add one">+</button>
+              </div>
+              <div class="batt-stats">
+                <div><span class="batt-stats-val" id="franklinCap">0</span> kWh total</div>
+                <div><span class="batt-stats-val" id="franklinHrs">0</span> hrs backup</div>
+              </div>
+            </div>
+            <div class="batt-footer">
+              <span class="batt-price-label">Added cost</span>
+              <span class="batt-price-val" id="franklinPrice">+ $0</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="batt-hint" id="battHint">
+          💡 Tap a card to select. Backup hours estimate based on your annual usage — assumes running essential loads (fridge, lights, outlets, HVAC blower) during an outage.
+        </div>
+
+        <div class="deck-nav">
+          <button class="deck-back" onclick="deckPrev()">← Back</button>
+          <button class="deck-next" onclick="deckNext()">See my total investment <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 11: Pricing -->
+    <div class="deck-slide deck-price" data-slide="11">
+      <div class="deck-slide-inner">
+        <div class="deck-step-num">11 · The Financials</div>
         <h1 class="deck-title">Three ways to <span class="y">own</span> it.</h1>
         <p class="deck-sub">We don't hide the price. Here's your system, three different ways — so you can pick what fits your cash flow.</p>
+
+        <div class="px-breakdown" id="pxBreakdown">
+          <div class="pxb-row"><span>Solar system · <span id="pxbKw">10.2</span> kW</span><span>$<span id="pxbSolar">28,560</span></span></div>
+          <div class="pxb-row" id="pxbBattRow" style="display:none;"><span id="pxbBattDesc">Battery</span><span>+ $<span id="pxbBatt">0</span></span></div>
+          <div class="pxb-row pxb-total"><span>Total system</span><span class="y">$<span id="pxbTotal">28,560</span></span></div>
+        </div>
+
+        <div class="incentive-callout">
+          <div class="ic-icon">🎁</div>
+          <div class="ic-body">
+            <div class="ic-title">Up to <strong>25% back</strong> as a direct incentive payment</div>
+            <div class="ic-sub">Your system may qualify for state, federal, and utility programs. We handle the paperwork — you get a check.</div>
+          </div>
+        </div>
 
         <div class="price-grid">
           <div class="price-card best">
@@ -4852,7 +5378,7 @@
             <div class="price-label">Option 2 · Keep Cash Liquid</div>
             <h4>Same-As-Cash Loan</h4>
             <div class="price-main">$<span id="pxSameMo">235</span><span style="font-size:18px;color:rgba(255,255,255,0.5);">/mo</span></div>
-            <div class="price-unit">8.99% APR · 25 years · $0 down</div>
+            <div class="price-unit">8.99% APR · 25 years · <strong style="color:var(--yellow);">$0 down</strong></div>
             <ul class="price-details">
               <li>Financed amount <strong>$<span id="pxSamePrincipal">28,560</span></strong></li>
               <li>Monthly payment <strong>$<span id="pxSameMo2">235</span></strong></li>
@@ -4864,7 +5390,7 @@
             <div class="price-label">Option 3 · Lowest Monthly</div>
             <h4>Low-Rate Loan</h4>
             <div class="price-main">$<span id="pxLowMo">197</span><span style="font-size:18px;color:rgba(255,255,255,0.5);">/mo</span></div>
-            <div class="price-unit">3.99% APR · 25 years · $0 down</div>
+            <div class="price-unit">3.99% APR · 25 years · <strong style="color:var(--yellow);">$0 down</strong></div>
             <ul class="price-details">
               <li>Financed amount <strong>$<span id="pxLowPrincipal">37,585</span></strong></li>
               <li>Monthly payment <strong>$<span id="pxLowMo2">197</span></strong></li>
@@ -4873,10 +5399,16 @@
           </div>
         </div>
 
+        <div class="trust-badges-row">
+          <div class="tb-item"><span class="tb-check">✓</span> <strong>$0 down</strong> financing available</div>
+          <div class="tb-item"><span class="tb-check">✓</span> Up to <strong>25% back</strong> as direct payment</div>
+          <div class="tb-item"><span class="tb-check">✓</span> <strong>No hidden fees</strong> — ever</div>
+        </div>
+
         <div class="price-savings">
           <div class="ps-label">25-Year Lifetime Savings vs. Doing Nothing</div>
           <div class="ps-value">$<span id="pxSavings">82,000</span></div>
-          <div class="ps-sub">Solar cost subtracted · based on your bill and 4% annual utility inflation</div>
+          <div class="ps-sub">System cost subtracted · based on your bill and 4% annual utility inflation</div>
         </div>
 
         <div class="deck-nav">
@@ -4886,10 +5418,10 @@
       </div>
     </div>
 
-    <!-- SLIDE 11: Book -->
-    <div class="deck-slide deck-book" data-slide="11">
+    <!-- SLIDE 12: Book -->
+    <div class="deck-slide deck-book" data-slide="12">
       <div class="deck-slide-inner" id="bookWrap">
-        <div class="deck-step-num">11 · Last step</div>
+        <div class="deck-step-num">12 · Last step</div>
         <h1 class="deck-title">Let's <span style="color:var(--yellow-deep);">make it real</span>.</h1>
         <p class="deck-sub">A Logic Solar specialist will reach out within one business day to finalize your design, walk through the incentives that apply to your state, and schedule your install.</p>
 
@@ -5267,20 +5799,126 @@
 
   const deck = {
     current: 1,
-    total: 11,
+    total: 12,
     mapInstance: null,
     markerInstance: null,
     data: {
       address: '', lat: null, lng: null, state: null,
       roofArea: null, sunHours: null, maxPanels: null, apiAnnualProd: null,
       monthlyBill: 200,
+      annualKwh: null,  // user-entered override
       systemSizeKw: null, panelCount: null,
       panelModel: 'JA Solar 455W', panelWatts: 455,
       annualProduction: null,
+      battery: { type: 'none', qty: 0, capacity: 0, price: 0 },
       cashPrice: null, sameCashMo: null, lowRateMo: null,
       lowRatePrincipal: null, lifetimeSavings: null
     }
   };
+
+  // ───── Battery pricing + stacking ─────
+  const BATTERY_CONFIG = {
+    enphase:  { capacityPerUnit: 5,  maxQty: 8,  name: 'Enphase IQ 5P' },
+    franklin: { capacityPerUnit: 15, maxQty: 15, name: 'Franklin aPower V2' }
+  };
+
+  function batteryPrice(type, qty) {
+    if (qty <= 0) return 0;
+    if (type === 'enphase') {
+      if (qty === 1) return 9000;
+      if (qty === 2) return 14500;
+      return 14500 + (qty - 2) * 5500;
+    }
+    if (type === 'franklin') {
+      if (qty === 1) return 15500;
+      return 15500 + (qty - 1) * 12500;
+    }
+    return 0;
+  }
+
+  function backupHoursEstimate(capacityKwh, annualKwh) {
+    if (capacityKwh <= 0 || !annualKwh) return 0;
+    const hourlyAvg = annualKwh / 8760; // 8760 hrs/year
+    const essentialLoadFraction = 0.35; // essentials ≈ 35% of average load during outage
+    const hrs = capacityKwh / (hourlyAvg * essentialLoadFraction);
+    return Math.max(1, Math.round(hrs));
+  }
+
+  function selectBatt(type) {
+    // Single-select: selecting "none" resets, selecting a battery with 0 qty sets qty to 1
+    if (type === 'none') {
+      deck.data.battery = { type: 'none', qty: 0, capacity: 0, price: 0 };
+    } else {
+      const cur = deck.data.battery;
+      if (cur.type !== type) {
+        // Switching battery type — default to 1 unit
+        deck.data.battery = { type, qty: 1, capacity: BATTERY_CONFIG[type].capacityPerUnit, price: batteryPrice(type, 1) };
+      }
+      // If same type already selected, do nothing (user uses +/-)
+    }
+    refreshBattCards();
+  }
+
+  function changeBattQty(type, delta) {
+    const cur = deck.data.battery;
+    let qty = (cur.type === type ? cur.qty : 0) + delta;
+    qty = Math.max(0, Math.min(BATTERY_CONFIG[type].maxQty, qty));
+    if (qty === 0) {
+      deck.data.battery = { type: 'none', qty: 0, capacity: 0, price: 0 };
+    } else {
+      deck.data.battery = {
+        type,
+        qty,
+        capacity: qty * BATTERY_CONFIG[type].capacityPerUnit,
+        price: batteryPrice(type, qty)
+      };
+    }
+    refreshBattCards();
+  }
+
+  function refreshBattCards() {
+    const b = deck.data.battery;
+    const annualKwh = deck.data.annualKwh || ((deck.data.monthlyBill * 12) / 0.15);
+
+    // Enphase card
+    const eQty = b.type === 'enphase' ? b.qty : 0;
+    const eCap = eQty * 5;
+    const ePrice = batteryPrice('enphase', eQty);
+    document.getElementById('enphaseQty').textContent = eQty;
+    document.getElementById('enphasePlural').textContent = eQty === 1 ? '' : 's';
+    document.getElementById('enphaseCap').textContent = eCap;
+    document.getElementById('enphaseHrs').textContent = eCap > 0 ? backupHoursEstimate(eCap, annualKwh) : '0';
+    document.getElementById('enphasePrice').textContent = '+ $' + ePrice.toLocaleString();
+
+    // Franklin card
+    const fQty = b.type === 'franklin' ? b.qty : 0;
+    const fCap = fQty * 15;
+    const fPrice = batteryPrice('franklin', fQty);
+    document.getElementById('franklinQty').textContent = fQty;
+    document.getElementById('franklinPlural').textContent = fQty === 1 ? '' : 's';
+    document.getElementById('franklinCap').textContent = fCap;
+    document.getElementById('franklinHrs').textContent = fCap > 0 ? backupHoursEstimate(fCap, annualKwh) : '0';
+    document.getElementById('franklinPrice').textContent = '+ $' + fPrice.toLocaleString();
+
+    // Card selection state
+    document.querySelectorAll('.batt-card').forEach(c => c.classList.remove('selected'));
+    const activeCard = document.querySelector(`.batt-card[data-batt="${b.type}"]`);
+    if (activeCard) activeCard.classList.add('selected');
+  }
+
+  // ───── kWh toggle ─────
+  function toggleKwhInput() {
+    const wrap = document.getElementById('kwhWrap');
+    const toggle = document.querySelector('.kwh-toggle');
+    if (!wrap || !toggle) return;
+    if (wrap.style.display === 'none') {
+      wrap.style.display = 'block';
+      toggle.classList.add('open');
+    } else {
+      wrap.style.display = 'none';
+      toggle.classList.remove('open');
+    }
+  }
 
   function deckNext() {
     if (deck.current < deck.total) showDeckSlide(deck.current + 1);
@@ -5306,7 +5944,8 @@
     }
     if (n === 7) handleRoofSlide();
     if (n === 9) handleSystemSlide();
-    if (n === 10) handleNumbersSlide();
+    if (n === 10) refreshBattCards();
+    if (n === 11) handleNumbersSlide();
   }
 
   // Animate a number count-up
@@ -5463,8 +6102,8 @@
 
   // ───── Slide 9: system recommendation ─────
   function handleSystemSlide() {
-    // Annual usage from bill (average regional rate ~$0.15/kWh)
-    const annualUsage = (deck.data.monthlyBill * 12) / 0.15;
+    // Use user-entered annual kWh if provided, else derive from bill
+    const annualUsage = deck.data.annualKwh || ((deck.data.monthlyBill * 12) / 0.15);
     // System size needed: target 95% offset, ~1400 kWh/kW annual production in region
     let kWNeeded = (annualUsage * 0.95) / 1400;
     // Cap by roof capacity if known
@@ -5542,11 +6181,15 @@
     const kW = deck.data.systemSizeKw || 10.2;
     const watts = kW * 1000;
 
-    // Cash price: $2.80/watt
-    const cashPrice = Math.round(watts * 2.80);
-    // Same-as-cash: same principal as cash, 8.99% APR / 25 years
+    // Solar cash price: $2.80/watt
+    const solarPrice = Math.round(watts * 2.80);
+    // Battery add
+    const battPrice = deck.data.battery ? deck.data.battery.price : 0;
+    const cashPrice = solarPrice + battPrice;
+
+    // Same-as-cash: same principal as total cash, 8.99% APR / 25 years
     const sameCashMo = monthlyPayment(cashPrice, 0.0899, 25);
-    // Low-rate: principal × 1.33 (financing program costs baked in), 3.99% APR / 25 years
+    // Low-rate: principal × 1.33 (financing program costs), 3.99% APR / 25 years
     const lowRatePrincipal = Math.round(cashPrice * 1.33);
     const lowRateMo = monthlyPayment(lowRatePrincipal, 0.0399, 25);
 
@@ -5562,6 +6205,23 @@
     deck.data.lowRateMo = lowRateMo;
     deck.data.lowRatePrincipal = lowRatePrincipal;
     deck.data.lifetimeSavings = savings;
+
+    // Breakdown display
+    const kwEl = document.getElementById('pxbKw');
+    if (kwEl) kwEl.textContent = kW.toFixed(1);
+    animateDeckNumber('pxbSolar', solarPrice);
+    const battRow = document.getElementById('pxbBattRow');
+    const battDesc = document.getElementById('pxbBattDesc');
+    if (battPrice > 0 && battRow && battDesc) {
+      battRow.style.display = 'flex';
+      const b = deck.data.battery;
+      const cfg = BATTERY_CONFIG[b.type];
+      battDesc.textContent = `${cfg.name} · ${b.qty} unit${b.qty > 1 ? 's' : ''} (${b.capacity} kWh)`;
+      animateDeckNumber('pxbBatt', battPrice);
+    } else if (battRow) {
+      battRow.style.display = 'none';
+    }
+    animateDeckNumber('pxbTotal', cashPrice);
 
     animateDeckNumber('pxCash', cashPrice);
     animateDeckNumber('pxCashTotal', cashPrice);
@@ -5625,11 +6285,14 @@
   // ───── Initialize deck when /build view opens ─────
   function initDeck() {
     deck.current = 1;
+    // Reset battery state
+    deck.data.battery = { type: 'none', qty: 0, capacity: 0, price: 0 };
+    deck.data.annualKwh = null;
     document.querySelectorAll('.deck-slide').forEach((s, i) => {
       s.classList.toggle('active', i === 0);
     });
     const prog = document.getElementById('deckProg');
-    if (prog) prog.style.width = (1 / 11 * 100) + '%';
+    if (prog) prog.style.width = (1 / deck.total * 100) + '%';
     // Reset book form
     const bw = document.getElementById('bookWrap');
     const bs = document.getElementById('bookSuccess');
@@ -5639,6 +6302,22 @@
     document.querySelectorAll('.roof-stat').forEach(s => s.classList.remove('loaded'));
     const rl = document.getElementById('roofLoading');
     if (rl) rl.style.display = 'grid';
+    // Reset kWh toggle
+    const kwhWrap = document.getElementById('kwhWrap');
+    const kwhToggle = document.querySelector('.kwh-toggle');
+    if (kwhWrap) kwhWrap.style.display = 'none';
+    if (kwhToggle) kwhToggle.classList.remove('open');
+    const kwhInput = document.getElementById('kwhInput');
+    if (kwhInput) {
+      kwhInput.value = '';
+      if (!kwhInput.dataset.wired) {
+        kwhInput.dataset.wired = '1';
+        kwhInput.addEventListener('input', () => {
+          const v = parseInt(kwhInput.value);
+          deck.data.annualKwh = (v && v >= 1000) ? v : null;
+        });
+      }
+    }
     // Load Google SDK + init slider
     loadGoogleMapsAPI();
     initBillSlider();
