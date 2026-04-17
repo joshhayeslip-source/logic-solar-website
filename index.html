@@ -1,0 +1,3267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Logic Solar — Smart Solar for Homes &amp; Businesses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Varela+Round&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black:        #0a0a0a;
+    --black-2:      #141414;
+    --black-3:      #1e1e1e;
+    --white:        #ffffff;
+    --gray-50:      #fafafa;
+    --gray-100:     #f4f4f4;
+    --gray-200:     #e6e6e6;
+    --gray-500:     #8a8a8a;
+    --gray-700:     #404040;
+    --yellow:       #FFCE1B;
+    --yellow-glow:  #FFDB47;
+    --yellow-deep:  #E6B400;
+    --shadow-lg:    0 30px 60px -20px rgba(0,0,0,0.3);
+    --shadow-xl:    0 40px 80px -25px rgba(0,0,0,0.4);
+    --shadow-yellow: 0 20px 50px -15px rgba(255,206,27,0.45);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Montserrat', -apple-system, sans-serif;
+    background: var(--white);
+    color: var(--black);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; }
+  .display { font-family: 'Varela Round', 'Montserrat', sans-serif; }
+
+  /* ══════ SCROLL PROGRESS ══════ */
+  .scroll-prog {
+    position: fixed; top: 0; left: 0;
+    height: 3px; width: 0%;
+    background: linear-gradient(90deg, var(--yellow), var(--yellow-glow));
+    z-index: 200;
+    box-shadow: 0 0 12px rgba(255,206,27,0.6);
+    transition: width 0.1s;
+  }
+
+  /* ══════ NAV ══════ */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 14px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .nav-logo { height: 34px; transition: transform 0.3s; }
+  .nav-logo:hover { transform: scale(1.05); }
+  .nav-links {
+    display: flex; gap: 28px;
+    font-size: 13px; font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--white);
+    align-items: center;
+  }
+  .nav-item { position: relative; }
+  .nav-link {
+    opacity: 0.8;
+    transition: opacity 0.2s, color 0.2s;
+    padding: 8px 0;
+    display: inline-flex; align-items: center; gap: 5px;
+    cursor: pointer;
+  }
+  .nav-link:hover { opacity: 1; color: var(--yellow); }
+  .nav-link.active { color: var(--yellow); opacity: 1; }
+  .nav-link .chev {
+    width: 10px; height: 10px;
+    transition: transform 0.25s;
+  }
+  .nav-item:hover .nav-link .chev { transform: rotate(180deg); }
+  .nav-drop {
+    position: absolute; top: 100%; left: -14px;
+    background: var(--black-2);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 8px;
+    min-width: 180px;
+    opacity: 0; visibility: hidden;
+    transform: translateY(-8px);
+    transition: all 0.25s;
+    box-shadow: var(--shadow-lg);
+  }
+  .nav-item:hover .nav-drop { opacity: 1; visibility: visible; transform: translateY(0); }
+  .nav-drop a {
+    display: block;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    border-radius: 8px;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .nav-drop a:hover { background: rgba(255,206,27,0.1); color: var(--yellow); }
+  .nav-cta {
+    background: var(--yellow);
+    color: var(--black);
+    padding: 11px 22px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .nav-cta:hover {
+    background: var(--yellow-glow);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px -6px rgba(255,206,27,0.6);
+  }
+  .nav-mobile {
+    display: none;
+    background: none; border: none;
+    color: var(--white);
+    cursor: pointer;
+    padding: 8px;
+    z-index: 201;
+    position: relative;
+  }
+  .nav-mobile svg { transition: transform 0.3s; }
+  body.menu-open .nav-mobile svg { transform: rotate(90deg); }
+
+  /* ══════ MOBILE DRAWER ══════ */
+  .mobile-drawer {
+    position: fixed;
+    top: 0; right: 0;
+    width: 100%; max-width: 380px;
+    height: 100vh;
+    background: var(--black);
+    z-index: 199;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    overflow-y: auto;
+    padding: 90px 32px 40px;
+    border-left: 1px solid rgba(255,255,255,0.08);
+    display: flex; flex-direction: column;
+  }
+  body.menu-open .mobile-drawer { transform: translateX(0); }
+  body.menu-open { overflow: hidden; }
+  .mobile-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 198;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+  }
+  body.menu-open .mobile-backdrop { opacity: 1; visibility: visible; }
+  .md-section {
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .md-section:last-of-type { border-bottom: none; }
+  .md-label {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 12px;
+  }
+  .md-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 0;
+    color: var(--white);
+    font-family: 'Varela Round', sans-serif;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    transition: color 0.2s, padding-left 0.25s;
+  }
+  .md-link:hover, .md-link.active {
+    color: var(--yellow);
+    padding-left: 8px;
+  }
+  .md-link svg {
+    width: 16px; height: 16px;
+    opacity: 0.4;
+    transition: transform 0.25s, opacity 0.2s;
+  }
+  .md-link:hover svg { opacity: 1; transform: translateX(4px); }
+  .md-sub {
+    display: block;
+    padding: 10px 0 10px 16px;
+    font-size: 14px; font-weight: 500;
+    color: rgba(255,255,255,0.7);
+    border-left: 2px solid rgba(255,255,255,0.08);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .md-sub:hover {
+    color: var(--yellow);
+    border-left-color: var(--yellow);
+    padding-left: 20px;
+  }
+  .md-cta {
+    margin-top: auto;
+    padding: 16px 24px;
+    background: var(--yellow);
+    color: var(--black);
+    border: none; border-radius: 100px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700; font-size: 15px;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .md-cta:hover { background: var(--yellow-glow); transform: translateY(-2px); }
+  .md-contact {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.8;
+  }
+  .md-contact a { color: var(--yellow); font-weight: 700; }
+
+  /* ══════ VIEW TRANSITIONS ══════ */
+  .view {
+    display: none;
+    animation: view-in 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .view.active { display: block; }
+  @keyframes view-in {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ══════ BUTTONS ══════ */
+  .btn-primary {
+    background: var(--yellow);
+    color: var(--black);
+    padding: 18px 34px;
+    font-weight: 700; font-size: 15px;
+    border: none; border-radius: 100px;
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: all 0.25s;
+    letter-spacing: 0.01em;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+  }
+  .btn-primary:hover::before { transform: translateX(100%); }
+  .btn-primary:hover {
+    background: var(--yellow-glow);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px -8px rgba(255,206,27,0.5);
+  }
+  .btn-primary svg { width: 18px; height: 18px; transition: transform 0.25s; }
+  .btn-primary:hover svg { transform: translateX(4px); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--white);
+    padding: 18px 34px;
+    font-weight: 600; font-size: 15px;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 100px;
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: all 0.25s;
+  }
+  .btn-ghost:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
+  .btn-dark {
+    background: var(--black);
+    color: var(--white);
+    padding: 16px 30px;
+    font-weight: 700; font-size: 14px;
+    border: none; border-radius: 100px;
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: all 0.25s;
+  }
+  .btn-dark:hover { background: var(--black-3); transform: translateY(-2px); }
+
+  /* ══════ HERO STANDARD ══════ */
+  .hero {
+    position: relative;
+    min-height: 88vh;
+    background: var(--black);
+    color: var(--white);
+    overflow: hidden;
+    display: flex; align-items: center;
+  }
+  .hero.short { min-height: 60vh; }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.35;
+    transition: opacity 1s, transform 20s;
+    animation: slow-zoom 30s ease-out infinite alternate;
+  }
+  @keyframes slow-zoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(135deg, rgba(10,10,10,0.8) 0%, rgba(10,10,10,0.4) 45%, rgba(10,10,10,0.75) 100%),
+      radial-gradient(circle at 15% 85%, rgba(255,206,27,0.15) 0%, transparent 45%);
+  }
+  .hero-inner {
+    position: relative;
+    padding: 100px 40px 120px;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .hero.short .hero-inner { padding: 80px 40px; }
+
+  /* Floating particles */
+  .particles {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    width: 3px; height: 3px;
+    background: var(--yellow);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--yellow);
+    opacity: 0;
+    animation: float 15s infinite linear;
+  }
+  @keyframes float {
+    0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.6; }
+    100% { transform: translateY(-100px) translateX(50px); opacity: 0; }
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 28px;
+    padding: 8px 14px;
+    border: 1px solid rgba(255,206,27,0.35);
+    border-radius: 100px;
+    background: rgba(255,206,27,0.08);
+    animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--yellow); border-radius: 50%;
+    box-shadow: 0 0 12px var(--yellow);
+    animation: pulse-dot 2s infinite;
+  }
+  @keyframes pulse-dot {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.5); }
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-title {
+    font-family: 'Varela Round', sans-serif;
+    font-size: clamp(44px, 8vw, 120px);
+    line-height: 0.94;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+    max-width: 1100px;
+    animation: fade-up 0.8s 0.1s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+  .hero-title .y {
+    color: var(--yellow);
+    display: inline-block;
+    position: relative;
+  }
+  .hero-title .y::after {
+    content: '';
+    position: absolute;
+    bottom: 0.08em; left: 0; right: 0;
+    height: 0.08em;
+    background: var(--yellow);
+    opacity: 0.25;
+    transform-origin: left;
+    animation: underline 1.5s 1s ease-out backwards;
+  }
+  @keyframes underline {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+  .hero-sub {
+    font-size: clamp(16px, 1.3vw, 19px);
+    line-height: 1.5;
+    max-width: 560px;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 40px;
+    animation: fade-up 0.8s 0.25s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+  .hero-ctas {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    margin-bottom: 80px;
+    animation: fade-up 0.8s 0.4s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    max-width: 880px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 32px;
+    animation: fade-up 0.8s 0.55s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+  .hstat { padding-right: 24px; border-right: 1px solid rgba(255,255,255,0.12); }
+  .hstat:last-child { border-right: none; }
+  .hstat-value {
+    font-family: 'Varela Round', sans-serif;
+    font-size: clamp(26px, 2.8vw, 40px);
+    line-height: 1;
+    color: var(--yellow);
+    margin-bottom: 6px;
+  }
+  .hstat-label {
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+  }
+
+  /* Power decoration */
+  .power-deco {
+    position: absolute;
+    top: 50%; right: -80px;
+    transform: translateY(-50%);
+    width: 520px; height: 520px;
+    opacity: 0.1;
+    pointer-events: none;
+  }
+  .power-deco svg {
+    width: 100%; height: 100%;
+    animation: spin-slow 90s linear infinite;
+  }
+  @keyframes spin-slow { to { transform: rotate(360deg); } }
+
+  /* ══════ TRUST BAR ══════ */
+  .trust {
+    background: var(--yellow);
+    color: var(--black);
+    padding: 18px 0;
+    overflow: hidden;
+    position: relative;
+    border-bottom: 3px solid var(--black);
+  }
+  .trust-track {
+    display: flex; gap: 56px; white-space: nowrap;
+    animation: scroll-x 50s linear infinite;
+    font-size: 14px; font-weight: 700;
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .trust-track > span { display: inline-flex; align-items: center; gap: 56px; }
+  .trust-track > span::after { content: '⬢'; color: var(--black); font-size: 11px; }
+  @keyframes scroll-x { to { transform: translateX(-50%); } }
+
+  /* ══════ SECTION SCAFFOLD ══════ */
+  section.block { padding: 120px 40px; position: relative; }
+  .container { max-width: 1400px; margin: 0 auto; position: relative; }
+  .container-narrow { max-width: 1000px; margin: 0 auto; position: relative; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .eyebrow::before {
+    content: ''; width: 28px; height: 2px;
+    background: var(--yellow);
+  }
+  .eyebrow.light { color: var(--yellow); }
+  .eyebrow.dark { color: var(--black); }
+  .section-title {
+    font-family: 'Varela Round', sans-serif;
+    font-size: clamp(36px, 5.2vw, 72px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    max-width: 900px;
+    margin-bottom: 28px;
+  }
+  .section-title .y { color: var(--yellow-deep); }
+  .section-title.on-dark .y { color: var(--yellow); }
+  .section-title.on-dark { color: var(--white); }
+  .section-sub {
+    font-size: 18px;
+    max-width: 620px;
+    color: var(--gray-700);
+    line-height: 1.55;
+  }
+  .section-sub.on-dark { color: rgba(255,255,255,0.72); }
+
+  /* ══════ REVEAL ANIMATIONS ══════ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal-1 { transition-delay: 0.1s; }
+  .reveal-2 { transition-delay: 0.2s; }
+  .reveal-3 { transition-delay: 0.3s; }
+  .reveal-4 { transition-delay: 0.4s; }
+
+  /* ══════ WHY SECTION ══════ */
+  .why { background: var(--gray-50); }
+  .why-grid {
+    margin-top: 72px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .why-card {
+    background: var(--white);
+    padding: 36px 32px;
+    border-radius: 24px;
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+  .why-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+  }
+  .why-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--yellow);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s;
+  }
+  .why-card:hover::before { transform: scaleX(1); }
+  .why-card::after {
+    content: '';
+    position: absolute; bottom: -50%; right: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(255,206,27,0.08) 0%, transparent 40%);
+    transform: scale(0);
+    transition: transform 0.6s;
+  }
+  .why-card:hover::after { transform: scale(1); }
+  .why-num {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 14px;
+    color: var(--gray-500);
+    margin-bottom: 40px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .why-num .dot {
+    width: 10px; height: 10px;
+    background: var(--yellow);
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(255,206,27,0.6);
+    animation: pulse-ring 2s infinite;
+  }
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgba(255,206,27,0.6); }
+    100% { box-shadow: 0 0 0 12px rgba(255,206,27,0); }
+  }
+  .why-card h3 {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 26px;
+    line-height: 1.1;
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+    position: relative;
+  }
+  .why-card p {
+    font-size: 15px;
+    color: var(--gray-700);
+    line-height: 1.55;
+    position: relative;
+  }
+
+  /* ══════ SPLIT CARDS ══════ */
+  .split-grid {
+    margin-top: 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .split-card {
+    position: relative;
+    min-height: 560px;
+    border-radius: 28px;
+    overflow: hidden;
+    background: var(--black);
+    cursor: pointer;
+    transition: transform 0.4s;
+  }
+  .split-card:hover { transform: translateY(-6px); }
+  .split-img {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    transition: transform 0.8s, filter 0.5s;
+    filter: brightness(0.72);
+  }
+  .split-card:hover .split-img {
+    transform: scale(1.06);
+    filter: brightness(0.9);
+  }
+  .split-content {
+    position: relative;
+    padding: 48px 40px;
+    min-height: 560px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    color: var(--white);
+    background: linear-gradient(180deg, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.85) 85%);
+  }
+  .split-tag {
+    display: inline-flex; align-self: flex-start;
+    padding: 6px 14px;
+    background: var(--yellow);
+    color: var(--black);
+    font-size: 11px; font-weight: 800;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    border-radius: 100px;
+  }
+  .split-card h3 {
+    font-family: 'Varela Round', sans-serif;
+    font-size: clamp(32px, 3.5vw, 48px);
+    line-height: 1;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+  .split-card p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.82);
+    max-width: 460px;
+    margin-bottom: 22px;
+    line-height: 1.5;
+  }
+  .split-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--yellow);
+    font-weight: 700; font-size: 14px;
+    letter-spacing: 0.02em;
+  }
+  .split-link svg {
+    width: 16px; height: 16px;
+    transition: transform 0.25s;
+  }
+  .split-card:hover .split-link svg { transform: translateX(6px); }
+
+  /* ══════ HOW IT WORKS ══════ */
+  .how {
+    background: var(--black);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+  .how::before {
+    content: '';
+    position: absolute; top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(255,206,27,0.15) 0%, transparent 60%);
+    animation: pulse-bg 8s ease-in-out infinite;
+  }
+  @keyframes pulse-bg {
+    0%,100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.2); opacity: 0.9; }
+  }
+  .how-grid {
+    margin-top: 72px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    position: relative;
+  }
+  .how-line {
+    position: absolute;
+    top: 52px;
+    left: 10%; right: 10%;
+    height: 2px;
+    background: rgba(255,206,27,0.2);
+    z-index: 0;
+    overflow: hidden;
+  }
+  .how-line::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, var(--yellow), var(--yellow-glow), var(--yellow));
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 2s ease-out;
+  }
+  .how.in-view .how-line::after { transform: scaleX(1); }
+  .how-step {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+  .how-icon {
+    width: 104px; height: 104px;
+    border-radius: 50%;
+    background: var(--black-2);
+    border: 1.5px solid rgba(255,255,255,0.15);
+    display: grid; place-items: center;
+    margin: 0 auto 28px;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .how-icon svg {
+    width: 44px; height: 44px;
+    stroke: var(--yellow);
+    fill: none;
+    stroke-width: 1.4;
+    transition: stroke 0.4s;
+  }
+  .how-step:hover .how-icon {
+    background: var(--yellow);
+    border-color: var(--yellow);
+    box-shadow: var(--shadow-yellow);
+    transform: translateY(-6px) rotate(8deg);
+  }
+  .how-step:hover .how-icon svg { stroke: var(--black); }
+  .how-num {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 12px;
+    color: var(--yellow);
+    letter-spacing: 0.15em;
+    margin-bottom: 8px;
+  }
+  .how-step h4 {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 22px;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .how-step p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.5;
+    max-width: 240px;
+    margin: 0 auto;
+  }
+
+  /* ══════ PACKAGES ══════ */
+  .packages { background: var(--gray-50); }
+  .pack-grid {
+    margin-top: 72px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .pack {
+    background: var(--white);
+    border-radius: 28px;
+    padding: 40px 32px;
+    display: flex; flex-direction: column; gap: 20px;
+    position: relative;
+    border: 1px solid var(--gray-200);
+    transition: all 0.4s;
+  }
+  .pack:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--yellow);
+  }
+  .pack.featured {
+    background: var(--black);
+    color: var(--white);
+    border-color: var(--black);
+    box-shadow: var(--shadow-lg);
+    transform: scale(1.02);
+  }
+  .pack.featured:hover { transform: scale(1.02) translateY(-8px); }
+  .pack.featured::before {
+    content: 'MOST CHOSEN';
+    position: absolute; top: -14px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--yellow);
+    color: var(--black);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 10px; font-weight: 800;
+    letter-spacing: 0.14em;
+    animation: pulse-badge 3s infinite;
+  }
+  @keyframes pulse-badge {
+    0%,100% { box-shadow: 0 0 0 0 rgba(255,206,27,0.5); }
+    50% { box-shadow: 0 0 0 10px rgba(255,206,27,0); }
+  }
+  .pack-tag {
+    align-self: flex-start;
+    padding: 5px 12px;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    background: var(--gray-100);
+    border-radius: 100px;
+  }
+  .pack.featured .pack-tag { background: rgba(255,206,27,0.15); color: var(--yellow); }
+  .pack h3 {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 36px;
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+  .pack-price {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 20px;
+  }
+  .pack-price .from {
+    font-size: 12px; opacity: 0.6;
+    font-family: 'Montserrat', sans-serif; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    display: block; margin-bottom: 4px;
+  }
+  .pack-price .amt .y { color: var(--yellow-deep); }
+  .pack.featured .pack-price .amt .y { color: var(--yellow); }
+  .pack-price .after {
+    font-size: 11px; opacity: 0.5;
+    font-family: 'Montserrat', sans-serif; font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    display: block; margin-top: 4px;
+  }
+  .pack ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .pack li {
+    padding-left: 28px;
+    position: relative;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .pack li::before {
+    content: '';
+    position: absolute; left: 0; top: 4px;
+    width: 16px; height: 16px;
+    background: var(--yellow);
+    mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");
+    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");
+    mask-size: contain; -webkit-mask-size: contain;
+    mask-repeat: no-repeat; -webkit-mask-repeat: no-repeat;
+  }
+  .pack-btn {
+    margin-top: auto;
+    padding: 14px 22px;
+    background: var(--black);
+    color: var(--white);
+    border: none; border-radius: 100px;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .pack-btn:hover { background: var(--gray-700); transform: translateY(-2px); }
+  .pack.featured .pack-btn { background: var(--yellow); color: var(--black); }
+  .pack.featured .pack-btn:hover { background: var(--yellow-glow); }
+
+  /* ══════ CALCULATOR ══════ */
+  .calc {
+    background: var(--black);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+  .calc::before {
+    content: '';
+    position: absolute;
+    bottom: -200px; left: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(255,206,27,0.18) 0%, transparent 60%);
+    animation: pulse-bg 10s ease-in-out infinite;
+  }
+  .calc-wrap {
+    margin-top: 72px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+    position: relative;
+  }
+  .field { margin-bottom: 36px; }
+  .field-label {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 14px;
+  }
+  .field-name {
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+  .field-val {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 30px;
+    color: var(--yellow);
+    transition: transform 0.2s;
+  }
+  .field input[type=range] {
+    width: 100%;
+    -webkit-appearance: none; appearance: none;
+    background: transparent;
+    cursor: pointer;
+  }
+  .field input[type=range]::-webkit-slider-runnable-track {
+    height: 4px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 100px;
+  }
+  .field input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px; height: 24px;
+    background: var(--yellow);
+    border: 3px solid var(--black);
+    border-radius: 50%;
+    margin-top: -10px;
+    box-shadow: 0 0 0 1px var(--yellow), 0 4px 12px rgba(255,206,27,0.4);
+    transition: transform 0.15s;
+  }
+  .field input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+  .field input[type=range]::-moz-range-track {
+    height: 4px; background: rgba(255,255,255,0.15); border-radius: 100px;
+  }
+  .field input[type=range]::-moz-range-thumb {
+    width: 24px; height: 24px; background: var(--yellow);
+    border: 3px solid var(--black); border-radius: 50%;
+  }
+  .field-ticks {
+    display: flex; justify-content: space-between;
+    margin-top: 12px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    font-weight: 600;
+  }
+  .calc-note {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.55;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 16px;
+  }
+  .calc-out {
+    background: var(--yellow);
+    color: var(--black);
+    border-radius: 28px;
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .calc-out::before {
+    content: ''; position: absolute;
+    top: -30px; right: -30px;
+    width: 160px; height: 160px;
+    background: rgba(0,0,0,0.06);
+    border-radius: 50%;
+    animation: spin-slow 60s linear infinite;
+  }
+  .calc-out-h {
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 32px;
+    position: relative;
+  }
+  .calc-stat {
+    padding: 22px 0;
+    border-top: 1.5px solid rgba(0,0,0,0.12);
+    position: relative;
+  }
+  .calc-stat:first-of-type { border-top: none; padding-top: 0; }
+  .calc-stat-label {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    opacity: 0.65;
+    margin-bottom: 8px;
+  }
+  .calc-stat-value {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 54px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .calc-stat-sub {
+    font-size: 13px;
+    opacity: 0.7;
+    margin-top: 6px;
+    font-weight: 500;
+  }
+
+  /* ══════ TESTIMONIALS ══════ */
+  .quotes { background: var(--white); }
+  .q-grid {
+    margin-top: 60px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .quote {
+    background: var(--gray-50);
+    padding: 36px 32px;
+    border-radius: 24px;
+    position: relative;
+    transition: all 0.4s;
+  }
+  .quote:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); background: var(--white); }
+  .q-stars {
+    display: flex; gap: 2px;
+    color: var(--yellow);
+    margin-bottom: 16px;
+  }
+  .q-stars svg {
+    width: 16px; height: 16px;
+    animation: star-pop 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+  .q-stars svg:nth-child(1) { animation-delay: 0s; }
+  .q-stars svg:nth-child(2) { animation-delay: 0.05s; }
+  .q-stars svg:nth-child(3) { animation-delay: 0.1s; }
+  .q-stars svg:nth-child(4) { animation-delay: 0.15s; }
+  .q-stars svg:nth-child(5) { animation-delay: 0.2s; }
+  @keyframes star-pop {
+    from { opacity: 0; transform: scale(0.3); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .quote p {
+    font-size: 16px;
+    line-height: 1.55;
+    margin-bottom: 24px;
+  }
+  .q-attr {
+    display: flex; align-items: center; gap: 14px;
+    padding-top: 16px;
+    border-top: 1px solid var(--gray-200);
+  }
+  .q-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--black);
+    color: var(--yellow);
+    display: grid; place-items: center;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 15px;
+  }
+  .q-who { font-weight: 700; font-size: 14px; }
+  .q-where { font-size: 12px; color: var(--gray-500); }
+
+  /* ══════ FAQ ══════ */
+  .faq { background: var(--gray-50); }
+  .faq-wrap { margin-top: 60px; max-width: 860px; }
+  .faq-item {
+    background: var(--white);
+    border-radius: 16px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: box-shadow 0.3s;
+  }
+  .faq-item.open { box-shadow: var(--shadow-lg); }
+  .faq-q {
+    width: 100%;
+    background: none; border: none;
+    padding: 24px 28px;
+    text-align: left;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 19px;
+    color: var(--black);
+  }
+  .faq-plus {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--gray-100);
+    display: grid; place-items: center;
+    flex-shrink: 0;
+    font-size: 18px;
+    transition: all 0.3s;
+  }
+  .faq-item.open .faq-plus {
+    background: var(--yellow);
+    transform: rotate(45deg);
+  }
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+    padding: 0 28px;
+    color: var(--gray-700);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .faq-item.open .faq-a { max-height: 400px; padding: 0 28px 28px; }
+
+  /* ══════ FINAL CTA ══════ */
+  .final {
+    background: var(--yellow);
+    color: var(--black);
+    padding: 140px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .final::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(255,255,255,0.3) 0%, transparent 35%),
+      radial-gradient(circle at 80% 70%, rgba(0,0,0,0.08) 0%, transparent 40%);
+    pointer-events: none;
+    animation: breathe 8s ease-in-out infinite;
+  }
+  @keyframes breathe {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+  .final h2 {
+    font-family: 'Varela Round', sans-serif;
+    font-size: clamp(40px, 6.5vw, 88px);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    max-width: 1000px;
+    margin: 0 auto 24px;
+    position: relative;
+  }
+  .final p {
+    font-size: 18px;
+    max-width: 560px;
+    margin: 0 auto 40px;
+    position: relative;
+    color: rgba(10,10,10,0.75);
+  }
+  .final .btn-primary {
+    background: var(--black);
+    color: var(--yellow);
+    font-size: 16px;
+    padding: 20px 40px;
+    position: relative;
+  }
+  .final .btn-primary:hover { background: var(--black-3); }
+  .final-meta {
+    display: flex; gap: 24px; justify-content: center;
+    margin-top: 32px;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(10,10,10,0.6);
+    position: relative;
+    flex-wrap: wrap;
+  }
+
+  /* ══════ FOOTER ══════ */
+  footer { background: var(--black); color: var(--white); padding: 80px 40px 30px; }
+  .foot-grid {
+    max-width: 1400px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    gap: 50px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+  .foot-logo { height: 44px; margin-bottom: 20px; }
+  .foot-brand p {
+    color: rgba(255,255,255,0.65);
+    font-size: 14px; max-width: 340px;
+    line-height: 1.55; margin-bottom: 20px;
+  }
+  .foot-socials { display: flex; gap: 10px; }
+  .foot-social {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    display: grid; place-items: center;
+    transition: all 0.25s;
+    color: var(--white);
+  }
+  .foot-social:hover { background: var(--yellow); color: var(--black); transform: translateY(-3px); }
+  .foot-social svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.6; }
+  .foot-col h5 {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 20px;
+  }
+  .foot-col a {
+    display: block;
+    color: rgba(255,255,255,0.72);
+    padding: 6px 0; font-size: 14px;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .foot-col a:hover { color: var(--yellow); transform: translateX(4px); }
+  .foot-bottom {
+    max-width: 1400px; margin: 30px auto 0;
+    display: flex; justify-content: space-between;
+    color: rgba(255,255,255,0.4); font-size: 12px;
+    flex-wrap: wrap; gap: 10px;
+  }
+
+  /* ══════ SERVICE PAGE ══════ */
+  .services-grid {
+    margin-top: 72px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .svc-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 24px;
+    padding: 36px 32px;
+    transition: all 0.4s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .svc-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--yellow);
+  }
+  .svc-icon-wrap {
+    width: 56px; height: 56px;
+    background: var(--yellow);
+    border-radius: 14px;
+    display: grid; place-items: center;
+    margin-bottom: 24px;
+    transition: all 0.4s;
+  }
+  .svc-card:hover .svc-icon-wrap {
+    background: var(--black);
+    transform: rotate(-5deg) scale(1.1);
+  }
+  .svc-icon-wrap svg { width: 28px; height: 28px; stroke: var(--black); fill: none; stroke-width: 1.6; transition: stroke 0.4s; }
+  .svc-card:hover .svc-icon-wrap svg { stroke: var(--yellow); }
+  .svc-card h3 {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 24px;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .svc-card p {
+    font-size: 15px;
+    color: var(--gray-700);
+    line-height: 1.55;
+    margin-bottom: 16px;
+  }
+  .svc-link {
+    font-size: 13px; font-weight: 700;
+    color: var(--black);
+    display: inline-flex; align-items: center; gap: 6px;
+    border-bottom: 1.5px solid var(--yellow);
+    padding-bottom: 2px;
+    transition: gap 0.25s;
+  }
+  .svc-card:hover .svc-link { gap: 10px; }
+
+  /* ══════ PRODUCTS PAGE ══════ */
+  .prod-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    padding: 80px 0;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .prod-row.reverse .prod-visual { order: 2; }
+  .prod-visual {
+    position: relative;
+    border-radius: 28px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    background: var(--gray-100);
+  }
+  .prod-visual img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s;
+  }
+  .prod-visual:hover img { transform: scale(1.05); }
+  .prod-visual .prod-badge {
+    position: absolute; top: 20px; left: 20px;
+    background: var(--yellow);
+    color: var(--black);
+    padding: 8px 14px;
+    font-size: 11px; font-weight: 800;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    border-radius: 100px;
+  }
+  .prod-text h3 {
+    font-family: 'Varela Round', sans-serif;
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 1;
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+  .prod-text h3 .y { color: var(--yellow-deep); }
+  .prod-text > p {
+    font-size: 17px;
+    color: var(--gray-700);
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+  .prod-feats {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 14px;
+    margin-bottom: 28px;
+  }
+  .prod-feats li {
+    padding-left: 28px; position: relative;
+    font-size: 15px; line-height: 1.5;
+  }
+  .prod-feats li::before {
+    content: '';
+    position: absolute; left: 0; top: 6px;
+    width: 16px; height: 16px;
+    background: var(--yellow);
+    mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");
+    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");
+    mask-size: contain; -webkit-mask-size: contain;
+  }
+  .prod-spec {
+    background: var(--gray-50);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 28px;
+  }
+  .prod-spec .spec-h {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--gray-500);
+    margin-bottom: 8px;
+  }
+  .prod-spec .spec-v {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 20px;
+  }
+
+  /* ══════ INCENTIVES PAGE ══════ */
+  .alert-banner {
+    background: linear-gradient(135deg, #FFF5D6 0%, #FFE9A3 100%);
+    border: 2px solid var(--yellow);
+    border-radius: 20px;
+    padding: 32px 36px;
+    margin: 40px 0;
+    display: flex;
+    gap: 24px;
+    align-items: start;
+  }
+  .alert-icon {
+    width: 48px; height: 48px;
+    background: var(--black);
+    border-radius: 50%;
+    display: grid; place-items: center;
+    flex-shrink: 0;
+  }
+  .alert-icon svg { width: 22px; height: 22px; stroke: var(--yellow); fill: none; stroke-width: 2; }
+  .alert-banner h3 {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+  .alert-banner p {
+    font-size: 15px;
+    color: var(--gray-700);
+    line-height: 1.55;
+  }
+  .incentive-grid {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .inc-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 24px;
+    padding: 36px;
+    transition: all 0.4s;
+  }
+  .inc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  .inc-card.featured { background: var(--black); color: var(--white); border-color: var(--black); }
+  .inc-tag {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 100px;
+    font-size: 10px; font-weight: 800;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .inc-tag.good { background: #D4F7D4; color: #1a6b1a; }
+  .inc-tag.ended { background: #FCD5D5; color: #8f1616; }
+  .inc-tag.yellow { background: var(--yellow); color: var(--black); }
+  .inc-card h3 {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 28px;
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+  }
+  .inc-card p {
+    font-size: 15px;
+    line-height: 1.55;
+    margin-bottom: 16px;
+  }
+  .inc-card.featured p { color: rgba(255,255,255,0.75); }
+
+  /* ══════ LOCATIONS PAGE ══════ */
+  .loc-map {
+    margin-top: 60px;
+    background: var(--black);
+    color: var(--white);
+    border-radius: 32px;
+    padding: 60px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .loc-states {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-top: 40px;
+  }
+  .loc-state {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 28px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+  .loc-state:hover {
+    background: rgba(255,206,27,0.1);
+    border-color: var(--yellow);
+    transform: translateY(-6px);
+  }
+  .loc-state::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 100%, rgba(255,206,27,0.3) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .loc-state:hover::before { opacity: 1; }
+  .loc-state-name {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 28px;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+    position: relative;
+  }
+  .loc-state-code {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--yellow);
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .loc-state-meta {
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    position: relative;
+  }
+
+  /* ══════ QUOTE FORM ══════ */
+  .quote-wrap {
+    max-width: 720px; margin: 60px auto 0;
+    background: var(--white);
+    border-radius: 28px;
+    box-shadow: var(--shadow-xl);
+    overflow: hidden;
+  }
+  .quote-progress {
+    background: var(--gray-100);
+    height: 4px;
+    position: relative;
+  }
+  .quote-progress-bar {
+    height: 100%;
+    background: var(--yellow);
+    width: 20%;
+    transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .quote-steps {
+    padding: 48px;
+  }
+  .quote-step { display: none; animation: view-in 0.4s; }
+  .quote-step.active { display: block; }
+  .quote-step-num {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--yellow-deep);
+    margin-bottom: 10px;
+  }
+  .quote-step h3 {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 32px;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .quote-step > p {
+    color: var(--gray-500);
+    margin-bottom: 32px;
+    font-size: 15px;
+  }
+  .quote-options {
+    display: grid; gap: 12px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .quote-opt {
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    border-radius: 16px;
+    padding: 24px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: left;
+    font-family: inherit;
+  }
+  .quote-opt:hover { border-color: var(--yellow); }
+  .quote-opt.selected { border-color: var(--yellow); background: rgba(255,206,27,0.06); }
+  .quote-opt-big {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+  .quote-opt-small {
+    font-size: 13px;
+    color: var(--gray-500);
+  }
+  .quote-input-grp {
+    margin-bottom: 20px;
+  }
+  .quote-input-grp label {
+    display: block;
+    font-size: 12px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gray-500);
+    margin-bottom: 8px;
+  }
+  .quote-input-grp input,
+  .quote-input-grp select {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid var(--gray-200);
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 15px;
+    transition: border-color 0.2s;
+  }
+  .quote-input-grp input:focus,
+  .quote-input-grp select:focus {
+    outline: none;
+    border-color: var(--yellow);
+  }
+  .quote-nav {
+    display: flex; justify-content: space-between;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--gray-100);
+  }
+  .quote-btn {
+    padding: 14px 28px;
+    border-radius: 100px;
+    font-family: inherit; font-weight: 700; font-size: 14px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.25s;
+    letter-spacing: 0.01em;
+  }
+  .quote-btn.next {
+    background: var(--black);
+    color: var(--white);
+  }
+  .quote-btn.next:hover { background: var(--black-3); transform: translateY(-2px); }
+  .quote-btn.next:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
+  .quote-btn.back {
+    background: var(--gray-100);
+    color: var(--black);
+  }
+  .quote-btn.back:hover { background: var(--gray-200); }
+  .quote-summary {
+    background: var(--gray-50);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  .quote-sum-row {
+    display: flex; justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--gray-200);
+    font-size: 14px;
+  }
+  .quote-sum-row:last-child { border-bottom: none; }
+  .quote-sum-row .k { color: var(--gray-500); }
+  .quote-sum-row .v { font-weight: 700; }
+  .quote-success {
+    text-align: center; padding: 40px 0;
+  }
+  .quote-success-icon {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: var(--yellow);
+    margin: 0 auto 24px;
+    display: grid; place-items: center;
+    animation: bounce-in 0.6s cubic-bezier(0.22, 1.5, 0.36, 1);
+  }
+  @keyframes bounce-in {
+    from { opacity: 0; transform: scale(0.3); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .quote-success-icon svg { width: 36px; height: 36px; stroke: var(--black); fill: none; stroke-width: 3; }
+
+  /* ══════ RESPONSIVE ══════ */
+  @media (max-width: 1100px) {
+    .nav-links { gap: 18px; }
+    .nav-links .nav-item:nth-child(n+5) { display: none; }
+  }
+  @media (max-width: 1000px) {
+    .why-grid { grid-template-columns: repeat(2, 1fr); }
+    .how-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+    .how-line { display: none; }
+    .pack-grid { grid-template-columns: 1fr; }
+    .pack.featured { transform: none; }
+    .split-grid { grid-template-columns: 1fr; }
+    .q-grid { grid-template-columns: 1fr; }
+    .calc-wrap { grid-template-columns: 1fr; }
+    .foot-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+    .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 20px; border-top: none; padding-top: 0; }
+    .hstat { border-right: none; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.12); }
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .incentive-grid { grid-template-columns: 1fr; }
+    .loc-states { grid-template-columns: repeat(2, 1fr); }
+    .prod-row, .prod-row.reverse { grid-template-columns: 1fr; gap: 32px; padding: 50px 0; }
+    .prod-row.reverse .prod-visual { order: unset; }
+    .power-deco { width: 320px; height: 320px; opacity: 0.06; right: -140px; }
+  }
+  @media (max-width: 820px) {
+    .nav { padding: 12px 20px; }
+    .nav-links { display: none; }
+    .nav-cta { display: none; }
+    .nav-mobile { display: block; }
+    section.block { padding: 70px 20px; }
+    .hero { min-height: auto; }
+    .hero-inner { padding: 60px 20px 70px; }
+    .hero.short .hero-inner { padding: 60px 20px; }
+    .hero-title { font-size: clamp(38px, 11vw, 68px); }
+    .hero-sub { font-size: 16px; margin-bottom: 32px; }
+    .hero-ctas { margin-bottom: 50px; }
+    .hero-ctas .btn-primary,
+    .hero-ctas .btn-ghost { padding: 16px 26px; font-size: 14px; }
+    .section-title { font-size: clamp(32px, 8vw, 54px); }
+    .section-sub { font-size: 16px; }
+    .why-grid { grid-template-columns: 1fr; gap: 14px; }
+    .why-card { padding: 28px 24px; }
+    .why-card h3 { font-size: 22px; }
+    .why-num { margin-bottom: 28px; }
+    .foot-grid { grid-template-columns: 1fr 1fr; gap: 32px; padding-bottom: 40px; }
+    .foot-brand { grid-column: 1 / -1; }
+    .final { padding: 90px 20px; }
+    .final h2 { font-size: clamp(34px, 9vw, 56px); }
+    .final p { font-size: 16px; margin-bottom: 32px; }
+    .final-meta { gap: 14px; font-size: 11px; }
+    footer { padding: 60px 20px 24px; }
+    .services-grid { grid-template-columns: 1fr; gap: 14px; }
+    .svc-card { padding: 28px 24px; }
+    .loc-states { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .loc-state { padding: 20px 16px; }
+    .loc-state-name { font-size: 22px; }
+    .loc-state-meta { font-size: 11px; }
+    .loc-map { padding: 40px 24px; }
+    .quote-wrap { border-radius: 20px; }
+    .quote-steps { padding: 32px 24px; }
+    .quote-options { grid-template-columns: 1fr; }
+    .alert-banner { flex-direction: column; padding: 24px; gap: 16px; border-radius: 16px; }
+    .alert-icon { width: 40px; height: 40px; }
+    .incentive-grid { gap: 14px; }
+    .inc-card { padding: 28px 24px; }
+    .inc-card h3 { font-size: 22px; }
+    .pack { padding: 32px 24px; }
+    .pack h3 { font-size: 30px; }
+    .split-card, .split-content { min-height: 440px; }
+    .split-content { padding: 32px 28px; }
+    .split-card h3 { font-size: clamp(28px, 8vw, 42px); }
+    .split-card p { font-size: 15px; }
+    .prod-row { padding: 40px 0; }
+    .prod-text h3 { font-size: clamp(28px, 8vw, 42px); }
+    .prod-text > p { font-size: 16px; }
+    .how { padding: 70px 20px; }
+    .how-grid { gap: 32px; margin-top: 48px; }
+    .how-icon { width: 88px; height: 88px; }
+    .how-icon svg { width: 38px; height: 38px; }
+    .calc-out { padding: 36px 28px; }
+    .calc-stat-value { font-size: 42px; }
+    .field-val { font-size: 24px; }
+    .quote { padding: 28px 24px; }
+    .quote p { font-size: 15px; }
+    .faq-q { padding: 20px 22px; font-size: 16px; }
+    .faq-item.open .faq-a { padding: 0 22px 22px; font-size: 14px; }
+    .trust { padding: 14px 0; }
+    .trust-track { font-size: 12px; gap: 40px; }
+    .trust-track > span { gap: 40px; }
+    .power-deco { display: none; }
+  }
+  @media (max-width: 500px) {
+    .hero-inner { padding: 50px 18px 60px; }
+    .hero-title { font-size: clamp(34px, 12vw, 56px); }
+    .hero-eyebrow { font-size: 10px; padding: 7px 12px; margin-bottom: 22px; }
+    .hero-ctas { flex-direction: column; align-items: stretch; gap: 10px; width: 100%; }
+    .hero-ctas button { justify-content: center; width: 100%; }
+    .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .hstat { padding: 12px 0; }
+    .hstat-value { font-size: 24px; }
+    .hstat-label { font-size: 10px; }
+    section.block { padding: 60px 18px; }
+    .section-title { font-size: clamp(28px, 9vw, 44px); }
+    .section-sub { font-size: 15px; }
+    .foot-grid { grid-template-columns: 1fr; gap: 30px; }
+    .foot-brand { grid-column: unset; }
+    .final { padding: 70px 18px; }
+    .final .btn-primary { padding: 16px 28px; font-size: 14px; }
+    .loc-states { grid-template-columns: 1fr; }
+    .quote-steps { padding: 28px 20px; }
+    .quote-step h3 { font-size: 24px; }
+    .quote-nav { flex-direction: column-reverse; gap: 10px; }
+    .quote-nav button { width: 100%; }
+    .pack-grid { gap: 16px; }
+    .mobile-drawer { padding: 80px 24px 32px; }
+    .md-link { font-size: 20px; }
+  }
+  @media (hover: none) and (pointer: coarse) {
+    /* Touch device adjustments */
+    .nav-item:hover .nav-drop { opacity: 0; visibility: hidden; }
+    .why-card:hover, .svc-card:hover, .pack:hover, .quote:hover,
+    .inc-card:hover, .loc-state:hover, .split-card:hover {
+      transform: none;
+    }
+    .particle { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="scroll-prog" id="scrollProg"></div>
+
+<!-- ══════ NAV ══════ -->
+<nav class="nav">
+  <a href="#/home" data-nav><img src="./logo.png" alt="Logic Solar" class="nav-logo"></a>
+  <div class="nav-links">
+    <div class="nav-item"><a class="nav-link" href="#/home" data-nav>Home</a></div>
+    <div class="nav-item">
+      <span class="nav-link">Service <svg class="chev" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5"/></svg></span>
+      <div class="nav-drop">
+        <a href="#/service" data-nav>All Services</a>
+        <a href="#/residential" data-nav>Residential</a>
+        <a href="#/commercial" data-nav>Commercial</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <span class="nav-link">Products <svg class="chev" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5"/></svg></span>
+      <div class="nav-drop">
+        <a href="#/products" data-nav>All Products</a>
+        <a href="#/products" data-nav data-anchor="panels">Panels</a>
+        <a href="#/products" data-nav data-anchor="batteries">Batteries</a>
+        <a href="#/products" data-nav data-anchor="chargers">EV Chargers</a>
+        <a href="#/products" data-nav data-anchor="upgrades">Upgrades</a>
+      </div>
+    </div>
+    <div class="nav-item"><a class="nav-link" href="#/incentives" data-nav>Incentives</a></div>
+    <div class="nav-item"><a class="nav-link" href="#/locations" data-nav>Locations</a></div>
+  </div>
+  <button class="nav-cta" onclick="nav('quote')">Get a Quote →</button>
+  <button class="nav-mobile" onclick="toggleMenu()" aria-label="Menu">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</nav>
+
+<!-- ══════ MOBILE DRAWER ══════ -->
+<div class="mobile-backdrop" onclick="toggleMenu()"></div>
+<aside class="mobile-drawer" aria-label="Mobile menu">
+  <div class="md-section">
+    <a class="md-link" onclick="navAndClose('home')">Home <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+  </div>
+  <div class="md-section">
+    <div class="md-label">Service</div>
+    <a class="md-sub" onclick="navAndClose('service')">All Services</a>
+    <a class="md-sub" onclick="navAndClose('residential')">Residential</a>
+    <a class="md-sub" onclick="navAndClose('commercial')">Commercial</a>
+  </div>
+  <div class="md-section">
+    <div class="md-label">Products</div>
+    <a class="md-sub" onclick="navAndClose('products')">All Products</a>
+    <a class="md-sub" onclick="navAndClose('products')">Panels</a>
+    <a class="md-sub" onclick="navAndClose('products')">Batteries</a>
+    <a class="md-sub" onclick="navAndClose('products')">EV Chargers</a>
+    <a class="md-sub" onclick="navAndClose('products')">Upgrades</a>
+  </div>
+  <div class="md-section">
+    <a class="md-link" onclick="navAndClose('incentives')">Incentives <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+    <a class="md-link" onclick="navAndClose('locations')">Locations <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+  </div>
+  <button class="md-cta" onclick="navAndClose('quote')">Get a Free Quote →</button>
+  <div class="md-contact">
+    <div>Call us: <a href="tel:8163005781">(816) 300-5781</a></div>
+    <div>Email: <a href="mailto:contact@logic-solar.com">contact@logic-solar.com</a></div>
+  </div>
+</aside>
+
+<main>
+
+<!-- ════════════════════════════════ -->
+<!-- ════════════ HOME ════════════ -->
+<!-- ════════════════════════════════ -->
+<section class="view active" data-view="home">
+
+  <section class="hero">
+    <div class="hero-bg" style="background-image: url('./hero-roof.jpg');"></div>
+    <div class="particles" id="particles"></div>
+    <div class="power-deco">
+      <svg viewBox="0 0 200 200">
+        <g fill="none" stroke="#FFCE1B" stroke-width="2" stroke-linecap="round">
+          <circle cx="100" cy="100" r="85"/>
+          <line x1="100" y1="15" x2="100" y2="70"/>
+          <circle cx="100" cy="100" r="60" stroke-dasharray="4 8"/>
+        </g>
+      </svg>
+    </div>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">The Logical Energy Choice</div>
+      <h1 class="hero-title">Make power.<br>Not <span class="y">payments</span>.</h1>
+      <p class="hero-sub">Logic Solar designs, installs, and services photovoltaic systems for homes and businesses across Missouri, Texas, Oklahoma, Kansas, and Illinois. Stop renting your electricity — start generating your own.</p>
+      <div class="hero-ctas">
+        <button class="btn-primary" onclick="nav('quote')">
+          Get a free quote
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+        <button class="btn-ghost" onclick="scrollToId('calc')">Estimate my savings</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><div class="hstat-value" data-count="2840" data-suffix="+">0</div><div class="hstat-label">Systems Installed</div></div>
+        <div class="hstat"><div class="hstat-value" data-count="61" data-prefix="$" data-suffix="k">$0</div><div class="hstat-label">Avg. Lifetime Savings</div></div>
+        <div class="hstat"><div class="hstat-value" data-count="25" data-suffix=" yr">0</div><div class="hstat-label">Performance Warranty</div></div>
+        <div class="hstat"><div class="hstat-value">4.9/5</div><div class="hstat-label">Customer Rating</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="trust">
+    <div class="trust-track">
+      <span>Net Metering Available</span>
+      <span>NABCEP-Certified Installers</span>
+      <span>25-Year Production Warranty</span>
+      <span>Licensed &amp; Insured</span>
+      <span>No Money Down Financing</span>
+      <span>Real-Time App Monitoring</span>
+      <span>Net Metering Available</span>
+      <span>NABCEP-Certified Installers</span>
+      <span>25-Year Production Warranty</span>
+      <span>Licensed &amp; Insured</span>
+      <span>No Money Down Financing</span>
+      <span>Real-Time App Monitoring</span>
+    </div>
+  </div>
+
+  <section class="block why" id="why">
+    <div class="container">
+      <div class="eyebrow dark reveal">The Case For Solar</div>
+      <h2 class="section-title reveal reveal-1">Utility rates rise.<br>Sunlight <span class="y">doesn't.</span></h2>
+      <p class="section-sub reveal reveal-2">Four reasons a solar array is one of the smartest upgrades you'll make this decade — for a home or a business.</p>
+
+      <div class="why-grid">
+        <div class="why-card reveal reveal-1">
+          <div class="why-num">01<span class="dot"></span></div>
+          <h3>Escape rising rates.</h3>
+          <p>Utility bills climbed ~4.3% annually over the past decade. A paid-off solar array locks your generation cost at zero for decades.</p>
+        </div>
+        <div class="why-card reveal reveal-2">
+          <div class="why-num">02<span class="dot"></span></div>
+          <h3>Own — don't rent.</h3>
+          <p>Every dollar to the utility disappears. Every kWh your panels produce is equity in your property. Solar homes sell for ~4% more on average.</p>
+        </div>
+        <div class="why-card reveal reveal-3">
+          <div class="why-num">03<span class="dot"></span></div>
+          <h3>Commercial &amp; rural incentives.</h3>
+          <p>Businesses can still claim the 30% Investment Tax Credit, and rural properties may qualify for USDA REAP grants covering up to 50% of project cost.</p>
+        </div>
+        <div class="why-card reveal reveal-4">
+          <div class="why-num">04<span class="dot"></span></div>
+          <h3>Power through outages.</h3>
+          <p>Add a battery and keep your critical circuits — or the whole building — running when the grid goes dark. No generator, no fuel, no noise.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" style="background:var(--white); padding-top:80px;">
+    <div class="container">
+      <div class="eyebrow dark reveal">What We Install</div>
+      <h2 class="section-title reveal reveal-1">Two scales.<br>One standard of <span class="y">craft</span>.</h2>
+      <p class="section-sub reveal reveal-2">Every project — from a small rooftop to a full commercial ground-mount — is designed in-house and installed by our own crews. Never subcontracted.</p>
+
+      <div class="split-grid">
+        <div class="split-card reveal reveal-1" onclick="nav('residential')">
+          <div class="split-img" style="background-image: url('./hero-roof.jpg');"></div>
+          <div class="split-content">
+            <span class="split-tag">Residential</span>
+            <div>
+              <h3>Homes</h3>
+              <p>Grid-tied rooftop systems engineered for your roof, your bill, and your climate. Most homeowners cut their electric bill to near zero.</p>
+              <span class="split-link">
+                Explore home solar
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="split-card reveal reveal-2" onclick="nav('commercial')">
+          <div class="split-img" style="background-image: url('./groundmount-solar.jpg');"></div>
+          <div class="split-content">
+            <span class="split-tag">Commercial</span>
+            <div>
+              <h3>Businesses</h3>
+              <p>Rooftop and ground-mount arrays for offices, warehouses, retail, agriculture, and non-profits. Reduce operating costs and qualify for incentives.</p>
+              <span class="split-link">
+                Explore commercial
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block how" id="how">
+    <div class="container">
+      <div class="eyebrow light reveal">How It Works</div>
+      <h2 class="section-title on-dark reveal reveal-1">Sunlight to savings<br>in <span class="y">four steps</span>.</h2>
+      <p class="section-sub on-dark reveal reveal-2">Every project begins with smart planning. From consultation to flipping the switch, most installs complete in 6–10 weeks — we handle the permits, the paperwork, and the utility interconnection.</p>
+
+      <div class="how-grid">
+        <div class="how-line"></div>
+        <div class="how-step reveal reveal-1">
+          <div class="how-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><line x1="9" y1="4" x2="9" y2="20"/><line x1="15" y1="4" x2="15" y2="20"/><line x1="3" y1="12" x2="21" y2="12"/></svg></div>
+          <div class="how-num">STEP 01</div>
+          <h4>Design</h4>
+          <p>Smart planning: panel layout, shade analysis, and energy output projections.</p>
+        </div>
+        <div class="how-step reveal reveal-2">
+          <div class="how-icon"><svg viewBox="0 0 24 24"><path d="M12 2l2 5h5l-4 3 2 5-5-3-5 3 2-5-4-3h5z"/><path d="M12 15v7"/></svg></div>
+          <div class="how-num">STEP 02</div>
+          <h4>Install</h4>
+          <p>Expert workmanship and advanced equipment — installed correctly the first time.</p>
+        </div>
+        <div class="how-step reveal reveal-3">
+          <div class="how-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="how-num">STEP 03</div>
+          <h4>Activate</h4>
+          <p>We handle inspections and utility approvals so your system can produce right away.</p>
+        </div>
+        <div class="how-step reveal reveal-4">
+          <div class="how-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l3-4 4 3 5-7"/></svg></div>
+          <div class="how-num">STEP 04</div>
+          <h4>Monitor</h4>
+          <p>Track production and savings in real time from our easy-to-use mobile app.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block packages">
+    <div class="container">
+      <div class="eyebrow dark reveal">System Options</div>
+      <h2 class="section-title reveal reveal-1">Three systems. <span class="y">Zero</span> guesswork.</h2>
+      <p class="section-sub reveal reveal-2">Every property is different — these are our most common starting points. Your quote will be precisely sized to your roof, your shading, and your utility rate schedule.</p>
+
+      <div class="pack-grid">
+        <div class="pack reveal reveal-1">
+          <span class="pack-tag">Entry · Essential</span>
+          <h3>Daybreak</h3>
+          <div class="pack-price">
+            <span class="from">Starting at</span>
+            <span class="amt">$<span class="y">26,300</span></span>
+            <span class="after">Cash price, before state incentives</span>
+          </div>
+          <ul>
+            <li>6 kW grid-tied rooftop array</li>
+            <li>14–16 premium Trina 450W panels</li>
+            <li>Enphase IQ8+ microinverters</li>
+            <li>Offsets ~70% of a typical home bill</li>
+            <li>25-year panel &amp; workmanship warranty</li>
+          </ul>
+          <button class="pack-btn" onclick="nav('quote')">Specify a Daybreak →</button>
+        </div>
+
+        <div class="pack featured reveal reveal-2">
+          <span class="pack-tag">Most Chosen</span>
+          <h3>Meridian</h3>
+          <div class="pack-price">
+            <span class="from">Starting at</span>
+            <span class="amt">$<span class="y">39,800</span></span>
+            <span class="after">Cash price, before state incentives</span>
+          </div>
+          <ul>
+            <li>10 kW rooftop array</li>
+            <li>22–24 panels with microinverters</li>
+            <li>Per-module production optimization</li>
+            <li>Typically offsets 100% of a home bill</li>
+            <li>EV charger &amp; battery-ready</li>
+          </ul>
+          <button class="pack-btn" onclick="nav('quote')">Specify a Meridian →</button>
+        </div>
+
+        <div class="pack reveal reveal-3">
+          <span class="pack-tag">Resilient · Backup</span>
+          <h3>Eclipse</h3>
+          <div class="pack-price">
+            <span class="from">Starting at</span>
+            <span class="amt">$<span class="y">60,900</span></span>
+            <span class="after">Cash price, before state incentives</span>
+          </div>
+          <ul>
+            <li>12 kW array + 13.5 kWh battery</li>
+            <li>Whole-home backup during outages</li>
+            <li>Time-of-use arbitrage savings</li>
+            <li>App-controlled load management</li>
+            <li>May qualify for state battery rebates</li>
+          </ul>
+          <button class="pack-btn" onclick="nav('quote')">Specify an Eclipse →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block calc" id="calc">
+    <div class="container">
+      <div class="eyebrow light reveal">Savings Calculator</div>
+      <h2 class="section-title on-dark reveal reveal-1">Enter your bill.<br><span class="y">See</span> the sum.</h2>
+      <p class="section-sub on-dark reveal reveal-2">A quick estimate — your licensed Logic Solar designer will model your actual roof and utility rate before issuing a fixed quote.</p>
+
+      <div class="calc-wrap">
+        <div class="calc-inputs reveal reveal-1">
+          <div class="field">
+            <div class="field-label"><span class="field-name">Monthly Electric Bill</span><span class="field-val" id="billLabel">$220</span></div>
+            <input type="range" id="bill" min="80" max="600" value="220" step="10">
+            <div class="field-ticks"><span>$80</span><span>$340</span><span>$600</span></div>
+          </div>
+          <div class="field">
+            <div class="field-label"><span class="field-name">Projection Horizon</span><span class="field-val" id="yrsLabel">25 yrs</span></div>
+            <input type="range" id="yrs" min="5" max="30" value="25" step="1">
+            <div class="field-ticks"><span>5 yrs</span><span>17 yrs</span><span>30 yrs</span></div>
+          </div>
+          <div class="field">
+            <div class="field-label"><span class="field-name">Sun Exposure</span><span class="field-val" id="sunLabel">Good</span></div>
+            <input type="range" id="sun" min="1" max="3" value="2" step="1">
+            <div class="field-ticks"><span>Partial</span><span>Good</span><span>Excellent</span></div>
+          </div>
+          <p class="calc-note">Estimates assume a 3.5% annual utility rate increase and average regional pricing. Residential estimates do not include federal tax credits (the 25D credit expired for residential purchases after December 31, 2025). Commercial projects may still qualify for the 30% ITC — we'll walk you through it in your quote.</p>
+        </div>
+        <div class="calc-out reveal reveal-2">
+          <div class="calc-out-h">✦ Projected Results</div>
+          <div class="calc-stat">
+            <div class="calc-stat-label">Estimated Lifetime Savings</div>
+            <div class="calc-stat-value">$<span id="saveVal">53,800</span></div>
+            <div class="calc-stat-sub">Vs. staying on the grid at current rates</div>
+          </div>
+          <div class="calc-stat">
+            <div class="calc-stat-label">Estimated Payback Period</div>
+            <div class="calc-stat-value"><span id="paybackVal">9.4</span> yrs</div>
+            <div class="calc-stat-sub">System pays for itself with energy savings</div>
+          </div>
+          <div class="calc-stat">
+            <div class="calc-stat-label">CO₂ Avoided</div>
+            <div class="calc-stat-value"><span id="coVal">104</span> tons</div>
+            <div class="calc-stat-sub">Equivalent to planting ~<span id="treeVal">1,720</span> trees</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block quotes">
+    <div class="container">
+      <div class="eyebrow dark reveal">From Our Customers</div>
+      <h2 class="section-title reveal reveal-1">Real reviews from <span class="y">real installs</span>.</h2>
+
+      <div class="q-grid">
+        <div class="quote reveal reveal-1">
+          <div class="q-stars">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-6 4 2 7-6-4-6 4 2-7-6-4h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-6 4 2 7-6-4-6 4 2-7-6-4h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-6 4 2 7-6-4-6 4 2-7-6-4h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-6 4 2 7-6-4-6 4 2-7-6-4h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-6 4 2 7-6-4-6 4 2-7-6-4h7z"/></svg>
+          </div>
+          <p>From the installation of the panels to flipping on the switch, Joshua from Logic Solar made going solar easy and affordable, with lots of information and support. The app makes it easy to track energy produced and used.</p>
+          <div class="q-attr">
+            <div class="q-avatar">S</div>
+            <div><div class="q-who">Verified Google Review</div><div class="q-where">Residential Install</div></div>
+          </div>
+        </div>
+
+        <div class="quote reveal reveal-2">
+          <div class="q-stars">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-6 4 2 7-6-4-6 4 2-7-6-4h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-6 4 2 7-6-4-6 4 2-7-6-4h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-6 4 2 7-6-4-6 4 2-7-6-4h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-6 4 2 7-6-4-6 4 2-7-6-4h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-6 4 2 7-6-4-6 4 2-7-6-4h7z"/></svg>
+          </div>
+          <p>Josh was great to work with. Entire process was easy and extremely competitive. I quoted over a dozen companies and he was the only person that shot me straight without a bunch of sales BS. Highly recommend.</p>
+          <div class="q-attr">
+            <div class="q-avatar">T</div>
+            <div><div class="q-who">Verified Google Review</div><div class="q-where">Residential Install</div></div>
+          </div>
+        </div>
+
+        <div class="quote reveal reveal-3">
+          <div class="q-stars">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-6 4 2 7-6-4-6 4 2-7-6-4h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-6 4 2 7-6-4-6 4 2-7-6-4h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-6 4 2 7-6-4-6 4 2-7-6-4h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-6 4 2 7-6-4-6 4 2-7-6-4h7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-6 4 2 7-6-4-6 4 2-7-6-4h7z"/></svg>
+          </div>
+          <p>The guys that came in to install our system were great. They kept me up to date on what was happening, were very professional and knowledgeable, and quick on the installation. I'd recommend them to anyone looking at solar.</p>
+          <div class="q-attr">
+            <div class="q-avatar">K</div>
+            <div><div class="q-who">Verified Google Review</div><div class="q-where">Residential Install</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block faq" id="faq">
+    <div class="container">
+      <div class="eyebrow dark reveal">Common Questions</div>
+      <h2 class="section-title reveal reveal-1">Everything you wanted<br>to ask <span class="y">the installer</span>.</h2>
+
+      <div class="faq-wrap reveal reveal-2">
+        <div class="faq-item open"><button class="faq-q"><span>Do panels work on cloudy days or in winter?</span><span class="faq-plus">+</span></button><div class="faq-a">Yes — just less. Panels produce from daylight, not direct sun, so overcast days still yield 10–25% of peak output. Cold weather is actually good for photovoltaics: they run more efficiently below 77°F. Snow generally melts off within hours thanks to the panels' dark surface.</div></div>
+        <div class="faq-item"><button class="faq-q"><span>How long does a typical installation take?</span><span class="faq-plus">+</span></button><div class="faq-a">From signed contract to flipping the switch is usually 6–10 weeks — most of that is permitting and utility interconnection, which we handle for you. The physical installation itself is typically a one- to two-day event on your roof.</div></div>
+        <div class="faq-item"><button class="faq-q"><span>What happened to the federal tax credit?</span><span class="faq-plus">+</span></button><div class="faq-a">The 30% residential federal tax credit (25D) expired December 31, 2025 for homeowner purchases. Commercial projects (48E) still qualify for the 30% Investment Tax Credit through 2027. Residential customers can still access federal incentives through third-party ownership (leases/PPAs). We'll walk you through what applies to your situation during your free consultation.</div></div>
+        <div class="faq-item"><button class="faq-q"><span>What happens when the grid goes down?</span><span class="faq-plus">+</span></button><div class="faq-a">Grid-tied systems without batteries automatically shut off during an outage — this is a safety requirement to protect utility workers. Add a battery (our Eclipse system), and you keep critical loads or the whole house running, depending on the configuration.</div></div>
+        <div class="faq-item"><button class="faq-q"><span>Will my roof need to be replaced first?</span><span class="faq-plus">+</span></button><div class="faq-a">If your roof has more than 10 years of life left, we can typically install directly over it. Otherwise, we recommend re-roofing first — our panels will outlast a typical asphalt shingle roof. We can refer trusted local roofers and coordinate timing.</div></div>
+        <div class="faq-item"><button class="faq-q"><span>Do the panels require maintenance?</span><span class="faq-plus">+</span></button><div class="faq-a">Almost none. Rain handles routine cleaning. We recommend a visual inspection every few years and a professional cleaning if you're in a particularly dusty region or under heavy tree cover. All covered under our 25-year comprehensive warranty.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final">
+    <h2>A quote takes 20 minutes.<br>The payoff, about nine years.</h2>
+    <p>Free, no-obligation site consultation. Our specialists reach out within one business day.</p>
+    <button class="btn-primary" onclick="nav('quote')">
+      Book a free site consultation
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
+    <div class="final-meta">
+      <span>✓ No obligation</span>
+      <span>✓ No high-pressure sales</span>
+      <span>✓ Same-day response</span>
+    </div>
+  </section>
+
+</section>
+
+<!-- ════════════════════════════════ -->
+<!-- ════════════ SERVICE ══════════ -->
+<!-- ════════════════════════════════ -->
+<section class="view" data-view="service">
+
+  <section class="hero short">
+    <div class="hero-bg" style="background-image: url('./groundmount-solar.jpg');"></div>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Services</div>
+      <h1 class="hero-title">Services that make<br>solar <span class="y">simple</span>.</h1>
+      <p class="hero-sub">From the first energy audit to the moment you flip the switch — and every day after — our services are designed to make clean power effortless.</p>
+    </div>
+  </section>
+
+  <section class="block" style="background:var(--gray-50);">
+    <div class="container">
+      <div class="eyebrow dark reveal">What We Offer</div>
+      <h2 class="section-title reveal reveal-1">Everything you need,<br>under <span class="y">one roof</span>.</h2>
+      <p class="section-sub reveal reveal-2">Logic Solar handles design, installation, interconnection, and ongoing service — in-house. No middlemen, no handoffs, no surprises.</p>
+
+      <div class="services-grid">
+        <div class="svc-card reveal reveal-1">
+          <div class="svc-icon-wrap"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><line x1="9" y1="4" x2="9" y2="20"/><line x1="15" y1="4" x2="15" y2="20"/><line x1="3" y1="12" x2="21" y2="12"/></svg></div>
+          <h3>Custom Solar Installation</h3>
+          <p>Reliable solar installations tailored for homes and businesses looking to reduce energy costs. Engineered for your specific roof, utility rate, and energy goals.</p>
+          <a class="svc-link" onclick="nav('residential')">Learn more →</a>
+        </div>
+
+        <div class="svc-card reveal reveal-2">
+          <div class="svc-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 12h4l2-7 4 14 2-7h6"/></svg></div>
+          <h3>Solar Energy Distribution</h3>
+          <p>Professional electrical integration ensures every kilowatt your panels produce flows safely and efficiently — to your appliances, your battery, or back to the grid.</p>
+          <a class="svc-link" onclick="nav('products')">Learn more →</a>
+        </div>
+
+        <div class="svc-card reveal reveal-3">
+          <div class="svc-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-5"/></svg></div>
+          <h3>Solar Circuit Replacement</h3>
+          <p>Upgrade aging inverters, replace faulty microinverters, or modernize legacy systems. Same-day diagnostics and factory-trained technicians.</p>
+          <a class="svc-link" onclick="nav('quote')">Learn more →</a>
+        </div>
+
+        <div class="svc-card reveal reveal-1">
+          <div class="svc-icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="4"/></svg></div>
+          <h3>Energy Audits</h3>
+          <p>Before we quote a system, we analyze 12 months of your utility usage — identifying waste, right-sizing the array, and projecting realistic savings.</p>
+          <a class="svc-link" onclick="nav('quote')">Book an audit →</a>
+        </div>
+
+        <div class="svc-card reveal reveal-2">
+          <div class="svc-icon-wrap"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg></div>
+          <h3>Monitoring &amp; Support</h3>
+          <p>Track your system's performance in real time with our easy-to-use app. If production drops, our remote diagnostics catch it before you do.</p>
+          <a class="svc-link" onclick="nav('products')">See the app →</a>
+        </div>
+
+        <div class="svc-card reveal reveal-3">
+          <div class="svc-icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 2l2.5 5 5.5 1-4 4 1 5.5L12 15l-5 2.5 1-5.5-4-4 5.5-1z"/></svg></div>
+          <h3>System Upgrades</h3>
+          <p>Add batteries, EV chargers, or expand your array as your energy needs grow. Our systems are designed to scale with you.</p>
+          <a class="svc-link" onclick="nav('products')">Explore upgrades →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final">
+    <h2>Whatever you need,<br>we've done it before.</h2>
+    <p>Talk to a specialist who can match the right service to your property.</p>
+    <button class="btn-primary" onclick="nav('quote')">Start a conversation<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+  </section>
+
+</section>
+
+<!-- ════════════════════════════════ -->
+<!-- ════════════ RESIDENTIAL ══════ -->
+<!-- ════════════════════════════════ -->
+<section class="view" data-view="residential">
+
+  <section class="hero">
+    <div class="hero-bg" style="background-image: url('./hero-roof.jpg');"></div>
+    <div class="particles"></div>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Residential Solar</div>
+      <h1 class="hero-title">Power your home<br>with energy that <span class="y">works for you</span>.</h1>
+      <p class="hero-sub">Our residential solar solutions help homeowners cut monthly utility bills, gain energy independence, and increase property value — all with little to no maintenance.</p>
+      <div class="hero-ctas">
+        <button class="btn-primary" onclick="nav('quote')">Get my home quote<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+        <button class="btn-ghost" onclick="scrollToId('res-packages')">See our systems</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="block why">
+    <div class="container">
+      <div class="eyebrow dark reveal">Why Homeowners Choose Solar</div>
+      <h2 class="section-title reveal reveal-1">Four wins, one <span class="y">decision</span>.</h2>
+
+      <div class="why-grid">
+        <div class="why-card reveal reveal-1">
+          <div class="why-num">01<span class="dot"></span></div>
+          <h3>Lower monthly bills.</h3>
+          <p>Most of our homeowners see their electric bill drop to near zero within months of activation.</p>
+        </div>
+        <div class="why-card reveal reveal-2">
+          <div class="why-num">02<span class="dot"></span></div>
+          <h3>Energy independence.</h3>
+          <p>Generate and use your own power. Less exposure to utility rate hikes, grid reliability issues, and fuel price volatility.</p>
+        </div>
+        <div class="why-card reveal reveal-3">
+          <div class="why-num">03<span class="dot"></span></div>
+          <h3>Higher home value.</h3>
+          <p>Solar homes sell for ~4% more on average, and typically sell faster than comparable non-solar homes.</p>
+        </div>
+        <div class="why-card reveal reveal-4">
+          <div class="why-num">04<span class="dot"></span></div>
+          <h3>Outage protection.</h3>
+          <p>Pair your array with a battery and keep your lights, fridge, internet, and medical equipment running when the grid goes dark.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block packages" id="res-packages">
+    <div class="container">
+      <div class="eyebrow dark reveal">Residential Systems</div>
+      <h2 class="section-title reveal reveal-1">Three starting points.<br>All customized to <span class="y">your home</span>.</h2>
+
+      <div class="pack-grid">
+        <div class="pack reveal reveal-1">
+          <span class="pack-tag">Entry · Essential</span>
+          <h3>Daybreak</h3>
+          <div class="pack-price">
+            <span class="from">Starting at</span>
+            <span class="amt">$<span class="y">26,300</span></span>
+            <span class="after">Cash price, before state incentives</span>
+          </div>
+          <ul>
+            <li>6 kW grid-tied rooftop array</li>
+            <li>14–16 premium Trina 450W panels</li>
+            <li>Enphase IQ8+ microinverters</li>
+            <li>Offsets ~70% of a typical home bill</li>
+            <li>25-year panel &amp; workmanship warranty</li>
+          </ul>
+          <button class="pack-btn" onclick="nav('quote')">Specify a Daybreak →</button>
+        </div>
+
+        <div class="pack featured reveal reveal-2">
+          <span class="pack-tag">Most Chosen</span>
+          <h3>Meridian</h3>
+          <div class="pack-price">
+            <span class="from">Starting at</span>
+            <span class="amt">$<span class="y">39,800</span></span>
+            <span class="after">Cash price, before state incentives</span>
+          </div>
+          <ul>
+            <li>10 kW rooftop array</li>
+            <li>22–24 Trina 450W panels</li>
+            <li>Enphase IQ8+ with per-module optimization</li>
+            <li>Typically offsets 100% of a home bill</li>
+            <li>EV charger &amp; battery-ready</li>
+          </ul>
+          <button class="pack-btn" onclick="nav('quote')">Specify a Meridian →</button>
+        </div>
+
+        <div class="pack reveal reveal-3">
+          <span class="pack-tag">Resilient · Backup</span>
+          <h3>Eclipse</h3>
+          <div class="pack-price">
+            <span class="from">Starting at</span>
+            <span class="amt">$<span class="y">60,900</span></span>
+            <span class="after">Cash price, before state incentives</span>
+          </div>
+          <ul>
+            <li>12 kW array + 13.5 kWh battery</li>
+            <li>Whole-home backup during outages</li>
+            <li>Time-of-use arbitrage savings</li>
+            <li>App-controlled load management</li>
+            <li>May qualify for state battery rebates</li>
+          </ul>
+          <button class="pack-btn" onclick="nav('quote')">Specify an Eclipse →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block how">
+    <div class="container">
+      <div class="eyebrow light reveal">Our Process</div>
+      <h2 class="section-title on-dark reveal reveal-1">Four steps. <span class="y">No surprises.</span></h2>
+
+      <div class="how-grid">
+        <div class="how-line"></div>
+        <div class="how-step reveal reveal-1">
+          <div class="how-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><line x1="9" y1="4" x2="9" y2="20"/><line x1="15" y1="4" x2="15" y2="20"/><line x1="3" y1="12" x2="21" y2="12"/></svg></div>
+          <div class="how-num">STEP 01</div><h4>Design</h4><p>Smart planning: panel layout, shade analysis, and energy output projections.</p>
+        </div>
+        <div class="how-step reveal reveal-2">
+          <div class="how-icon"><svg viewBox="0 0 24 24"><path d="M12 2l2 5h5l-4 3 2 5-5-3-5 3 2-5-4-3h5z"/><path d="M12 15v7"/></svg></div>
+          <div class="how-num">STEP 02</div><h4>Install</h4><p>Expert workmanship and advanced equipment — done right the first time.</p>
+        </div>
+        <div class="how-step reveal reveal-3">
+          <div class="how-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="how-num">STEP 03</div><h4>Activate</h4><p>We handle inspections and utility approvals so your system goes live fast.</p>
+        </div>
+        <div class="how-step reveal reveal-4">
+          <div class="how-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l3-4 4 3 5-7"/></svg></div>
+          <div class="how-num">STEP 04</div><h4>Monitor</h4><p>Track production and savings in real time from our mobile app.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final">
+    <h2>Take control of your<br>home's energy future.</h2>
+    <p>Every home is different. Your quote will be sized to your specific roof, utility, and goals.</p>
+    <button class="btn-primary" onclick="nav('quote')">Get my free quote<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+  </section>
+
+</section>
+
+<!-- ════════════════════════════════ -->
+<!-- ════════════ COMMERCIAL ═══════ -->
+<!-- ════════════════════════════════ -->
+<section class="view" data-view="commercial">
+
+  <section class="hero">
+    <div class="hero-bg" style="background-image: url('./groundmount-solar.jpg');"></div>
+    <div class="particles"></div>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Commercial Solar</div>
+      <h1 class="hero-title">Solar that makes<br><span class="y">business</span> sense.</h1>
+      <p class="hero-sub">Rooftop and ground-mount arrays for offices, warehouses, retail, agriculture, and non-profits. Lower operating costs, stabilize expenses, and take advantage of federal incentives still available through 2027.</p>
+      <div class="hero-ctas">
+        <button class="btn-primary" onclick="nav('quote')">Get my business quote<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+        <button class="btn-ghost" onclick="scrollToId('comm-benefits')">See the benefits</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="comm-benefits">
+    <div class="container">
+      <div class="eyebrow dark reveal">Commercial Benefits</div>
+      <h2 class="section-title reveal reveal-1">The incentive stack is<br><span class="y">still strong</span> for business.</h2>
+      <p class="section-sub reveal reveal-2">While residential tax credits expired at the end of 2025, commercial projects retain multiple powerful financial incentives.</p>
+
+      <div class="incentive-grid">
+        <div class="inc-card featured reveal reveal-1">
+          <span class="inc-tag yellow">Federal · Active</span>
+          <h3>30% Investment Tax Credit</h3>
+          <p>The 48E ITC returns 30% of your project cost as a federal tax credit. Available for projects that begin construction by July 4, 2026, or are placed in service by December 31, 2027.</p>
+        </div>
+        <div class="inc-card reveal reveal-2">
+          <span class="inc-tag good">Federal · Active</span>
+          <h3>Accelerated Depreciation (MACRS)</h3>
+          <p>Solar equipment qualifies for 5-year Modified Accelerated Cost Recovery, dramatically improving after-tax ROI in the first few years.</p>
+        </div>
+        <div class="inc-card reveal reveal-3">
+          <span class="inc-tag yellow">USDA · Rural</span>
+          <h3>REAP Grant</h3>
+          <p>Rural Energy for America Program grants cover up to 50% of project cost for qualifying agricultural producers and rural small businesses. We handle the application.</p>
+        </div>
+        <div class="inc-card reveal reveal-4">
+          <span class="inc-tag good">State · Varies</span>
+          <h3>State &amp; Utility Programs</h3>
+          <p>Property tax exemptions, sales tax exemptions, performance-based incentives, and net metering rules vary by state. We identify what applies to your site.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" style="background:var(--black); color:var(--white);">
+    <div class="container">
+      <div class="eyebrow light reveal">Industries We Serve</div>
+      <h2 class="section-title on-dark reveal reveal-1">Built for any <span class="y">commercial</span> context.</h2>
+
+      <div class="services-grid" style="margin-top:60px;">
+        <div class="svc-card reveal reveal-1" style="background:var(--black-2); border-color:rgba(255,255,255,0.08); color:var(--white);">
+          <div class="svc-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 20h18M5 20V10l7-6 7 6v10M9 20v-6h6v6"/></svg></div>
+          <h3 style="color:var(--white);">Offices &amp; Retail</h3>
+          <p style="color:rgba(255,255,255,0.65);">Rooftop arrays that offset daytime loads when your energy use is highest. Visible sustainability for your brand and customers.</p>
+        </div>
+        <div class="svc-card reveal reveal-2" style="background:var(--black-2); border-color:rgba(255,255,255,0.08); color:var(--white);">
+          <div class="svc-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 8h18v13H3zM6 21V11M10 21V11M14 21V11M18 21V11M3 8l9-5 9 5"/></svg></div>
+          <h3 style="color:var(--white);">Warehouses &amp; Industrial</h3>
+          <p style="color:rgba(255,255,255,0.65);">Large flat roofs are ideal for high-capacity arrays. Offset 24/7 operational loads and hedge against rate volatility.</p>
+        </div>
+        <div class="svc-card reveal reveal-3" style="background:var(--black-2); border-color:rgba(255,255,255,0.08); color:var(--white);">
+          <div class="svc-icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 2v20M6 6l6 6-6 6M18 6l-6 6 6 6"/></svg></div>
+          <h3 style="color:var(--white);">Agriculture &amp; Farms</h3>
+          <p style="color:rgba(255,255,255,0.65);">Ground-mount arrays on unused land, irrigation system power, and REAP grant eligibility for rural producers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="container container-narrow">
+      <div class="eyebrow dark reveal">Example: 50 kW Commercial Array</div>
+      <h2 class="section-title reveal reveal-1">What the numbers look like<br>for a <span class="y">mid-sized business</span>.</h2>
+      <p class="section-sub reveal reveal-2">Illustrative only — your actual quote depends on system size, local rates, roof/site conditions, and available incentives.</p>
+
+      <div class="incentive-grid reveal reveal-3" style="margin-top:40px;">
+        <div class="inc-card">
+          <span class="inc-tag good">Investment</span>
+          <h3 style="color:var(--black);">Project cost</h3>
+          <p style="font-family:'Varela Round',sans-serif; font-size:42px; color:var(--black); line-height:1;">$145,000</p>
+          <p style="font-size:13px; margin-top:8px;">Before any incentives — turnkey installed.</p>
+        </div>
+        <div class="inc-card featured">
+          <span class="inc-tag yellow">Net After Incentives</span>
+          <h3>Effective cost</h3>
+          <p style="font-family:'Varela Round',sans-serif; font-size:42px; line-height:1;">~$87,000</p>
+          <p style="font-size:13px; margin-top:8px; color:rgba(255,255,255,0.75);">After 30% ITC + MACRS depreciation benefit.</p>
+        </div>
+        <div class="inc-card">
+          <span class="inc-tag good">Annual</span>
+          <h3 style="color:var(--black);">Year-1 energy savings</h3>
+          <p style="font-family:'Varela Round',sans-serif; font-size:42px; color:var(--black); line-height:1;">~$13,400</p>
+          <p style="font-size:13px; margin-top:8px;">Typical mid-sized business in our service area.</p>
+        </div>
+        <div class="inc-card">
+          <span class="inc-tag good">Long-Term</span>
+          <h3 style="color:var(--black);">25-year savings</h3>
+          <p style="font-family:'Varela Round',sans-serif; font-size:42px; color:var(--black); line-height:1;">~$410,000</p>
+          <p style="font-size:13px; margin-top:8px;">Assumes 3.5% annual utility rate increase.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final">
+    <h2>Get your commercial<br>solar analysis — free.</h2>
+    <p>We'll model your site, project savings, and identify every incentive you qualify for.</p>
+    <button class="btn-primary" onclick="nav('quote')">Request commercial quote<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+  </section>
+
+</section>
+
+<!-- ════════════════════════════════ -->
+<!-- ════════════ PRODUCTS ═════════ -->
+<!-- ════════════════════════════════ -->
+<section class="view" data-view="products">
+
+  <section class="hero short">
+    <div class="hero-bg" style="background-image: url('./hero-roof.jpg');"></div>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Products</div>
+      <h1 class="hero-title">Professional-grade<br>components. <span class="y">Every time.</span></h1>
+      <p class="hero-sub">We only install equipment we'd put on our own homes. Tier-1 panels, proven microinverters, industry-leading batteries, and the chargers that make it all work.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="container">
+
+      <div class="prod-row" id="panels">
+        <div class="prod-visual reveal reveal-1">
+          <span class="prod-badge">Panels</span>
+          <img src="./hero-roof.jpg" alt="Solar panels on residential roof">
+        </div>
+        <div class="prod-text reveal reveal-2">
+          <h3>Trina <span class="y">Vertex S+</span> 450W</h3>
+          <p>Our default residential panel. High-efficiency monocrystalline PERC cells, all-black aesthetic, and one of the best warranty-to-price ratios in the industry.</p>
+          <div class="prod-spec">
+            <div class="spec-h">Key Specs</div>
+            <div class="spec-v">450W · 21.9% efficiency · 25-year warranty</div>
+          </div>
+          <ul class="prod-feats">
+            <li>Tier-1 manufacturer, Bloomberg-rated</li>
+            <li>Low-temperature coefficient (performs in heat)</li>
+            <li>Anti-reflective tempered glass</li>
+            <li>Wind load rated to 140 mph</li>
+          </ul>
+          <button class="btn-dark" onclick="nav('quote')">Get a panel quote →</button>
+        </div>
+      </div>
+
+      <div class="prod-row reverse" id="batteries">
+        <div class="prod-visual reveal reveal-1">
+          <span class="prod-badge">Batteries</span>
+          <img src="./groundmount-solar.jpg" alt="Battery storage system">
+        </div>
+        <div class="prod-text reveal reveal-2">
+          <h3>Enphase <span class="y">IQ Battery</span> &amp; IQ8+</h3>
+          <p>Enphase's microinverter-and-battery ecosystem is the industry standard for reliability and serviceability. Per-module monitoring means you know exactly what every panel is doing — always.</p>
+          <div class="prod-spec">
+            <div class="spec-h">Key Specs</div>
+            <div class="spec-v">IQ Battery 5P · 5 kWh modules · stackable to 40+ kWh</div>
+          </div>
+          <ul class="prod-feats">
+            <li>Whole-home or critical-load backup</li>
+            <li>Time-of-use rate arbitrage</li>
+            <li>15-year warranty</li>
+            <li>Seamless expansion — add modules later</li>
+          </ul>
+          <button class="btn-dark" onclick="nav('quote')">Get a battery quote →</button>
+        </div>
+      </div>
+
+      <div class="prod-row" id="chargers">
+        <div class="prod-visual reveal reveal-1">
+          <span class="prod-badge">EV Chargers</span>
+          <img src="./hero-roof.jpg" alt="EV charger installation">
+        </div>
+        <div class="prod-text reveal reveal-2">
+          <h3>Level 2 <span class="y">EV Chargers</span></h3>
+          <p>Charge your electric vehicle directly from your own solar production. We install Level 2 chargers compatible with every major EV, wire them into your panel, and configure them to prioritize solar power.</p>
+          <div class="prod-spec">
+            <div class="spec-h">Key Specs</div>
+            <div class="spec-v">240V · up to 48A · NEMA 14-50 or hardwired</div>
+          </div>
+          <ul class="prod-feats">
+            <li>Compatible with Tesla, Ford, Rivian, Kia, all J1772</li>
+            <li>App-based scheduling for off-peak or solar-only charging</li>
+            <li>Can be installed during solar project or retrofitted later</li>
+            <li>Pre-wired panel upgrades available</li>
+          </ul>
+          <button class="btn-dark" onclick="nav('quote')">Get an EV quote →</button>
+        </div>
+      </div>
+
+      <div class="prod-row reverse" id="upgrades">
+        <div class="prod-visual reveal reveal-1">
+          <span class="prod-badge">Upgrades</span>
+          <img src="./groundmount-solar.jpg" alt="System upgrades">
+        </div>
+        <div class="prod-text reveal reveal-2">
+          <h3>Smart home &amp; <span class="y">array additions</span></h3>
+          <p>Your system should grow with your energy needs. We retrofit existing arrays, add batteries to solar-only systems, install smart electrical panels, and integrate home energy management.</p>
+          <ul class="prod-feats">
+            <li>Array expansion (add more panels to existing systems)</li>
+            <li>Battery retrofit for grid-tied arrays</li>
+            <li>Smart load panels (Span, Schneider, etc.)</li>
+            <li>Whole-home surge protection</li>
+            <li>Panel upgrades (100A → 200A service)</li>
+          </ul>
+          <button class="btn-dark" onclick="nav('quote')">Ask about upgrades →</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="final">
+    <h2>Tier-1 equipment.<br>In-house installation.</h2>
+    <p>Every quote includes exact make, model, and spec sheet — no mystery hardware.</p>
+    <button class="btn-primary" onclick="nav('quote')">Request a quote<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+  </section>
+
+</section>
+
+<!-- ════════════════════════════════ -->
+<!-- ════════════ INCENTIVES ═══════ -->
+<!-- ════════════════════════════════ -->
+<section class="view" data-view="incentives">
+
+  <section class="hero short">
+    <div class="hero-bg" style="background-image: url('./hero-roof.jpg');"></div>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Incentives &amp; Financing</div>
+      <h1 class="hero-title">The <span class="y">full picture</span><br>on solar incentives in 2026.</h1>
+      <p class="hero-sub">The federal landscape changed at the end of 2025. Here's exactly what's still available — for homes, for businesses, and for rural properties.</p>
+    </div>
+  </section>
+
+  <section class="block" style="background:var(--gray-50);">
+    <div class="container container-narrow">
+
+      <div class="alert-banner reveal">
+        <div class="alert-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2z"/><line x1="12" y1="10" x2="12" y2="14"/><circle cx="12" cy="17" r="0.5" fill="currentColor"/></svg></div>
+        <div>
+          <h3>Important: The residential federal tax credit expired Dec 31, 2025</h3>
+          <p>The 25D Residential Clean Energy Credit ended for homeowner purchases after December 31, 2025. Commercial projects (48E ITC) remain eligible through 2027, and residential customers can still access federal incentives through third-party ownership arrangements like leases and PPAs. Logic Solar walks every customer through the exact incentive stack that applies to their situation.</p>
+        </div>
+      </div>
+
+      <div class="eyebrow dark reveal" style="margin-top:80px;">Federal Incentives</div>
+      <h2 class="section-title reveal reveal-1">What's still <span class="y">on the table</span>.</h2>
+
+      <div class="incentive-grid">
+        <div class="inc-card featured reveal reveal-1">
+          <span class="inc-tag yellow">Commercial · Active</span>
+          <h3>30% Investment Tax Credit (48E)</h3>
+          <p>Commercial and utility-scale solar qualifies for a 30% federal income tax credit. Projects must begin physical construction by July 4, 2026 or be placed in service by December 31, 2027.</p>
+          <a href="https://www.irs.gov/credits-deductions/residential-clean-energy-credit" target="_blank" style="color:var(--yellow); font-weight:700; font-size:13px;">Learn more at IRS.gov →</a>
+        </div>
+
+        <div class="inc-card featured reveal reveal-2">
+          <span class="inc-tag yellow">Rural Business · Active</span>
+          <h3>USDA REAP Grant</h3>
+          <p>The Rural Energy for America Program provides grants up to 50% of total project cost for qualifying agricultural producers and rural small businesses. Logic Solar prepares and submits REAP applications on your behalf.</p>
+          <a href="https://www.rd.usda.gov/programs-services/energy-programs/rural-energy-america-program-renewable-energy-systems-energy-efficiency-improvement-guaranteed-loans" target="_blank" style="color:var(--yellow); font-weight:700; font-size:13px;">Learn more at USDA.gov →</a>
+        </div>
+
+        <div class="inc-card reveal reveal-3">
+          <span class="inc-tag ended">Residential · Ended</span>
+          <h3 style="color:var(--black);">25D Residential Credit</h3>
+          <p style="color:var(--gray-700);">The 30% residential tax credit expired December 31, 2025 for homeowner-purchased systems. Systems installed before that date can still be claimed on 2025 tax returns.</p>
+        </div>
+
+        <div class="inc-card reveal reveal-4">
+          <span class="inc-tag good">TPO · Active</span>
+          <h3 style="color:var(--black);">Third-Party Ownership</h3>
+          <p style="color:var(--gray-700);">Solar leases and PPAs (where a third party owns the system) still qualify for federal incentives through end of 2027. The savings flow to homeowners as lower monthly payments.</p>
+        </div>
+      </div>
+
+      <div class="eyebrow dark reveal" style="margin-top:80px;">State &amp; Local</div>
+      <h2 class="section-title reveal reveal-1">It varies by <span class="y">state</span>.</h2>
+      <p class="section-sub reveal reveal-2">Your state-level incentives can substantially reduce your out-of-pocket cost. We identify everything you qualify for and handle the paperwork.</p>
+
+      <div class="incentive-grid">
+        <div class="inc-card reveal reveal-1">
+          <span class="inc-tag good">Common</span>
+          <h3 style="color:var(--black);">Net Metering</h3>
+          <p style="color:var(--gray-700);">Excess energy your panels produce is sent back to the grid and credited against your future bills — essentially using the grid as a free battery. Available in all five states we serve.</p>
+        </div>
+        <div class="inc-card reveal reveal-2">
+          <span class="inc-tag good">Varies</span>
+          <h3 style="color:var(--black);">Property Tax Exemptions</h3>
+          <p style="color:var(--gray-700);">Many states exempt the value solar adds to your property from reassessment — you get the resale boost without a higher property tax bill.</p>
+        </div>
+        <div class="inc-card reveal reveal-3">
+          <span class="inc-tag good">Varies</span>
+          <h3 style="color:var(--black);">Sales Tax Exemption</h3>
+          <p style="color:var(--gray-700);">Several states we serve exempt solar equipment purchases from state sales tax, saving thousands on larger systems.</p>
+        </div>
+        <div class="inc-card reveal reveal-4">
+          <span class="inc-tag good">Varies</span>
+          <h3 style="color:var(--black);">Utility Rebates</h3>
+          <p style="color:var(--gray-700);">Some utilities offer direct rebates for solar and battery installations. These change frequently — we check every current program during your consultation.</p>
+        </div>
+      </div>
+
+      <div class="eyebrow dark reveal" style="margin-top:80px;">Financing</div>
+      <h2 class="section-title reveal reveal-1">No money down <span class="y">options</span>.</h2>
+      <p class="section-sub reveal reveal-2">If you'd rather not pay cash upfront, we offer financing from trusted lenders with terms starting at 5–25 years and APRs as low as 4.99% for qualified buyers.</p>
+
+    </div>
+  </section>
+
+  <section class="final">
+    <h2>Let's map out<br>your incentive stack.</h2>
+    <p>In your free consultation, we'll identify every federal, state, and local program you qualify for.</p>
+    <button class="btn-primary" onclick="nav('quote')">Get my custom analysis<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+  </section>
+
+</section>
+
+<!-- ════════════════════════════════ -->
+<!-- ════════════ LOCATIONS ═══════ -->
+<!-- ════════════════════════════════ -->
+<section class="view" data-view="locations">
+
+  <section class="hero short">
+    <div class="hero-bg" style="background-image: url('./groundmount-solar.jpg');"></div>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Locations</div>
+      <h1 class="hero-title">Serving the <span class="y">heartland</span>.<br>Five states. One team.</h1>
+      <p class="hero-sub">Logic Solar installs across Missouri, Texas, Oklahoma, Kansas, and Illinois — regions with strong sun exposure, supportive net metering, and rising utility rates that make solar a smart long-term bet.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="container">
+
+      <div class="loc-map reveal">
+        <div class="eyebrow light">Service Area</div>
+        <h2 class="section-title on-dark">Where we <span class="y">install</span>.</h2>
+        <p class="section-sub on-dark" style="max-width:720px;">Our crews are based in Kansas City and travel across five states. If you're in our service area, you're getting the same in-house design and installation team — not a subcontractor.</p>
+
+        <div class="loc-states">
+          <div class="loc-state reveal reveal-1" onclick="nav('quote')">
+            <div class="loc-state-name">Missouri</div>
+            <div class="loc-state-code">MO</div>
+            <div class="loc-state-meta">Home base · Kansas City, St. Louis, Springfield, Columbia</div>
+          </div>
+          <div class="loc-state reveal reveal-2" onclick="nav('quote')">
+            <div class="loc-state-name">Texas</div>
+            <div class="loc-state-code">TX</div>
+            <div class="loc-state-meta">Dallas, Fort Worth, Houston, Austin, San Antonio</div>
+          </div>
+          <div class="loc-state reveal reveal-3" onclick="nav('quote')">
+            <div class="loc-state-name">Oklahoma</div>
+            <div class="loc-state-code">OK</div>
+            <div class="loc-state-meta">Oklahoma City, Tulsa, Norman, Lawton</div>
+          </div>
+          <div class="loc-state reveal reveal-4" onclick="nav('quote')">
+            <div class="loc-state-name">Kansas</div>
+            <div class="loc-state-code">KS</div>
+            <div class="loc-state-meta">Wichita, Overland Park, Kansas City, Topeka</div>
+          </div>
+          <div class="loc-state reveal reveal-4" onclick="nav('quote')">
+            <div class="loc-state-name">Illinois</div>
+            <div class="loc-state-code">IL</div>
+            <div class="loc-state-meta">Chicago suburbs, Peoria, Springfield, Champaign</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:100px;">
+        <div class="eyebrow dark reveal">Why Our Region</div>
+        <h2 class="section-title reveal reveal-1">The middle of the country is<br>a <span class="y">great place</span> for solar.</h2>
+
+        <div class="why-grid">
+          <div class="why-card reveal reveal-1">
+            <div class="why-num">01<span class="dot"></span></div>
+            <h3>Strong sun exposure.</h3>
+            <p>Our service area averages 4.5–5.5 peak sun hours per day — well within the sweet spot for residential and commercial solar production.</p>
+          </div>
+          <div class="why-card reveal reveal-2">
+            <div class="why-num">02<span class="dot"></span></div>
+            <h3>Rising utility rates.</h3>
+            <p>Rates across the Midwest and South have climbed faster than the national average. Solar protects you from the next increase.</p>
+          </div>
+          <div class="why-card reveal reveal-3">
+            <div class="why-num">03<span class="dot"></span></div>
+            <h3>Supportive net metering.</h3>
+            <p>All five states we serve offer some form of net metering — meaning your excess production earns you bill credits, not wasted energy.</p>
+          </div>
+          <div class="why-card reveal reveal-4">
+            <div class="why-num">04<span class="dot"></span></div>
+            <h3>Local crews, local knowledge.</h3>
+            <p>We know the building codes, utility quirks, and permitting offices in every county we serve. No learning curve on your project.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final">
+    <h2>Is your address<br>in our service area?</h2>
+    <p>Drop your ZIP in a free quote and we'll confirm coverage — and give you a savings estimate the same day.</p>
+    <button class="btn-primary" onclick="nav('quote')">Check my address<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+  </section>
+
+</section>
+
+<!-- ════════════════════════════════ -->
+<!-- ════════════ QUOTE ═══════════ -->
+<!-- ════════════════════════════════ -->
+<section class="view" data-view="quote">
+
+  <section class="hero short">
+    <div class="hero-bg" style="background-image: url('./hero-roof.jpg');"></div>
+    <div class="hero-inner" style="text-align:center;">
+      <div class="hero-eyebrow" style="margin-left:auto;margin-right:auto;">The Logical Energy Choice</div>
+      <h1 class="hero-title" style="margin-left:auto;margin-right:auto;">Get a quote to<br>make the <span class="y">switch</span>.</h1>
+      <p class="hero-sub" style="margin-left:auto;margin-right:auto;">Five questions, ninety seconds. We'll review your info and reach out within one business day with a custom savings estimate.</p>
+    </div>
+  </section>
+
+  <section class="block" style="background:var(--gray-50);">
+    <div class="container">
+
+      <div class="quote-wrap">
+        <div class="quote-progress"><div class="quote-progress-bar" id="quoteBar"></div></div>
+        <div class="quote-steps">
+
+          <div class="quote-step active" data-step="1">
+            <div class="quote-step-num">STEP 1 OF 5</div>
+            <h3>Is this for a home or a business?</h3>
+            <p>This helps us match you with the right specialist.</p>
+            <div class="quote-options">
+              <button class="quote-opt" onclick="pickOpt(this, 'type', 'residential')"><div class="quote-opt-big">🏠 Residential</div><div class="quote-opt-small">Single or multi-family home</div></button>
+              <button class="quote-opt" onclick="pickOpt(this, 'type', 'commercial')"><div class="quote-opt-big">🏢 Commercial</div><div class="quote-opt-small">Business, farm, non-profit</div></button>
+            </div>
+            <div class="quote-nav">
+              <span></span>
+              <button class="quote-btn next" onclick="nextStep()" disabled>Continue →</button>
+            </div>
+          </div>
+
+          <div class="quote-step" data-step="2">
+            <div class="quote-step-num">STEP 2 OF 5</div>
+            <h3>Where's the property located?</h3>
+            <p>We serve Missouri, Texas, Oklahoma, Kansas, and Illinois.</p>
+            <div class="quote-input-grp">
+              <label>State</label>
+              <select id="q-state" onchange="updateContinue(2)">
+                <option value="">Select state</option>
+                <option value="MO">Missouri</option>
+                <option value="TX">Texas</option>
+                <option value="OK">Oklahoma</option>
+                <option value="KS">Kansas</option>
+                <option value="IL">Illinois</option>
+              </select>
+            </div>
+            <div class="quote-input-grp">
+              <label>ZIP code</label>
+              <input type="text" id="q-zip" placeholder="e.g. 63366" maxlength="5" oninput="updateContinue(2)">
+            </div>
+            <div class="quote-nav">
+              <button class="quote-btn back" onclick="prevStep()">← Back</button>
+              <button class="quote-btn next" onclick="nextStep()" disabled>Continue →</button>
+            </div>
+          </div>
+
+          <div class="quote-step" data-step="3">
+            <div class="quote-step-num">STEP 3 OF 5</div>
+            <h3>What's your typical monthly electric bill?</h3>
+            <p>An approximate answer is fine — we'll confirm from your actual utility data later.</p>
+            <div class="quote-options">
+              <button class="quote-opt" onclick="pickOpt(this, 'bill', 'under100')"><div class="quote-opt-big">Under $100</div><div class="quote-opt-small">Low usage / small property</div></button>
+              <button class="quote-opt" onclick="pickOpt(this, 'bill', '100-200')"><div class="quote-opt-big">$100 – $200</div><div class="quote-opt-small">Typical single-family home</div></button>
+              <button class="quote-opt" onclick="pickOpt(this, 'bill', '200-400')"><div class="quote-opt-big">$200 – $400</div><div class="quote-opt-small">Larger home or business</div></button>
+              <button class="quote-opt" onclick="pickOpt(this, 'bill', 'over400')"><div class="quote-opt-big">Over $400</div><div class="quote-opt-small">Large home or commercial</div></button>
+            </div>
+            <div class="quote-nav">
+              <button class="quote-btn back" onclick="prevStep()">← Back</button>
+              <button class="quote-btn next" onclick="nextStep()" disabled>Continue →</button>
+            </div>
+          </div>
+
+          <div class="quote-step" data-step="4">
+            <div class="quote-step-num">STEP 4 OF 5</div>
+            <h3>How should we reach you?</h3>
+            <p>We'll only contact you about your quote — never sold, never spammed.</p>
+            <div class="quote-input-grp"><label>Full name</label><input type="text" id="q-name" placeholder="Jane Smith" oninput="updateContinue(4)"></div>
+            <div class="quote-input-grp"><label>Email</label><input type="email" id="q-email" placeholder="jane@email.com" oninput="updateContinue(4)"></div>
+            <div class="quote-input-grp"><label>Phone</label><input type="tel" id="q-phone" placeholder="(555) 123-4567" oninput="updateContinue(4)"></div>
+            <div class="quote-nav">
+              <button class="quote-btn back" onclick="prevStep()">← Back</button>
+              <button class="quote-btn next" onclick="nextStep()" disabled>Continue →</button>
+            </div>
+          </div>
+
+          <div class="quote-step" data-step="5">
+            <div class="quote-step-num">STEP 5 OF 5</div>
+            <h3>Ready to submit?</h3>
+            <p>Review your info below. A Logic Solar specialist will contact you within one business day.</p>
+            <div class="quote-summary" id="quoteSum"></div>
+            <div class="quote-nav">
+              <button class="quote-btn back" onclick="prevStep()">← Back</button>
+              <button class="quote-btn next" onclick="submitQuote()">Submit my quote →</button>
+            </div>
+          </div>
+
+          <div class="quote-step" data-step="6">
+            <div class="quote-success">
+              <div class="quote-success-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <h3>You're all set!</h3>
+              <p style="margin-bottom:24px;">A Logic Solar specialist will reach out within one business day. In the meantime, feel free to explore the site or give us a call.</p>
+              <button class="btn-dark" onclick="nav('home')">Return to home</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:40px; color:var(--gray-500); font-size:14px;">
+        Prefer to talk? Call us directly at <a href="tel:8163005781" style="color:var(--black); font-weight:700; border-bottom:2px solid var(--yellow);">(816) 300-5781</a>
+      </div>
+    </div>
+  </section>
+
+</section>
+
+</main>
+
+<!-- ══════ FOOTER ══════ -->
+<footer>
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <img src="./logo.png" alt="Logic Solar" class="foot-logo">
+      <p>Logic Solar provides smart, affordable solar energy solutions for homes and businesses. We make switching to solar simple — helping you save money, reduce your carbon footprint, and take control of your energy future.</p>
+      <div class="foot-socials">
+        <a href="https://www.facebook.com/profile.php?id=61580455196022" target="_blank" class="foot-social" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="https://www.linkedin.com/company/logic-solar/" target="_blank" class="foot-social" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h5>Service</h5>
+      <a onclick="nav('service')">All Services</a>
+      <a onclick="nav('residential')">Residential</a>
+      <a onclick="nav('commercial')">Commercial</a>
+    </div>
+    <div class="foot-col">
+      <h5>Products</h5>
+      <a onclick="nav('products')">Panels</a>
+      <a onclick="nav('products')">Batteries</a>
+      <a onclick="nav('products')">EV Chargers</a>
+      <a onclick="nav('products')">Upgrades</a>
+    </div>
+    <div class="foot-col">
+      <h5>Locations</h5>
+      <a onclick="nav('locations')">Missouri</a>
+      <a onclick="nav('locations')">Texas</a>
+      <a onclick="nav('locations')">Oklahoma</a>
+      <a onclick="nav('locations')">Kansas</a>
+      <a onclick="nav('locations')">Illinois</a>
+    </div>
+    <div class="foot-col">
+      <h5>Get In Touch</h5>
+      <a href="tel:8163005781">(816) 300-5781</a>
+      <a href="mailto:contact@logic-solar.com">contact@logic-solar.com</a>
+      <a onclick="nav('incentives')">Incentives</a>
+      <a onclick="nav('quote')">Get a Quote</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Logic Solar · Licensed &amp; Insured · NABCEP-Certified</span>
+    <span>Serving MO · TX · OK · KS · IL</span>
+  </div>
+</footer>
+
+<script>
+  // ══════ ROUTING ══════
+  function nav(view, anchor) {
+    location.hash = '#/' + view;
+    if (anchor) setTimeout(() => scrollToId(anchor), 300);
+  }
+  function route() {
+    const view = (location.hash.slice(2) || 'home').split('?')[0];
+    document.querySelectorAll('.view').forEach(v => {
+      v.classList.toggle('active', v.dataset.view === view);
+    });
+    // update active nav
+    document.querySelectorAll('[data-nav]').forEach(a => {
+      const target = a.getAttribute('href')?.slice(2) || '';
+      a.classList.toggle('active', target === view);
+    });
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    // re-init reveals for this view
+    initReveals();
+    initCounters();
+  }
+  document.querySelectorAll('[data-nav]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const href = a.getAttribute('href');
+      if (href) {
+        location.hash = href;
+        const anchor = a.dataset.anchor;
+        if (anchor) setTimeout(() => scrollToId(anchor), 400);
+      }
+    });
+  });
+  window.addEventListener('hashchange', route);
+
+  // ══════ SCROLL PROGRESS ══════
+  const prog = document.getElementById('scrollProg');
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    prog.style.width = pct + '%';
+  });
+
+  // ══════ SMOOTH SCROLL ══════
+  function scrollToId(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ══════ INTERSECTION REVEALS ══════
+  let io;
+  function initReveals() {
+    if (io) io.disconnect();
+    io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          // Also trigger how-line animation
+          const how = e.target.closest('.how');
+          if (how) how.classList.add('in-view');
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.view.active .reveal').forEach(el => {
+      el.classList.remove('in');
+      io.observe(el);
+    });
+    document.querySelectorAll('.view.active .how').forEach(el => io.observe(el));
+  }
+
+  // ══════ COUNT-UP ══════
+  let countIo;
+  function initCounters() {
+    if (countIo) countIo.disconnect();
+    countIo = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const el = e.target;
+          const target = parseFloat(el.dataset.count);
+          const prefix = el.dataset.prefix || '';
+          const suffix = el.dataset.suffix || '';
+          let cur = 0;
+          const dur = 1400;
+          const start = performance.now();
+          function tick(now) {
+            const p = Math.min(1, (now - start) / dur);
+            const ease = 1 - Math.pow(1 - p, 3);
+            cur = target * ease;
+            el.textContent = prefix + Math.round(cur).toLocaleString() + suffix;
+            if (p < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+          countIo.unobserve(el);
+        }
+      });
+    }, { threshold: 0.4 });
+    document.querySelectorAll('.view.active [data-count]').forEach(el => countIo.observe(el));
+  }
+
+  // ══════ PARTICLES ══════
+  function initParticles() {
+    const isMobile = window.innerWidth < 820;
+    const count = isMobile ? 8 : 18;
+    document.querySelectorAll('.particles').forEach(container => {
+      if (container.children.length > 0) return;
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.animationDelay = Math.random() * 15 + 's';
+        p.style.animationDuration = (12 + Math.random() * 8) + 's';
+        container.appendChild(p);
+      }
+    });
+  }
+
+  // ══════ FAQ ══════
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+
+  // ══════ CALCULATOR ══════
+  const bill = document.getElementById('bill');
+  const yrs = document.getElementById('yrs');
+  const sun = document.getElementById('sun');
+  const sunLabels = { 1: 'Partial', 2: 'Good', 3: 'Excellent' };
+  const sunMult = { 1: 0.75, 2: 1.0, 3: 1.2 };
+  const animNums = {};
+
+  function fmt(n) { return Math.round(n).toLocaleString('en-US'); }
+  function animateNum(id, target) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (animNums[id] && animNums[id].raf) cancelAnimationFrame(animNums[id].raf);
+    const start = parseFloat((el.textContent || '0').replace(/[^\d.]/g, '')) || 0;
+    const dur = 400;
+    const t0 = performance.now();
+    function tick(now) {
+      const p = Math.min(1, (now - t0) / dur);
+      const ease = 1 - Math.pow(1 - p, 3);
+      const val = start + (target - start) * ease;
+      if (id === 'paybackVal') el.textContent = val.toFixed(1);
+      else el.textContent = fmt(val);
+      if (p < 1) animNums[id] = { raf: requestAnimationFrame(tick) };
+    }
+    animNums[id] = { raf: requestAnimationFrame(tick) };
+  }
+
+  function recalc() {
+    if (!bill || !yrs || !sun) return;
+    const b = parseFloat(bill.value);
+    const y = parseFloat(yrs.value);
+    const s = parseInt(sun.value);
+
+    document.getElementById('billLabel').textContent = '$' + b;
+    document.getElementById('yrsLabel').textContent = y + ' yrs';
+    document.getElementById('sunLabel').textContent = sunLabels[s];
+
+    let totalNoSolar = 0;
+    let cur = b * 12;
+    for (let i = 0; i < y; i++) { totalNoSolar += cur; cur *= 1.035; }
+    const offset = 0.88 * sunMult[s];
+    const systemCost = Math.max(14000, b * 120);
+    // NO 30% credit applied for residential in 2026
+    const lifetime = (totalNoSolar * offset) - systemCost;
+
+    const annualSaved = (b * 12) * offset;
+    const payback = systemCost / annualSaved;
+
+    const co2 = (b / 100) * 12 * y * 0.35 * sunMult[s];
+
+    animateNum('saveVal', Math.max(0, lifetime));
+    animateNum('paybackVal', payback);
+    animateNum('coVal', co2);
+    animateNum('treeVal', co2 * 16.5);
+  }
+  if (bill && yrs && sun) {
+    [bill, yrs, sun].forEach(el => el.addEventListener('input', recalc));
+    recalc();
+  }
+
+  // ══════ QUOTE FORM ══════
+  let quoteStep = 1;
+  const quoteData = {};
+
+  function showStep(n) {
+    document.querySelectorAll('.quote-step').forEach(s => s.classList.remove('active'));
+    const cur = document.querySelector(`.quote-step[data-step="${n}"]`);
+    if (cur) cur.classList.add('active');
+    const bar = document.getElementById('quoteBar');
+    if (bar) bar.style.width = (n / 5 * 100) + '%';
+    quoteStep = n;
+  }
+  function nextStep() {
+    if (quoteStep === 4) buildSummary();
+    showStep(quoteStep + 1);
+  }
+  function prevStep() { showStep(quoteStep - 1); }
+  function pickOpt(btn, key, val) {
+    btn.parentElement.querySelectorAll('.quote-opt').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    quoteData[key] = val;
+    const step = btn.closest('.quote-step');
+    const nextBtn = step.querySelector('.quote-btn.next');
+    if (nextBtn) nextBtn.disabled = false;
+  }
+  function updateContinue(step) {
+    if (step === 2) {
+      const ok = document.getElementById('q-state').value && document.getElementById('q-zip').value.length >= 5;
+      document.querySelector('.quote-step[data-step="2"] .quote-btn.next').disabled = !ok;
+      if (ok) { quoteData.state = document.getElementById('q-state').value; quoteData.zip = document.getElementById('q-zip').value; }
+    }
+    if (step === 4) {
+      const name = document.getElementById('q-name').value.trim();
+      const email = document.getElementById('q-email').value.trim();
+      const phone = document.getElementById('q-phone').value.trim();
+      const ok = name.length > 1 && email.includes('@') && phone.length >= 10;
+      document.querySelector('.quote-step[data-step="4"] .quote-btn.next').disabled = !ok;
+      if (ok) { quoteData.name = name; quoteData.email = email; quoteData.phone = phone; }
+    }
+  }
+  function buildSummary() {
+    const sum = document.getElementById('quoteSum');
+    const typeLabel = { residential: '🏠 Residential', commercial: '🏢 Commercial' }[quoteData.type] || '—';
+    const billLabel = { under100: 'Under $100', '100-200': '$100 – $200', '200-400': '$200 – $400', over400: 'Over $400' }[quoteData.bill] || '—';
+    sum.innerHTML = `
+      <div class="quote-sum-row"><span class="k">Property type</span><span class="v">${typeLabel}</span></div>
+      <div class="quote-sum-row"><span class="k">Location</span><span class="v">${quoteData.state || '—'} ${quoteData.zip || ''}</span></div>
+      <div class="quote-sum-row"><span class="k">Monthly bill</span><span class="v">${billLabel}</span></div>
+      <div class="quote-sum-row"><span class="k">Name</span><span class="v">${quoteData.name || '—'}</span></div>
+      <div class="quote-sum-row"><span class="k">Email</span><span class="v">${quoteData.email || '—'}</span></div>
+      <div class="quote-sum-row"><span class="k">Phone</span><span class="v">${quoteData.phone || '—'}</span></div>
+    `;
+  }
+  function submitQuote() {
+    showStep(6);
+    const bar = document.getElementById('quoteBar');
+    if (bar) bar.style.width = '100%';
+  }
+
+  // ══════ MOBILE MENU ══════
+  function toggleMenu() {
+    document.body.classList.toggle('menu-open');
+  }
+  function navAndClose(view) {
+    document.body.classList.remove('menu-open');
+    setTimeout(() => nav(view), 200);
+  }
+  // Close menu on escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') document.body.classList.remove('menu-open');
+  });
+
+  // ══════ INIT ══════
+  route();
+  initParticles();
+  initReveals();
+  initCounters();
+</script>
+
+</body>
+</html>
